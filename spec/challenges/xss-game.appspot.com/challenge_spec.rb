@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe 'xss-game.appspot.com', type: :aruba do
   before(:all) do
-    @binary_path = File.expand_path('../../../dalfox', __dir__)
+    @binary_path = File.expand_path('../../../xssfox', __dir__)
   end
 
   it 'level1' do

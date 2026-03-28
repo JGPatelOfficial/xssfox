@@ -9,12 +9,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hahwul/dalfox/v2/internal/utils"
+	"github.com/JGPatelOfficial/xssfox/internal/utils"
 
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/internal/verification"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/internal/verification"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 	vlogger "github.com/hahwul/volt/logger"
 	"github.com/sirupsen/logrus"
 )
@@ -63,7 +63,7 @@ func shouldShowPoC(options model.Options) bool {
 func handleRedirect(req *http.Request, via []*http.Request, oReq *http.Request, payload string, options model.Options, showG bool) error {
 	if (options.UseBAV) && (payload == "toOpenRedirecting") && !(strings.Contains(oReq.Host, ".google.com")) {
 		if strings.Contains(req.URL.Host, "google.com") {
-			printing.DalLog("GREP", "Found Open Redirect. Payload: "+via[0].URL.String(), options)
+			printing.XSSLog("GREP", "Found Open Redirect. Payload: "+via[0].URL.String(), options)
 			poc := createPoC("BAV/OR", "CWE-601", "Medium", req, payload, options)
 			poc.Data = req.URL.String()
 			poc.MessageStr = "Found Open Redirect. Payload: " + via[0].URL.String()
@@ -193,20 +193,20 @@ func handlePoC(poc model.PoC, req *http.Request, options model.Options, showG bo
 		reqDump, err := httputil.DumpRequestOut(req, true)
 		if err == nil {
 			poc.RawHTTPRequest = string(reqDump)
-			printing.DalLog("CODE", "\n"+string(reqDump), options)
+			printing.XSSLog("CODE", "\n"+string(reqDump), options)
 		}
 	}
 	if showG {
 		switch options.Format {
 		case "json":
 			pocj, _ := json.Marshal(poc)
-			printing.DalLog("PRINT", string(pocj)+",", options)
+			printing.XSSLog("PRINT", string(pocj)+",", options)
 		case "jsonl":
 			pocj, _ := json.Marshal(poc)
-			printing.DalLog("PRINT", string(pocj), options)
+			printing.XSSLog("PRINT", string(pocj), options)
 		default:
 			pocs := "[" + poc.Type + "][" + poc.Method + "][" + poc.InjectType + "] " + poc.Data
-			printing.DalLog("PRINT", pocs, options)
+			printing.XSSLog("PRINT", pocs, options)
 		}
 	}
 	if options.FoundAction != "" {

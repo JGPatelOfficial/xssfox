@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 	"github.com/logrusorgru/aurora"
 	"github.com/stretchr/testify/assert"
 )
@@ -628,7 +628,7 @@ func Test_Scan(t *testing.T) {
 					NoSpinner:     true,
 					SkipDiscovery: true,
 					UniqParam:     []string{"query"},
-					BlindURL:      "https://dalfox.hahwul.com",
+					BlindURL:      "https://xssfox.hahwul.com",
 					Data:          "query=1234",
 				},
 				sid: "1",

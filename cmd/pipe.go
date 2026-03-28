@@ -12,11 +12,11 @@ import (
 	"time"
 
 	"github.com/briandowns/spinner"
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/internal/utils"
-	model "github.com/hahwul/dalfox/v2/pkg/model"
-	"github.com/hahwul/dalfox/v2/pkg/scanning"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/internal/utils"
+	model "github.com/JGPatelOfficial/xssfox/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/scanning"
 	voltUtils "github.com/hahwul/volt/util"
 	"github.com/spf13/cobra"
 )
@@ -53,7 +53,7 @@ func runPipeCmd(cmd *cobra.Command, args []string) {
 	if (!options.NoSpinner || !options.Silence) && !sf {
 		options.SpinnerObject = spinner.New(spinner.CharSets[14], 100*time.Millisecond, spinner.WithWriter(os.Stderr)) // Build our new spinner
 	}
-	printing.DalLog("SYSTEM", "Using pipeline mode", options)
+	printing.XSSLog("SYSTEM", "Using pipeline mode", options)
 	for sc.Scan() {
 		target := sc.Text()
 		targets = append(targets, target)
@@ -62,7 +62,7 @@ func runPipeCmd(cmd *cobra.Command, args []string) {
 	if len(options.OutOfScope) > 0 {
 		targets = optimization.FilterOutOfScopeTargets(options, targets)
 	}
-	printing.DalLog("SYSTEM", "Loaded "+strconv.Itoa(len(targets))+" target urls", options)
+	printing.XSSLog("SYSTEM", "Loaded "+strconv.Itoa(len(targets))+" target urls", options)
 
 	multi, _ := cmd.Flags().GetBool("multicast")
 	mass, _ := cmd.Flags().GetBool("mass")
@@ -76,10 +76,10 @@ func runPipeCmd(cmd *cobra.Command, args []string) {
 
 // runRawDataPipeMode processes a file containing raw HTTP request data
 func runRawDataPipeMode(cmd *cobra.Command) {
-	printing.DalLog("SYSTEM", "Using pipe mode with raw data format", options)
+	printing.XSSLog("SYSTEM", "Using pipe mode with raw data format", options)
 	bytes, err := ioutil.ReadAll(os.Stdin)
 	if err != nil {
-		printing.DalLog("ERROR", "Failed to read from stdin: "+err.Error(), options)
+		printing.XSSLog("ERROR", "Failed to read from stdin: "+err.Error(), options)
 		return
 	}
 	rawReq := string(bytes)
@@ -101,7 +101,7 @@ func runRawDataPipeMode(cmd *cobra.Command) {
 				options.Method = parse[0]
 				path = parse[1]
 			} else {
-				printing.DalLog("ERROR", "HTTP Raw Request Format Error", options)
+				printing.XSSLog("ERROR", "HTTP Raw Request Format Error", options)
 				os.Exit(1)
 			}
 		} else {
@@ -127,7 +127,7 @@ func runRawDataPipeMode(cmd *cobra.Command) {
 		target = path
 	} else {
 		if host == "" {
-			printing.DalLog("ERROR", "HTTP Raw Request Format Error - Host not found", options)
+			printing.XSSLog("ERROR", "HTTP Raw Request Format Error - Host not found", options)
 			os.Exit(1)
 		}
 		if http {
@@ -137,7 +137,7 @@ func runRawDataPipeMode(cmd *cobra.Command) {
 		}
 	}
 	if optimization.IsOutOfScope(options, target) {
-		printing.DalLog("INFO", "Target is out of scope, skipping", options)
+		printing.XSSLog("INFO", "Target is out of scope, skipping", options)
 		return
 	}
 	_, _ = scanning.Scan(target, options, "single")
@@ -146,7 +146,7 @@ func runRawDataPipeMode(cmd *cobra.Command) {
 // runMulticastMode processes multiple targets in parallel using worker pools
 // It distributes scanning tasks across multiple goroutines for efficient processing
 func runMulticastMode(targets []string, cmd *cobra.Command, sf bool, limit int) {
-	printing.DalLog("SYSTEM", "Using multicasting mode", options)
+	printing.XSSLog("SYSTEM", "Using multicasting mode", options)
 	options.Silence = true
 	options.MulticastMode = true
 	t := utils.MakeTargetSlice(targets)
@@ -168,7 +168,7 @@ func runMulticastMode(targets []string, cmd *cobra.Command, sf bool, limit int) 
 	concurrency, _ := cmd.Flags().GetInt("mass-worker")
 	for k, v := range t {
 		if !options.Silence || !sf {
-			printing.DalLog("SYSTEM-M", "Parallel testing to '"+k+"' => "+strconv.Itoa(len(v))+" urls", options)
+			printing.XSSLog("SYSTEM-M", "Parallel testing to '"+k+"' => "+strconv.Itoa(len(v))+" urls", options)
 		}
 	}
 	var totalResults int
@@ -193,7 +193,7 @@ func runMulticastMode(targets []string, cmd *cobra.Command, sf bool, limit int) 
 						totalResults += len(result.PoCs)
 						if totalResults >= limit {
 							if !options.Silence || !sf {
-								printing.DalLog("SYSTEM-M", "Result limit reached ("+strconv.Itoa(limit)+"). Stopping scan.", options)
+								printing.XSSLog("SYSTEM-M", "Result limit reached ("+strconv.Itoa(limit)+"). Stopping scan.", options)
 							}
 							shouldStop = true
 						}
@@ -212,7 +212,7 @@ func runMulticastMode(targets []string, cmd *cobra.Command, sf bool, limit int) 
 		}()
 	}
 	if options.Format == "json" {
-		printing.DalLog("PRINT", "[", options)
+		printing.XSSLog("PRINT", "[", options)
 	}
 	for k, v := range t {
 		temp := model.MassJob{
@@ -224,13 +224,13 @@ func runMulticastMode(targets []string, cmd *cobra.Command, sf bool, limit int) 
 	close(tasks)
 	wg.Wait()
 	if options.Format == "json" {
-		printing.DalLog("PRINT", "{}]", options)
+		printing.XSSLog("PRINT", "{}]", options)
 	}
 	if (!options.NoSpinner || !options.Silence) && !sf {
 		options.SpinnerObject.Stop()
 	}
 	if !options.Silence || !sf {
-		printing.DalLog("SYSTEM-M", "Finish massive scan!", options)
+		printing.XSSLog("SYSTEM-M", "Finish massive scan!", options)
 	}
 }
 
@@ -251,7 +251,7 @@ func runSingleMode(targets []string, sf bool, limit int) {
 	var allResults []model.Result
 
 	if options.Format == "json" {
-		printing.DalLog("PRINT", "[", options)
+		printing.XSSLog("PRINT", "[", options)
 	}
 	for i := range targets {
 		options.NowURL = i + 1
@@ -268,7 +268,7 @@ func runSingleMode(targets []string, sf bool, limit int) {
 
 		if limit > 0 && totalResults >= limit {
 			if !options.Silence || !sf {
-				printing.DalLog("SYSTEM", "Result limit reached ("+strconv.Itoa(limit)+"). Stopping scan.", options)
+				printing.XSSLog("SYSTEM", "Result limit reached ("+strconv.Itoa(limit)+"). Stopping scan.", options)
 			}
 			break
 		}
@@ -282,7 +282,7 @@ func runSingleMode(targets []string, sf bool, limit int) {
 		}
 	}
 	if options.Format == "json" {
-		printing.DalLog("PRINT", "{}]", options)
+		printing.XSSLog("PRINT", "{}]", options)
 	}
 	if (!options.NoSpinner || !options.Silence) && !sf {
 		options.SpinnerObject.Stop()

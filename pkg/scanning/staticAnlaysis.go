@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 // StaticAnalysis is found information on original req/res
@@ -28,7 +28,7 @@ func StaticAnalysis(target string, options model.Options, rl *rateLimiter) (map[
 		if idx > 2 {
 			id := idx - 3
 			tempPath := strings.Split(target, "/")
-			tempPath[idx] = "dalfoxpathtest"
+			tempPath[idx] = "xssfoxpathtest"
 			tempURL := strings.Join(tempPath, "/")
 			checkPathReflection(tempURL, id, options, rl, pathReflection)
 		}
@@ -36,7 +36,7 @@ func StaticAnalysis(target string, options model.Options, rl *rateLimiter) (map[
 
 	// case of https://domain
 	if len(paths) == 3 {
-		tempURL := target + "/dalfoxpathtest"
+		tempURL := target + "/xssfoxpathtest"
 		checkPathReflection(tempURL, 0, options, rl, pathReflection)
 	}
 
@@ -67,12 +67,12 @@ func extractPolicyHeaders(header http.Header, policy map[string]string) {
 func checkPathReflection(tempURL string, id int, options model.Options, rl *rateLimiter, pathReflection map[int]string) {
 	req := optimization.GenerateNewRequest(tempURL, "", options)
 	rl.Block(req.Host)
-	resbody, _, _, vrs, err := SendReq(req, "dalfoxpathtest", options)
+	resbody, _, _, vrs, err := SendReq(req, "xssfoxpathtest", options)
 	if err != nil {
 		return
 	}
 	if vrs {
-		pointer := optimization.Abstraction(resbody, "dalfoxpathtest")
+		pointer := optimization.Abstraction(resbody, "xssfoxpathtest")
 		smap := "Injected: "
 		tempSmap := make(map[string]int)
 

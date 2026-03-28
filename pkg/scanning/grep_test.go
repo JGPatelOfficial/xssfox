@@ -27,7 +27,7 @@ func TestGrepping(t *testing.T) {
 		{
 			name:     "No match",
 			data:     "Hello, World!",
-			regex:    "dalfox",
+			regex:    "xssfox",
 			expected: []string{},
 		},
 		{
@@ -66,14 +66,14 @@ func TestBuiltinGrep(t *testing.T) {
 			name: "SSTI pattern",
 			data: "The result is 2958816",
 			expected: map[string][]string{
-				"dalfox-ssti": {"2958816"},
+				"xssfox-ssti": {"2958816"},
 			},
 		},
 		{
 			name: "AWS S3 pattern",
 			data: "Please download it from https://bucket-name.s3.amazonaws.com/file.txt",
 			expected: map[string][]string{
-				"dalfox-aws-s3": {"bucket-name.s3.amazonaws.com"},
+				"xssfox-aws-s3": {"bucket-name.s3.amazonaws.com"},
 			},
 		},
 		{
@@ -81,9 +81,9 @@ func TestBuiltinGrep(t *testing.T) {
 			data: `Please download it from https://bucket-name.s3.amazonaws.com/file.txt
                    MySQL error: Warning: mysql_connect()`,
 			expected: map[string][]string{
-				"dalfox-aws-s3":       {"bucket-name.s3.amazonaws.com"},
-				"dalfox-error-mysql":  {"Warning: mysql_connect()"},
-				"dalfox-error-mysql2": {"Warning: mysql"},
+				"xssfox-aws-s3":       {"bucket-name.s3.amazonaws.com"},
+				"xssfox-error-mysql":  {"Warning: mysql_connect()"},
+				"xssfox-error-mysql2": {"Warning: mysql"},
 			},
 		},
 		{
@@ -100,7 +100,7 @@ func TestBuiltinGrep(t *testing.T) {
 			name: "Valid Google OAuth ID",
 			data: "client_id: 1234567890-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com",
 			expected: map[string][]string{
-				"dalfox-google-oauth-id": {"1234567890-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com"},
+				"xssfox-google-oauth-id": {"1234567890-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com"},
 			},
 		},
 		{
@@ -117,7 +117,7 @@ func TestBuiltinGrep(t *testing.T) {
 			name: "Valid sqlite error",
 			data: "System.Data.SQLite.SQLiteException: something happened",
 			expected: map[string][]string{
-				"dalfox-error-sqlite": {"System.Data.SQLite.SQLiteException"},
+				"xssfox-error-sqlite": {"System.Data.SQLite.SQLiteException"},
 			},
 		},
 		{

@@ -44,11 +44,11 @@ func setPayloadVauleForBulk(payloads []string, inSeq int) ([]string, int) {
 	for _, payload := range payloads {
 		temp := payload
 		for _, r := range replacements {
-			temp = strings.ReplaceAll(temp, r, "alert(DALFOX_ALERT_VALUE)")
+			temp = strings.ReplaceAll(temp, r, "alert(XSSFOX_ALERT_VALUE)")
 		}
 
-		if strings.Contains(temp, "DALFOX_ALERT_VALUE") {
-			tmp := strings.ReplaceAll(temp, "DALFOX_ALERT_VALUE", strconv.Itoa(seq))
+		if strings.Contains(temp, "XSSFOX_ALERT_VALUE") {
+			tmp := strings.ReplaceAll(temp, "XSSFOX_ALERT_VALUE", strconv.Itoa(seq))
 			result = append(result, tmp)
 			seq++
 		}

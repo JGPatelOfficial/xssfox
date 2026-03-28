@@ -3,7 +3,7 @@ package scanning
 import (
 	"testing"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 func Test_CheckXSSWithHeadless(t *testing.T) {
@@ -21,7 +21,7 @@ func Test_CheckXSSWithHeadless(t *testing.T) {
 			args: args{
 				url: "https://xss-game.appspot.com/level1/frame",
 				options: model.Options{
-					CustomAlertValue: "dalfox",
+					CustomAlertValue: "xssfox",
 				},
 			},
 			want: true,
@@ -31,7 +31,7 @@ func Test_CheckXSSWithHeadless(t *testing.T) {
 			args: args{
 				url: "https://example.com",
 				options: model.Options{
-					CustomAlertValue: "dalfox",
+					CustomAlertValue: "xssfox",
 				},
 			},
 			want: false,
@@ -41,7 +41,7 @@ func Test_CheckXSSWithHeadless(t *testing.T) {
 			args: args{
 				url: "invalid-url",
 				options: model.Options{
-					CustomAlertValue: "dalfox",
+					CustomAlertValue: "xssfox",
 				},
 			},
 			want: false,
@@ -73,7 +73,7 @@ func Test_setheaders(t *testing.T) {
 			args: args{
 				host: "https://example.com",
 				headers: map[string]interface{}{
-					"User-Agent": "Dalfox Test",
+					"User-Agent": "XSSFox Test",
 				},
 			},
 		},
@@ -82,7 +82,7 @@ func Test_setheaders(t *testing.T) {
 			args: args{
 				host: "https://example.com",
 				headers: map[string]interface{}{
-					"User-Agent":      "Dalfox Test",
+					"User-Agent":      "XSSFox Test",
 					"Accept-Language": "en-US,en;q=0.9",
 					"Cookie":          "test=value",
 				},

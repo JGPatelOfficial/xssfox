@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe 'Basic Run', type: :aruba do
   before(:all) do
-    @binary_path = File.expand_path('../../dalfox', __dir__)
+    @binary_path = File.expand_path('../../xssfox', __dir__)
   end
 
   it 'prints the help' do

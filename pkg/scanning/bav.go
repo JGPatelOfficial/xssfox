@@ -5,10 +5,10 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/payload"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/payload"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 // RunBAVAnalysis runs the BAV analysis.
@@ -39,7 +39,7 @@ func RunBAVAnalysis(target string, options model.Options, rl *rateLimiter, bav *
 
 	bavWaitGroup.Wait()
 	*bav = " > BAV(o)"
-	printing.DalLog("SYSTEM", "["+*bav+"] BAV analysis completed", options)
+	printing.XSSLog("SYSTEM", "["+*bav+"] BAV analysis completed", options)
 }
 
 // SSTIAnalysis is basic check for SSTI

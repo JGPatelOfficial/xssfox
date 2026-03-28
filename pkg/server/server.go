@@ -5,10 +5,10 @@ import (
 	"strconv"
 	"time"
 
-	printing "github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/internal/utils"
-	"github.com/hahwul/dalfox/v2/pkg/model"
-	_ "github.com/hahwul/dalfox/v2/pkg/server/docs"
+	printing "github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/internal/utils"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
+	_ "github.com/JGPatelOfficial/xssfox/pkg/server/docs"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger"
@@ -28,9 +28,9 @@ func respondJSONorJSONP(c echo.Context, status int, resp interface{}, options *m
 
 const APIKeyHeader = "X-API-KEY"
 
-// @title Dalfox API
+// @title XSSFox API
 // @version 1.0
-// @description This is a dalfox api swagger
+// @description This is a xssfox api swagger
 // @termsOfService http://swagger.io/terms/
 
 // @license.name MIT
@@ -47,7 +47,7 @@ func RunAPIServer(options model.Options) {
 		options.Scan = make(map[string]model.Scan)
 	}
 	e := setupEchoServer(&options, &scans)                      // Pass address of options
-	printing.DalLog("SYSTEM", "Listen "+e.Server.Addr, options) // Pass options by value
+	printing.XSSLog("SYSTEM", "Listen "+e.Server.Addr, options) // Pass options by value
 	graceful.ListenAndServe(e.Server, 5*time.Second)
 }
 

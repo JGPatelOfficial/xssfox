@@ -14,9 +14,9 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/hahwul/dalfox/v2/internal/har"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/har"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 	voltFile "github.com/hahwul/volt/file"
 	"github.com/logrusorgru/aurora"
 	"github.com/spf13/cobra"
@@ -50,15 +50,15 @@ var args Args
 var flagGroups []FlagGroup
 
 var rootCmd = &cobra.Command{
-	Use:   "dalfox",
-	Short: "Dalfox is a powerful open-source XSS scanner and utility focused on automation.",
-	Long: `Dalfox is a fast and powerful parameter analysis and XSS scanning tool.
+	Use:   "xssfox",
+	Short: "XSSFox is a powerful open-source XSS scanner and utility focused on automation.",
+	Long: `XSSFox is a fast and powerful parameter analysis and XSS scanning tool.
 It helps you find XSS vulnerabilities in web applications with ease.
-Dalfox supports various features like parameter mining, custom payloads,
+XSSFox supports various features like parameter mining, custom payloads,
 blind XSS detection, and much more.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// Display help when no arguments are provided
-		// This prevents showing the banner when just 'dalfox' is typed
+		// This prevents showing the banner when just 'xssfox' is typed
 		// Help flags (-h, --help) are handled by Cobra automatically
 		if len(args) == 0 {
 			cmd.Help()
@@ -468,11 +468,11 @@ func initConfig() {
 	if args.OutOfScopeFile != "" {
 		domains, err := voltFile.ReadLinesOrLiteral(args.OutOfScopeFile)
 		if err != nil {
-			printing.DalLog("ERROR", "Failed to read out-of-scope file: "+err.Error(), options)
+			printing.XSSLog("ERROR", "Failed to read out-of-scope file: "+err.Error(), options)
 			os.Exit(1)
 		}
 		options.OutOfScope = append(options.OutOfScope, domains...)
-		printing.DalLog("SYSTEM", "Loaded "+strconv.Itoa(len(domains))+" domains from out-of-scope file", options)
+		printing.XSSLog("SYSTEM", "Loaded "+strconv.Itoa(len(domains))+" domains from out-of-scope file", options)
 	}
 
 	// If HarFilePath is specified via CLI or configuration file, initialize HAR writer
@@ -513,10 +513,10 @@ func findConfigFile() string {
 
 	// If XDG_CONFIG_HOME is set, look there first
 	if xdgConfigHome != "" {
-		dalfoxConfigDir := filepath.Join(xdgConfigHome, "dalfox")
+		xssfoxConfigDir := filepath.Join(xdgConfigHome, "xssfox")
 
 		// Check for config.json file
-		configPath := filepath.Join(dalfoxConfigDir, "config.json")
+		configPath := filepath.Join(xssfoxConfigDir, "config.json")
 		if fileExists(configPath) {
 			return configPath
 		}
@@ -531,8 +531,8 @@ func findConfigFile() string {
 
 	// Check each directory in XDG_CONFIG_DIRS
 	for _, configDir := range filepath.SplitList(xdgConfigDirs) {
-		dalfoxConfigDir := filepath.Join(configDir, "dalfox")
-		configPath := filepath.Join(dalfoxConfigDir, "config.json")
+		xssfoxConfigDir := filepath.Join(configDir, "xssfox")
+		configPath := filepath.Join(xssfoxConfigDir, "config.json")
 		if fileExists(configPath) {
 			return configPath
 		}
@@ -542,9 +542,9 @@ func findConfigFile() string {
 	// use ~/.config as per XDG spec
 	home, err := os.UserHomeDir()
 	if err == nil {
-		homeConfigDir := filepath.Join(home, ".config", "dalfox")
+		homeConfigDir := filepath.Join(home, ".config", "xssfox")
 
-		// Check for config.json file in home/.config/dalfox
+		// Check for config.json file in home/.config/xssfox
 		configPath := filepath.Join(homeConfigDir, "config.json")
 		if fileExists(configPath) {
 			return configPath
@@ -569,7 +569,7 @@ func initHarWriter() {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		options.HarWriter, err = har.NewWriter(f, &har.Creator{Name: "dalfox", Version: printing.VERSION})
+		options.HarWriter, err = har.NewWriter(f, &har.Creator{Name: "xssfox", Version: printing.VERSION})
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -582,7 +582,7 @@ func loadFile(filePath, fileType string) {
 		fmt.Println(err)
 		return
 	}
-	printing.DalLog("SYSTEM", "Loaded "+filePath+" file for "+fileType, options)
+	printing.XSSLog("SYSTEM", "Loaded "+filePath+" file for "+fileType, options)
 	defer jsonFile.Close()
 
 	byteValue, _ := io.ReadAll(jsonFile)
@@ -591,11 +591,11 @@ func loadFile(filePath, fileType string) {
 
 		err = json.Unmarshal(byteValue, &options)
 		if err != nil {
-			printing.DalLog("SYSTEM", "Error while parsing config file", options)
+			printing.XSSLog("SYSTEM", "Error while parsing config file", options)
 		}
 
 		if options.HarFilePath != "" && (harFilePath == "" || harFilePath != options.HarFilePath) {
-			printing.DalLog("DEBUG", "Setting HAR file path from config: "+options.HarFilePath, options)
+			printing.XSSLog("DEBUG", "Setting HAR file path from config: "+options.HarFilePath, options)
 			harFilePath = options.HarFilePath
 			initHarWriter()
 		} else if oldHarFilePath != "" && options.HarFilePath == "" {
@@ -621,7 +621,7 @@ func loadConfigFile(filePath string, cfgOptions *model.Options, fileType string)
 		return false
 	}
 
-	printing.DalLog("SYSTEM", "Loaded "+filePath+" file for "+fileType, *cfgOptions)
+	printing.XSSLog("SYSTEM", "Loaded "+filePath+" file for "+fileType, *cfgOptions)
 
 	// Configuration file successfully loaded
 	return true

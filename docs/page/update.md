@@ -6,11 +6,11 @@ toc: true
 layout: page
 ---
 
-# Keeping Dalfox Updated
+# Keeping XSSFox Updated
 
-## Why Update Dalfox?
+## Why Update XSSFox?
 
-Regularly updating Dalfox provides several important benefits:
+Regularly updating XSSFox provides several important benefits:
 
 - **New Features**: Access to the latest scanning capabilities and improvements
 - **Security Fixes**: Protection against vulnerabilities in the tool itself
@@ -18,62 +18,62 @@ Regularly updating Dalfox provides several important benefits:
 - **Performance Improvements**: Better scanning efficiency and reduced resource usage
 - **New Payload Patterns**: Enhanced detection of the latest XSS techniques and bypasses
 
-This guide provides detailed instructions on how to update Dalfox using various installation methods.
+This guide provides detailed instructions on how to update XSSFox using various installation methods.
 
 ## Version Information
 
 Before updating, you may want to check your current version and compare it with the latest release:
 
 ```bash
-# Check your current Dalfox version
-dalfox version
+# Check your current XSSFox version
+xssfox version
 
 # Compare with the latest GitHub release
-curl -s https://api.github.com/repos/hahwul/dalfox/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/'
+curl -s https://api.github.com/repos/JGPatelOfficial/xssfox/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/'
 ```
 
 ## Update Methods
 
 ### Using Homebrew
 
-If you installed Dalfox using Homebrew on macOS or Linux, updating is straightforward:
+If you installed XSSFox using Homebrew on macOS or Linux, updating is straightforward:
 
 ```bash
 # Update Homebrew's formula list
 brew update
 
-# Upgrade Dalfox to the latest version
-brew upgrade dalfox
+# Upgrade XSSFox to the latest version
+brew upgrade xssfox
 ```
 
 After upgrading, verify the new version:
 
 ```bash
-dalfox version
+xssfox version
 ```
 
 ### Using Snapcraft
 
-For Linux systems using Snap packages, update Dalfox with:
+For Linux systems using Snap packages, update XSSFox with:
 
 ```bash
-# Update Dalfox snap package
-sudo snap refresh dalfox
+# Update XSSFox snap package
+sudo snap refresh xssfox
 ```
 
 Verify the update:
 
 ```bash
-dalfox version
+xssfox version
 ```
 
 ### Using Go Install
 
-If you installed Dalfox from source using Go, you can update it with the `go install` command:
+If you installed XSSFox from source using Go, you can update it with the `go install` command:
 
 ```bash
 # Install the latest version
-go install github.com/hahwul/dalfox/v2@latest
+go install github.com/JGPatelOfficial/xssfox@latest
 ```
 
 If you encounter any issues, try clearing the module cache first:
@@ -83,7 +83,7 @@ If you encounter any issues, try clearing the module cache first:
 go clean -modcache
 
 # Install the latest version
-go install github.com/hahwul/dalfox/v2@latest
+go install github.com/JGPatelOfficial/xssfox@latest
 ```
 
 Verify that your PATH includes Go's bin directory:
@@ -99,97 +99,97 @@ source ~/.bashrc
 
 ### Using Docker
 
-If you're using Dalfox with Docker, update by pulling the latest image:
+If you're using XSSFox with Docker, update by pulling the latest image:
 
 ```bash
 # Update from Docker Hub
-docker pull hahwul/dalfox:latest
+docker pull JGPatelOfficial/xssfox:latest
 
 # OR update from GitHub Container Registry
-docker pull ghcr.io/hahwul/dalfox:latest
+docker pull ghcr.io/JGPatelOfficial/xssfox:latest
 ```
 
 To verify you have the latest version:
 
 ```bash
 # Check Docker image version
-docker run --rm hahwul/dalfox:latest /app/dalfox version
+docker run --rm JGPatelOfficial/xssfox:latest /app/xssfox version
 ```
 
 #### Running the Updated Docker Image
 
-After pulling the latest image, run Dalfox using the updated container:
+After pulling the latest image, run XSSFox using the updated container:
 
 ```bash
 # Run with Docker Hub image
-docker run -it hahwul/dalfox:latest /app/dalfox url https://example.com
+docker run -it JGPatelOfficial/xssfox:latest /app/xssfox url https://example.com
 
 # OR run with GitHub Container Registry image
-docker run -it ghcr.io/hahwul/dalfox:latest /app/dalfox url https://example.com
+docker run -it ghcr.io/JGPatelOfficial/xssfox:latest /app/xssfox url https://example.com
 ```
 
 For persistent storage of results, mount a volume:
 
 ```bash
-docker run -it -v "$(pwd):/output" hahwul/dalfox:latest /app/dalfox url https://example.com -o /output/results.txt
+docker run -it -v "$(pwd):/output" JGPatelOfficial/xssfox:latest /app/xssfox url https://example.com -o /output/results.txt
 ```
 
 ## Updating to a Specific Version
 
-If you need to use a specific version of Dalfox rather than the latest:
+If you need to use a specific version of XSSFox rather than the latest:
 
 ### Using Go
 
 ```bash
 # Install a specific version (e.g., v2.8.0)
-go install github.com/hahwul/dalfox/v2@v2.8.0
+go install github.com/JGPatelOfficial/xssfox@v2.8.0
 ```
 
 ### Using Docker
 
 ```bash
 # Pull a specific version (e.g., v2.8.0)
-docker pull hahwul/dalfox:v2.8.0
+docker pull JGPatelOfficial/xssfox:v2.8.0
 ```
 
 ## Post-Update Steps
 
-After updating Dalfox, consider taking these additional steps:
+After updating XSSFox, consider taking these additional steps:
 
-1. **Review new features**: Check the [release notes](https://github.com/hahwul/dalfox/releases) to understand new capabilities
+1. **Review new features**: Check the [release notes](https://github.com/JGPatelOfficial/xssfox/releases) to understand new capabilities
 2. **Update configuration files**: Make any necessary adjustments to your configuration files for compatibility with new features
 3. **Clear cached data**: Remove any temporary files from previous scans
 4. **Run a test scan**: Perform a quick scan to verify the updated version works correctly
 
 ```bash
 # Test the updated installation
-dalfox url https://example.com --format json -o test-result.json
+xssfox url https://example.com --format json -o test-result.json
 ```
 
 ## Update Automation
 
-You can create simple scripts to automate Dalfox updates:
+You can create simple scripts to automate XSSFox updates:
 
 ### Homebrew Update Script
 
 ```bash
 #!/bin/bash
-# update-dalfox.sh
-echo "Updating Dalfox..."
-brew update && brew upgrade dalfox
-dalfox version
-echo "Dalfox update completed."
+# update-xssfox.sh
+echo "Updating XSSFox..."
+brew update && brew upgrade xssfox
+xssfox version
+echo "XSSFox update completed."
 ```
 
 ### Docker Update Script
 
 ```bash
 #!/bin/bash
-# update-dalfox-docker.sh
-echo "Updating Dalfox Docker image..."
-docker pull hahwul/dalfox:latest
-echo "Dalfox Docker image updated to:"
-docker run --rm hahwul/dalfox:latest /app/dalfox version
+# update-xssfox-docker.sh
+echo "Updating XSSFox Docker image..."
+docker pull JGPatelOfficial/xssfox:latest
+echo "XSSFox Docker image updated to:"
+docker run --rm JGPatelOfficial/xssfox:latest /app/xssfox version
 ```
 
 ## Troubleshooting Update Issues
@@ -212,38 +212,38 @@ If you encounter issues during the update process:
 
 ### Getting Help
 
-If you continue experiencing problems updating Dalfox:
+If you continue experiencing problems updating XSSFox:
 
-- Check the [GitHub Issues](https://github.com/hahwul/dalfox/issues) for similar problems
-- Join the [Dalfox community discussions](https://github.com/hahwul/dalfox/discussions)
+- Check the [GitHub Issues](https://github.com/JGPatelOfficial/xssfox/issues) for similar problems
+- Join the [XSSFox community discussions](https://github.com/JGPatelOfficial/xssfox/discussions)
 - Report a new issue if your problem hasn't been addressed
 
 ## Checking for Updates Automatically
 
-You can add this function to your shell configuration to check for Dalfox updates when opening a terminal:
+You can add this function to your shell configuration to check for XSSFox updates when opening a terminal:
 
 ```bash
 # Add to ~/.bashrc or ~/.zshrc
-check_dalfox_update() {
-  if command -v dalfox &> /dev/null; then
-    local current_version=$(dalfox version | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
-    local latest_version=$(curl -s https://api.github.com/repos/hahwul/dalfox/releases/latest | grep -Eo '"tag_name": "v[0-9]+\.[0-9]+\.[0-9]+"' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+check_xssfox_update() {
+  if command -v xssfox &> /dev/null; then
+    local current_version=$(xssfox version | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+    local latest_version=$(curl -s https://api.github.com/repos/JGPatelOfficial/xssfox/releases/latest | grep -Eo '"tag_name": "v[0-9]+\.[0-9]+\.[0-9]+"' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
     
     if [[ "$current_version" != "$latest_version" ]]; then
-      echo "📢 Dalfox update available: $current_version → $latest_version"
+      echo "📢 XSSFox update available: $current_version → $latest_version"
     fi
   fi
 }
 
 # Run the check when starting a shell
-check_dalfox_update
+check_xssfox_update
 ```
 
 ## Community Resources
 
-For additional help and information about Dalfox:
+For additional help and information about XSSFox:
 
-- [Official Dalfox GitHub Repository](https://github.com/hahwul/dalfox)
-- [Dalfox Documentation](https://dalfox.hahwul.com)
-- [Dalfox Community Discussions](https://github.com/hahwul/dalfox/discussions)
-- [Issue Tracker](https://github.com/hahwul/dalfox/issues)
+- [Official XSSFox GitHub Repository](https://github.com/JGPatelOfficial/xssfox)
+- [XSSFox Documentation](https://xssfox.hahwul.com)
+- [XSSFox Community Discussions](https://github.com/JGPatelOfficial/xssfox/discussions)
+- [Issue Tracker](https://github.com/JGPatelOfficial/xssfox/issues)

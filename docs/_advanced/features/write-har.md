@@ -13,14 +13,14 @@ layout: page
 SINCE (v2.9.0) 
 {: .label .label-green }
 
-In Dalfox 2.9 and later, all requests can be logged in HAR format. This allows you to save the HTTP Archive (HAR) file for further analysis or interaction with other tools.
+In XSSFox 2.9 and later, all requests can be logged in HAR format. This allows you to save the HTTP Archive (HAR) file for further analysis or interaction with other tools.
 
 ## Generating a HAR File
 
 To generate a HAR file, use the `--har-file-path` flag to specify the file path where the HAR file will be saved. Here is an example command:
 
 ```bash
-dalfox url http://testphp.vulnweb.com/listproducts.php?cat=2 \
+xssfox url http://testphp.vulnweb.com/listproducts.php?cat=2 \
     --no-spinner \
     --no-color \
     --output-all \
@@ -41,7 +41,7 @@ Here is an example of the content you can expect in the generated HAR file:
     "time": 413.50575,
     "request": {
       "method": "GET",
-      "url": "http://testphp.vulnweb.com/listproducts.php?cat=2%27%22%3E%3Csvg%2Fclass%3Ddalfox+onload%3D%26%2397%26%23108%26%23101%26%23114%26%2300116%26%2340%26%2341%26%23x2f%26%23x2f",
+      "url": "http://testphp.vulnweb.com/listproducts.php?cat=2%27%22%3E%3Csvg%2Fclass%3Dxssfox+onload%3D%26%2397%26%23108%26%23101%26%23114%26%2300116%26%2340%26%2341%26%23x2f%26%23x2f",
       "httpVersion": "HTTP/1.1",
       "cookies": [],
       "headers": [
@@ -57,7 +57,7 @@ Here is an example of the content you can expect in the generated HAR file:
       "queryString": [
         {
           "name": "cat",
-          "value": "2'\"><svg/class=dalfox onload=&#97&#108&#101&#114&#00116&#40&#41&#x2f&#x2f"
+          "value": "2'\"><svg/class=xssfox onload=&#97&#108&#101&#114&#00116&#40&#41&#x2f&#x2f"
         }
       ],
       "headersSize": -1,
@@ -118,4 +118,4 @@ You can load the generated HAR file into Chrome DevTools or other tools that sup
 
 ## Additional Resources
 
-For more information and advanced usage, please refer to the [pull request](https://github.com/hahwul/dalfox/pull/440) that introduced this feature.
+For more information and advanced usage, please refer to the [pull request](https://github.com/JGPatelOfficial/xssfox/pull/440) that introduced this feature.

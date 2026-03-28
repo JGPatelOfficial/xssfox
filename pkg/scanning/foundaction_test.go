@@ -3,7 +3,7 @@ package scanning
 import (
 	"testing"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 func Test_foundAction(t *testing.T) {

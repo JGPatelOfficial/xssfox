@@ -18,16 +18,16 @@ func TestAbstraction(t *testing.T) {
 		{
 			name: "inHTML-none",
 			args: args{
-				s:       "asdf<br><dalfox>1234",
-				payload: "<dalfox>",
+				s:       "asdf<br><xssfox>1234",
+				payload: "<xssfox>",
 			},
 			want: []string{"inHTML-none"},
 		},
 		{
 			name: "inJS-none",
 			args: args{
-				s:       "<script><dalfox></script>",
-				payload: "<dalfox>",
+				s:       "<script><xssfox></script>",
+				payload: "<xssfox>",
 			},
 			want: []string{"inJS-none"},
 		},
@@ -35,16 +35,16 @@ func TestAbstraction(t *testing.T) {
 		{
 			name: "inJS-double",
 			args: args{
-				s:       "<script>var a= \"<dalfox>\"</script>",
-				payload: "<dalfox>",
+				s:       "<script>var a= \"<xssfox>\"</script>",
+				payload: "<xssfox>",
 			},
 			want: []string{"inJS-double"},
 		},
 		{
 			name: "inJS-single",
 			args: args{
-				s:       "<script>var a = '<dalfox>'</script>",
-				payload: "<dalfox>",
+				s:       "<script>var a = '<xssfox>'</script>",
+				payload: "<xssfox>",
 			},
 			want: []string{"inJS-single"},
 		},
@@ -52,32 +52,32 @@ func TestAbstraction(t *testing.T) {
 		{
 			name: "inJS-backtick",
 			args: args{
-				s:       "<script>`<dalfox>`</script>",
-				payload: "<dalfox>",
+				s:       "<script>`<xssfox>`</script>",
+				payload: "<xssfox>",
 			},
 			want: []string{"inJS-backtick"},
 		},
 		{
 			name: "inATTR-none",
 			args: args{
-				s:       "<a href=dalfox>zzz</a>",
-				payload: "dalfox",
+				s:       "<a href=xssfox>zzz</a>",
+				payload: "xssfox",
 			},
 			want: []string{"inATTR-none"},
 		},
 		{
 			name: "inATTR-double",
 			args: args{
-				s:       "<a href=\"dalfox\">zzz</a>",
-				payload: "dalfox",
+				s:       "<a href=\"xssfox\">zzz</a>",
+				payload: "xssfox",
 			},
 			want: []string{"inATTR-double"},
 		},
 		{
 			name: "inATTR-single",
 			args: args{
-				s:       "<a href='dalfox'>zzz</a>",
-				payload: "dalfox",
+				s:       "<a href='xssfox'>zzz</a>",
+				payload: "xssfox",
 			},
 			want: []string{"inATTR-single"},
 		},

@@ -10,10 +10,10 @@ import (
 	"time"
 
 	spinner "github.com/briandowns/spinner"
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	model "github.com/hahwul/dalfox/v2/pkg/model"
-	"github.com/hahwul/dalfox/v2/pkg/scanning"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	model "github.com/JGPatelOfficial/xssfox/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/scanning"
 	voltFile "github.com/hahwul/volt/file"
 	voltHar "github.com/hahwul/volt/format/har"
 	voltUtils "github.com/hahwul/volt/util"
@@ -62,10 +62,10 @@ func runFileCmd(cmd *cobra.Command, args []string) {
 // runRawDataMode processes a file containing raw HTTP request data
 // It parses the request format and extracts method, path, headers, host, and body
 func runRawDataMode(filePath string, cmd *cobra.Command) {
-	printing.DalLog("SYSTEM", "Using file mode with raw data format", options)
+	printing.XSSLog("SYSTEM", "Using file mode with raw data format", options)
 	ff, err := voltFile.ReadLinesOrLiteral(filePath)
 	if err != nil {
-		printing.DalLog("ERROR", "Failed to read file: "+err.Error(), options)
+		printing.XSSLog("ERROR", "Failed to read file: "+err.Error(), options)
 		return
 	}
 	var path, body, host, target string
@@ -77,7 +77,7 @@ func runRawDataMode(filePath string, cmd *cobra.Command) {
 				options.Method = parse[0]
 				path = parse[1]
 			} else {
-				printing.DalLog("ERROR", "HTTP Raw Request Format Error", options)
+				printing.XSSLog("ERROR", "HTTP Raw Request Format Error", options)
 				os.Exit(1)
 			}
 		} else {
@@ -103,7 +103,7 @@ func runRawDataMode(filePath string, cmd *cobra.Command) {
 		target = path
 	} else {
 		if host == "" {
-			printing.DalLog("ERROR", "HTTP Raw Request Format Error - Host not found", options)
+			printing.XSSLog("ERROR", "HTTP Raw Request Format Error - Host not found", options)
 			os.Exit(1)
 		}
 		if http {
@@ -113,7 +113,7 @@ func runRawDataMode(filePath string, cmd *cobra.Command) {
 		}
 	}
 	if optimization.IsOutOfScope(options, target) {
-		printing.DalLog("INFO", "Target is out of scope, skipping", options)
+		printing.XSSLog("INFO", "Target is out of scope, skipping", options)
 		return
 	}
 	_, _ = scanning.Scan(target, options, "single")
@@ -122,7 +122,7 @@ func runRawDataMode(filePath string, cmd *cobra.Command) {
 // runHarMode processes targets from a HAR (HTTP Archive) file
 // It extracts requests from the HAR file and scans each one
 func runHarMode(filePath string, _ *cobra.Command, sf bool) {
-	printing.DalLog("SYSTEM", "Using file mode with targets list from HAR", options)
+	printing.XSSLog("SYSTEM", "Using file mode with targets list from HAR", options)
 	if (!options.NoSpinner || !options.Silence) && !sf {
 		options.SpinnerObject = spinner.New(spinner.CharSets[14], 100*time.Millisecond, spinner.WithWriter(os.Stderr)) // Build our new spinner
 	}
@@ -131,7 +131,7 @@ func runHarMode(filePath string, _ *cobra.Command, sf bool) {
 	if err == nil {
 		err = json.Unmarshal(harFile, &harObject)
 		if options.Format == "json" {
-			printing.DalLog("PRINT", "[", options)
+			printing.XSSLog("PRINT", "[", options)
 		}
 		for i, entry := range harObject.Log.Entries {
 			var turl string
@@ -157,7 +157,7 @@ func runHarMode(filePath string, _ *cobra.Command, sf bool) {
 			updateSpinner(options, sf, i, len(harObject.Log.Entries))
 		}
 		if options.Format == "json" {
-			printing.DalLog("PRINT", "{}]", options)
+			printing.XSSLog("PRINT", "{}]", options)
 		}
 		if (!options.NoSpinner || !options.Silence) && !sf {
 			options.SpinnerObject.Stop()
@@ -168,21 +168,21 @@ func runHarMode(filePath string, _ *cobra.Command, sf bool) {
 // runFileMode processes a file containing a list of target URLs
 // It supports both single target and multicast/mass modes
 func runFileMode(filePath string, cmd *cobra.Command, sf bool) {
-	printing.DalLog("SYSTEM", "Using file mode with targets list", options)
+	printing.XSSLog("SYSTEM", "Using file mode with targets list", options)
 	if (!options.NoSpinner || !options.Silence) && !sf {
 		options.SpinnerObject = spinner.New(spinner.CharSets[14], 100*time.Millisecond, spinner.WithWriter(os.Stderr)) // Build our new spinner
 	}
 
 	ff, err := voltFile.ReadLinesOrLiteral(filePath)
 	if err != nil {
-		printing.DalLog("ERROR", "Failed to read file: "+err.Error(), options)
+		printing.XSSLog("ERROR", "Failed to read file: "+err.Error(), options)
 		return
 	}
 	targets := voltUtils.UniqueStringSlice(ff)
 	if len(options.OutOfScope) > 0 {
 		targets = optimization.FilterOutOfScopeTargets(options, targets)
 	}
-	printing.DalLog("SYSTEM", "Loaded "+strconv.Itoa(len(targets))+" target URLs", options)
+	printing.XSSLog("SYSTEM", "Loaded "+strconv.Itoa(len(targets))+" target URLs", options)
 	multi, _ := cmd.Flags().GetBool("multicast")
 	mass, _ := cmd.Flags().GetBool("mass")
 	limit, _ := cmd.Flags().GetInt("limit")
@@ -207,8 +207,8 @@ func updateSpinner(options model.Options, sf bool, _, total int) {
 
 // printFileErrorAndUsage displays error messages and usage examples for the file command
 func printFileErrorAndUsage() {
-	printing.DalLog("ERROR", "Please provide a valid target file (targets.txt or rawdata.raw)", options)
-	printing.DalLog("ERROR", "Example: dalfox file ./targets.txt or ./rawdata.raw", options)
+	printing.XSSLog("ERROR", "Please provide a valid target file (targets.txt or rawdata.raw)", options)
+	printing.XSSLog("ERROR", "Example: xssfox file ./targets.txt or ./rawdata.raw", options)
 }
 
 // init registers the file command and its flags

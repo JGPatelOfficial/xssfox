@@ -95,10 +95,10 @@ func TestGetCommonPayload(t *testing.T) {
 		t.Error("Expected non-empty common payloads")
 	}
 	for i, p := range payloads {
-		if !strings.Contains(p, "DALFOX_ALERT_VALUE") && !strings.Contains(p, "dalfox") && !strings.Contains(p, "String.fromCharCode(88,83,83)") && !strings.Contains(p, "confirm``") && !strings.Contains(p, "alert``") {
+		if !strings.Contains(p, "XSSFOX_ALERT_VALUE") && !strings.Contains(p, "xssfox") && !strings.Contains(p, "String.fromCharCode(88,83,83)") && !strings.Contains(p, "confirm``") && !strings.Contains(p, "alert``") {
 			// Allow some flexibility for payloads not matching the primary patterns
 			// This check is a heuristic
-			fmt.Printf("Warning: Common payload at index %d might be missing DALFOX_ALERT_VALUE or class=dalfox: %s\n", i, p)
+			fmt.Printf("Warning: Common payload at index %d might be missing XSSFOX_ALERT_VALUE or class=xssfox: %s\n", i, p)
 		}
 	}
 }
@@ -110,9 +110,9 @@ func TestGetHTMLPayload(t *testing.T) {
 		expectedMin int
 		mustContain []string
 	}{
-		{"empty ip", "", 50, []string{"<sVg/onload=alert(DALFOX_ALERT_VALUE) class=dalfox>"}}, // Assuming DALFOX_ALERT_VALUE is default
-		{"comment ip", "comment", 50, []string{"--><svg/onload=alert(DALFOX_ALERT_VALUE)>"}},
-		{"random ip", "random", 50, []string{"<sVg/onload=alert(DALFOX_ALERT_VALUE) class=dalfox>"}},
+		{"empty ip", "", 50, []string{"<sVg/onload=alert(XSSFOX_ALERT_VALUE) class=xssfox>"}}, // Assuming XSSFOX_ALERT_VALUE is default
+		{"comment ip", "comment", 50, []string{"--><svg/onload=alert(XSSFOX_ALERT_VALUE)>"}},
+		{"random ip", "random", 50, []string{"<sVg/onload=alert(XSSFOX_ALERT_VALUE) class=xssfox>"}},
 	}
 
 	for _, tt := range tests {
@@ -145,11 +145,11 @@ func TestGetAttrPayload(t *testing.T) {
 		mustStart   []string // Check if some payloads start with these if ip is single/double
 		mustContain []string // General contains check
 	}{
-		{"empty ip", "", 100, nil, []string{"onload=alert(DALFOX_ALERT_VALUE) class=dalfox "}},
-		{"none ip", "none", 100, nil, []string{"onmouseover=confirm(DALFOX_ALERT_VALUE) class=dalfox "}},
-		{"double ip", "double", 100, []string{"\"onload", "\"onmouseover"}, []string{"onload=alert(DALFOX_ALERT_VALUE) class=dalfox "}},
-		{"single ip", "single", 100, []string{"'onload", "'onmouseover"}, []string{"onload=alert(DALFOX_ALERT_VALUE) class=dalfox "}},
-		{"random ip", "random", 100, nil, []string{"onload=alert(DALFOX_ALERT_VALUE) class=dalfox "}}, // behaves like empty ip
+		{"empty ip", "", 100, nil, []string{"onload=alert(XSSFOX_ALERT_VALUE) class=xssfox "}},
+		{"none ip", "none", 100, nil, []string{"onmouseover=confirm(XSSFOX_ALERT_VALUE) class=xssfox "}},
+		{"double ip", "double", 100, []string{"\"onload", "\"onmouseover"}, []string{"onload=alert(XSSFOX_ALERT_VALUE) class=xssfox "}},
+		{"single ip", "single", 100, []string{"'onload", "'onmouseover"}, []string{"onload=alert(XSSFOX_ALERT_VALUE) class=xssfox "}},
+		{"random ip", "random", 100, nil, []string{"onload=alert(XSSFOX_ALERT_VALUE) class=xssfox "}}, // behaves like empty ip
 	}
 
 	for _, tt := range tests {
@@ -197,14 +197,14 @@ func TestGetInJsBreakScriptPayload(t *testing.T) {
 		t.Error("Expected non-empty InJsBreakScript payloads")
 	}
 	expected := []string{
-		"</sCRipt><sVg/onload=alert(DALFOX_ALERT_VALUE)>",
-		"</scRiPt><sVG/onload=confirm(DALFOX_ALERT_VALUE)>",
-		"</sCrIpt><SVg/onload=prompt(DALFOX_ALERT_VALUE)>",
-		"</sCrIpt><SVg/onload=print(DALFOX_ALERT_VALUE)>",
-		"</sCriPt><ScRiPt>alert(DALFOX_ALERT_VALUE)</sCrIpt>",
-		"</scRipT><sCrIpT>confirm(DALFOX_ALERT_VALUE)</SCriPt>",
-		"</ScripT><ScRIpT>prompt(DALFOX_ALERT_VALUE)</scRIpT>",
-		"</ScripT><ScRIpT>print(DALFOX_ALERT_VALUE)</scRIpT>",
+		"</sCRipt><sVg/onload=alert(XSSFOX_ALERT_VALUE)>",
+		"</scRiPt><sVG/onload=confirm(XSSFOX_ALERT_VALUE)>",
+		"</sCrIpt><SVg/onload=prompt(XSSFOX_ALERT_VALUE)>",
+		"</sCrIpt><SVg/onload=print(XSSFOX_ALERT_VALUE)>",
+		"</sCriPt><ScRiPt>alert(XSSFOX_ALERT_VALUE)</sCrIpt>",
+		"</scRipT><sCrIpT>confirm(XSSFOX_ALERT_VALUE)</SCriPt>",
+		"</ScripT><ScRIpT>prompt(XSSFOX_ALERT_VALUE)</scRIpT>",
+		"</ScripT><ScRIpT>print(XSSFOX_ALERT_VALUE)</scRIpT>",
 	}
 	if len(payloads) != len(expected) {
 		t.Errorf("GetInJsBreakScriptPayload: expected %d payloads, got %d", len(expected), len(payloads))
@@ -230,12 +230,12 @@ func TestGetInJsPayload(t *testing.T) {
 		expectedMin int
 		mustContain []string // Check if some payloads contain these based on ip
 	}{
-		{"empty ip", "", 20, []string{"alert(DALFOX_ALERT_VALUE)"}}, // Default behavior
-		{"none ip", "none", 60, []string{";alert(DALFOX_ALERT_VALUE);//", ";alert(DALFOX_ALERT_VALUE);", "alert(DALFOX_ALERT_VALUE)"}},
-		{"double ip", "double", 100, []string{"\"+alert(DALFOX_ALERT_VALUE)//", "\";alert(DALFOX_ALERT_VALUE)//", "\"alert(DALFOX_ALERT_VALUE)\""}},
-		{"single ip", "single", 100, []string{"'+alert(DALFOX_ALERT_VALUE)//", "';alert(DALFOX_ALERT_VALUE)//", "'alert(DALFOX_ALERT_VALUE)'"}},
-		{"backtick ip", "backtick", 20, []string{"${alert(DALFOX_ALERT_VALUE)}"}},
-		{"random ip", "random", 20, []string{"alert(DALFOX_ALERT_VALUE)"}}, // behaves like empty ip
+		{"empty ip", "", 20, []string{"alert(XSSFOX_ALERT_VALUE)"}}, // Default behavior
+		{"none ip", "none", 60, []string{";alert(XSSFOX_ALERT_VALUE);//", ";alert(XSSFOX_ALERT_VALUE);", "alert(XSSFOX_ALERT_VALUE)"}},
+		{"double ip", "double", 100, []string{"\"+alert(XSSFOX_ALERT_VALUE)//", "\";alert(XSSFOX_ALERT_VALUE)//", "\"alert(XSSFOX_ALERT_VALUE)\""}},
+		{"single ip", "single", 100, []string{"'+alert(XSSFOX_ALERT_VALUE)//", "';alert(XSSFOX_ALERT_VALUE)//", "'alert(XSSFOX_ALERT_VALUE)'"}},
+		{"backtick ip", "backtick", 20, []string{"${alert(XSSFOX_ALERT_VALUE)}"}},
+		{"random ip", "random", 20, []string{"alert(XSSFOX_ALERT_VALUE)"}}, // behaves like empty ip
 	}
 
 	for _, tt := range tests {
@@ -247,9 +247,9 @@ func TestGetInJsPayload(t *testing.T) {
 			for _, substr := range tt.mustContain {
 				found := false
 				for _, p := range payloads {
-					// DALFOX_ALERT_VALUE might be substituted in some contexts, so check for alert part too
-					normalizedP := strings.ReplaceAll(p, "DALFOX_ALERT_VALUE", "XSS_TEST")
-					normalizedSubstr := strings.ReplaceAll(substr, "DALFOX_ALERT_VALUE", "XSS_TEST")
+					// XSSFOX_ALERT_VALUE might be substituted in some contexts, so check for alert part too
+					normalizedP := strings.ReplaceAll(p, "XSSFOX_ALERT_VALUE", "XSS_TEST")
+					normalizedSubstr := strings.ReplaceAll(substr, "XSSFOX_ALERT_VALUE", "XSS_TEST")
 					if strings.Contains(normalizedP, normalizedSubstr) {
 						found = true
 						break
@@ -269,9 +269,9 @@ func TestGetDOMXSSPayload(t *testing.T) {
 		t.Error("Expected non-empty DOMXSS payloads")
 	}
 	expected := []string{
-		"<img/src/onerror=.1|alert`DALFOX_ALERT_VALUE`>",
-		";alert(DALFOX_ALERT_VALUE);",
-		"javascript:alert(DALFOX_ALERT_VALUE)",
+		"<img/src/onerror=.1|alert`XSSFOX_ALERT_VALUE`>",
+		";alert(XSSFOX_ALERT_VALUE);",
+		"javascript:alert(XSSFOX_ALERT_VALUE)",
 	}
 	if len(payloads) != len(expected) {
 		t.Errorf("GetDOMXSSPayload: expected %d payloads, got %d", len(expected), len(payloads))
@@ -297,9 +297,9 @@ func TestGetDeepDOMXSPayload(t *testing.T) {
 	}
 	// Check if it contains some known patterns
 	mustContain := []string{
-		"<svg/OnLoad=\"`${prompt`DALFOX_ALERT_VALUE`}`\">",
-		"javascript:alert(DALFOX_ALERT_VALUE)",
-		"</scrIpt><scrIpt>alert(DALFOX_ALERT_VALUE)</scrIpt>",
+		"<svg/OnLoad=\"`${prompt`XSSFOX_ALERT_VALUE`}`\">",
+		"javascript:alert(XSSFOX_ALERT_VALUE)",
+		"</scrIpt><scrIpt>alert(XSSFOX_ALERT_VALUE)</scrIpt>",
 	}
 	for _, substr := range mustContain {
 		found := false

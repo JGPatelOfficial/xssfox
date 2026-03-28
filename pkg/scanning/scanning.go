@@ -7,12 +7,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/hahwul/dalfox/v2/internal/har"
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/internal/utils"
-	"github.com/hahwul/dalfox/v2/internal/verification"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/har"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/internal/utils"
+	"github.com/JGPatelOfficial/xssfox/internal/verification"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 // performScanning performs the scanning phase by sending requests and analyzing responses.
@@ -20,8 +20,8 @@ func performScanning(target string, options model.Options, query map[*http.Reque
 	var pocs []model.PoC
 	queryCount := 0
 
-	printing.DalLog("SYSTEM", "Starting XSS scanning with "+strconv.Itoa(len(query))+" queries", options)
-	printing.DalLog("SYSTEM", "[ Created "+strconv.Itoa(options.Concurrence)+" workers ] [ Allocated "+strconv.Itoa(len(query))+" queries ]", options)
+	printing.XSSLog("SYSTEM", "Starting XSS scanning with "+strconv.Itoa(len(query))+" queries", options)
+	printing.XSSLog("SYSTEM", "[ Created "+strconv.Itoa(options.Concurrence)+" workers ] [ Allocated "+strconv.Itoa(len(query))+" queries ]", options)
 
 	if !(options.Silence || options.NoSpinner) {
 		s.Start()
@@ -63,7 +63,7 @@ func performScanning(target string, options model.Options, query map[*http.Reque
 				go func() {
 					for v := range dchan {
 						if CheckXSSWithHeadless(v, options) {
-							printing.DalLog("VULN", "Triggered XSS Payload (found dialog in headless)", options)
+							printing.XSSLog("VULN", "Triggered XSS Payload (found dialog in headless)", options)
 							poc := model.PoC{
 								Type:       "V",
 								InjectType: "headless",
@@ -81,13 +81,13 @@ func performScanning(target string, options model.Options, query map[*http.Reque
 								switch options.Format {
 								case "json":
 									pocj, _ := json.Marshal(poc)
-									printing.DalLog("PRINT", string(pocj)+",", options)
+									printing.XSSLog("PRINT", string(pocj)+",", options)
 								case "jsonl":
 									pocj, _ := json.Marshal(poc)
-									printing.DalLog("PRINT", string(pocj), options)
+									printing.XSSLog("PRINT", string(pocj), options)
 								default:
 									pocsStr := "[" + poc.Type + "][" + poc.Method + "][" + poc.InjectType + "] " + poc.Data
-									printing.DalLog("PRINT", pocsStr, options)
+									printing.XSSLog("PRINT", pocsStr, options)
 								}
 							}
 							if options.FoundAction != "" {

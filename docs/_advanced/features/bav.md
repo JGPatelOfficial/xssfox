@@ -11,7 +11,7 @@ layout: page
 
 ## What is BAV?
 
-BAV (Basic Another Vulnerability) is a powerful feature in Dalfox that automatically tests for additional vulnerabilities beyond XSS during scanning. While Dalfox is primarily designed for finding XSS vulnerabilities, the BAV module extends its capabilities to detect other common web security issues with minimal additional overhead.
+BAV (Basic Another Vulnerability) is a powerful feature in XSSFox that automatically tests for additional vulnerabilities beyond XSS during scanning. While XSSFox is primarily designed for finding XSS vulnerabilities, the BAV module extends its capabilities to detect other common web security issues with minimal additional overhead.
 
 By default, BAV is enabled in all scanning modes, providing a more comprehensive security assessment without requiring additional tools.
 
@@ -30,7 +30,7 @@ The BAV module can detect several types of common web vulnerabilities:
 
 The BAV module operates through two main mechanisms:
 
-1. **Active Testing**: Dalfox injects special test payloads designed to trigger specific vulnerability patterns
+1. **Active Testing**: XSSFox injects special test payloads designed to trigger specific vulnerability patterns
 2. **Pattern Matching**: Responses are analyzed for characteristic error messages, behavior changes, or other indicators
 
 This integration into the main scanning process is efficient, as it:
@@ -45,7 +45,7 @@ This integration into the main scanning process is efficient, as it:
 If you prefer to focus solely on XSS testing or want to reduce scanning time, you can disable BAV using the `--skip-bav` flag:
 
 ```bash
-dalfox url https://example.com --skip-bav
+xssfox url https://example.com --skip-bav
 ```
 
 ### Explicitly Enabling BAV
@@ -53,7 +53,7 @@ dalfox url https://example.com --skip-bav
 Although BAV is enabled by default, you can explicitly enable it using the `--use-bav` flag:
 
 ```bash
-dalfox url https://example.com --use-bav
+xssfox url https://example.com --use-bav
 ```
 
 This is useful when combined with other configuration options or when you want to be explicit about which features are active.
@@ -66,7 +66,7 @@ Here's an example of what you might see in the output when BAV detects vulnerabi
 [*] 🦊 Starting scan of http://vulnerable-website.com/page.php?id=1
 [*] Parameter analysis in progress... 🔍
 [G] Found SQL Injection via built-in grepping (MySQL error)
-[POC][G][BUILT-IN/dalfox-error-mysql1/GET] http://vulnerable-website.com/page.php?id=1'
+[POC][G][BUILT-IN/xssfox-error-mysql1/GET] http://vulnerable-website.com/page.php?id=1'
 
 [G] Found CRLF Injection vulnerability
 [POC][G][CRLF/GET] http://vulnerable-website.com/page.php?id=%0D%0ASet-Cookie:+crlf=injection
@@ -79,11 +79,11 @@ Here's an example of what you might see in the output when BAV detects vulnerabi
 [POC][V][GET] http://vulnerable-website.com/page.php?id=<script>alert(1)</script>
 ```
 
-Notice how Dalfox integrates BAV findings with XSS results, providing a unified view of discovered vulnerabilities.
+Notice how XSSFox integrates BAV findings with XSS results, providing a unified view of discovered vulnerabilities.
 
 ## BAV Detection Patterns
 
-Dalfox uses sophisticated pattern matching to identify vulnerability indicators. Some examples include:
+XSSFox uses sophisticated pattern matching to identify vulnerability indicators. Some examples include:
 
 ### SQL Injection Patterns
 - `SQL syntax; check the manual that corresponds to your MySQL`
@@ -117,8 +117,8 @@ While BAV provides valuable additional security testing, it's important to under
 - It's not a replacement for dedicated SQL injection or SSTI scanners
 - Advanced vulnerabilities requiring complex exploitation are not covered
 
-For critical applications, consider supplementing Dalfox with specialized tools for each vulnerability type.
+For critical applications, consider supplementing XSSFox with specialized tools for each vulnerability type.
 
 ## Adding Custom BAV Patterns
 
-Advanced users can contribute to the BAV module by adding new detection patterns. To learn how, see the [CONTRIBUTING.md](https://github.com/hahwul/dalfox/blob/main/CONTRIBUTING.md) file in the Dalfox repository.
+Advanced users can contribute to the BAV module by adding new detection patterns. To learn how, see the [CONTRIBUTING.md](https://github.com/JGPatelOfficial/xssfox/blob/main/CONTRIBUTING.md) file in the XSSFox repository.

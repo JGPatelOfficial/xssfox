@@ -7,35 +7,35 @@ toc: true
 layout: page
 ---
 
-# Using Dalfox in GitHub Actions
+# Using XSSFox in GitHub Actions
 
 ## Overview
 
-GitHub Actions enables you to automate your security testing processes directly in your GitHub repositories. By integrating Dalfox with GitHub Actions, you can:
+GitHub Actions enables you to automate your security testing processes directly in your GitHub repositories. By integrating XSSFox with GitHub Actions, you can:
 
 - Automatically scan for XSS vulnerabilities when code is pushed
 - Include security testing in your pull request workflows
 - Create scheduled security scans of your web applications
 - Generate reports on security findings as part of your CI/CD pipeline
 
-This guide explains how to set up and use Dalfox in GitHub Actions workflows for various scanning scenarios.
+This guide explains how to set up and use XSSFox in GitHub Actions workflows for various scanning scenarios.
 
 ## Available Actions
 
-Dalfox offers official GitHub Actions in the GitHub Marketplace:
+XSSFox offers official GitHub Actions in the GitHub Marketplace:
 
-* [XSS Scan with Dalfox](https://github.com/marketplace/actions/xss-scan-with-dalfox)
-* [hahwul/action-dalfox](https://github.com/hahwul/action-dalfox)
+* [XSS Scan with XSSFox](https://github.com/marketplace/actions/xss-scan-with-xssfox)
+* [hahwul/action-xssfox](https://github.com/hahwul/action-xssfox)
 
 ## Getting Started
 
 ### Basic Usage
 
-To integrate Dalfox in your GitHub Actions workflow, add a step similar to the following to your workflow file:
+To integrate XSSFox in your GitHub Actions workflow, add a step similar to the following to your workflow file:
 
 ```yaml
-- name: Dalfox XSS Scan
-  uses: hahwul/action-dalfox@main
+- name: XSSFox XSS Scan
+  uses: hahwul/action-xssfox@main
   id: xss-scan
   with:
     target: 'https://example.com/search?q=test'
@@ -43,21 +43,21 @@ To integrate Dalfox in your GitHub Actions workflow, add a step similar to the f
     cmd_options: '--follow-redirects --format json'
 ```
 
-This basic example will scan the specified URL for XSS vulnerabilities using Dalfox.
+This basic example will scan the specified URL for XSS vulnerabilities using XSSFox.
 
 ### Input Parameters
 
-The Dalfox GitHub Action accepts the following inputs:
+The XSSFox GitHub Action accepts the following inputs:
 
 | Parameter | Description | Required | Default |
 |-----------|-------------|----------|---------|
 | `target` | The target URL or URLs to scan | Yes | - |
 | `mode` | Scan mode (url, pipe, file, sxss) | Yes | - |
-| `cmd_options` | Additional Dalfox command options | No | '' |
+| `cmd_options` | Additional XSSFox command options | No | '' |
 
 ### Scan Modes
 
-Dalfox supports several scanning modes in GitHub Actions:
+XSSFox supports several scanning modes in GitHub Actions:
 
 - `url`: Scan a single URL
 - `pipe`: Scan multiple URLs provided in the target parameter
@@ -69,8 +69,8 @@ Dalfox supports several scanning modes in GitHub Actions:
 The action provides the scan results in the `result` output variable:
 
 ```yaml
-- name: Dalfox XSS Scan
-  uses: hahwul/action-dalfox@main
+- name: XSSFox XSS Scan
+  uses: hahwul/action-xssfox@main
   id: xss-scan
   with:
     target: 'https://example.com/search?q=test'
@@ -84,7 +84,7 @@ The action provides the scan results in the `result` output variable:
 
 ### On-demand Single URL Scan
 
-This workflow runs a Dalfox scan when manually triggered:
+This workflow runs a XSSFox scan when manually triggered:
 
 ```yaml
 name: XSS Security Scan
@@ -100,10 +100,10 @@ on:
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: ${{ github.event.inputs.url }}
@@ -128,10 +128,10 @@ on:
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: |
@@ -166,7 +166,7 @@ on:
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -177,8 +177,8 @@ jobs:
           # E.g., npm install && npm start
           echo "Starting application on http://localhost:3000"
 
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: 'http://localhost:3000'
@@ -197,7 +197,7 @@ jobs:
 
 ### Scanning with a Configuration File
 
-You can use a Dalfox configuration file in your GitHub Actions workflow:
+You can use a XSSFox configuration file in your GitHub Actions workflow:
 
 ```yaml
 name: Configured XSS Scan
@@ -207,23 +207,23 @@ on: [push]
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: 'https://example.com'
           mode: url
-          cmd_options: '--config ./security/dalfox-config.json'
+          cmd_options: '--config ./security/xssfox-config.json'
 ```
 
 ### Integrating with Security Platforms
 
-You can send Dalfox results to security platforms using the `--found-action` option:
+You can send XSSFox results to security platforms using the `--found-action` option:
 
 ```yaml
 name: XSS Scan with Notifications
@@ -233,13 +233,13 @@ on: [push]
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: 'https://example.com'
@@ -259,13 +259,13 @@ on: [push]
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: './security/target-urls.txt'
@@ -315,7 +315,7 @@ cmd_options: '--worker 50 --delay 100 --timeout 5'
         owner: context.repo.owner,
         repo: context.repo.repo,
         title: 'XSS Vulnerability Detected',
-        body: 'Dalfox found XSS vulnerabilities in the latest scan:\n\n```\n${{ steps.xss-scan.outputs.result }}\n```'
+        body: 'XSSFox found XSS vulnerabilities in the latest scan:\n\n```\n${{ steps.xss-scan.outputs.result }}\n```'
       })
 ```
 
@@ -338,7 +338,7 @@ cmd_options: '--worker 50 --delay 100 --timeout 5'
 
 ### Getting Help
 
-If you encounter issues with Dalfox GitHub Actions:
-- Check the [Dalfox GitHub repository issues](https://github.com/hahwul/dalfox/issues)
-- Join the [Dalfox community discussions](https://github.com/hahwul/dalfox/discussions)
-- Report specific GitHub Actions issues in the [action-dalfox repository](https://github.com/hahwul/action-dalfox/issues)
+If you encounter issues with XSSFox GitHub Actions:
+- Check the [XSSFox GitHub repository issues](https://github.com/JGPatelOfficial/xssfox/issues)
+- Join the [XSSFox community discussions](https://github.com/JGPatelOfficial/xssfox/discussions)
+- Report specific GitHub Actions issues in the [action-xssfox repository](https://github.com/hahwul/action-xssfox/issues)

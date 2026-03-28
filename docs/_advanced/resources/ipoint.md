@@ -9,11 +9,11 @@ layout: page
 
 # Injectable Points
 
-This guide provides detailed information on the various injectable points that Dalfox can identify during scans. Understanding these points can help you better interpret the results and understand where and how payloads are being injected.
+This guide provides detailed information on the various injectable points that XSSFox can identify during scans. Understanding these points can help you better interpret the results and understand where and how payloads are being injected.
 
 ## Injected Points
 
-Dalfox identifies several types of injectable points in the response. Here are the main categories:
+XSSFox identifies several types of injectable points in the response. Here are the main categories:
 
 - **inHTML-none**: Injection point within HTML content without any surrounding quotes.
 - **inJS-none**: Injection point within JavaScript content without any surrounding quotes.
@@ -26,7 +26,7 @@ Dalfox identifies several types of injectable points in the response. Here are t
 
 ## Parameter Types
 
-Dalfox can identify injectable points in different types of parameters:
+XSSFox can identify injectable points in different types of parameters:
 
 - **URL**: Parameters passed in the URL query string.
 - **FORM**: Parameters passed in the body of a form submission.

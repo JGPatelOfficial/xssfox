@@ -1,11 +1,11 @@
-# Dalfox Full Documentation
+# XSSFox Full Documentation
 
-> This file contains the combined content of all Dalfox documentation pages for LLM context
+> This file contains the combined content of all XSSFox documentation pages for LLM context
 
 
 ## Caido Active Workflow
 
-# Dalfox Caido Integration
+# XSSFox Caido Integration
 {: .d-inline-block }
 
 New (v2.12.0)
@@ -13,58 +13,58 @@ New (v2.12.0)
 
 ## Overview
 
-Dalfox now supports direct integration with [Caido](https://caido.io/), enabling powerful, automated XSS scanning as part of your Caido active workflows. This integration streamlines web security testing by allowing you to invoke Dalfox’s advanced XSS detection on HTTP requests intercepted or crafted within Caido, and view actionable results right in your workflow.
+XSSFox now supports direct integration with [Caido](https://caido.io/), enabling powerful, automated XSS scanning as part of your Caido active workflows. This integration streamlines web security testing by allowing you to invoke XSSFox’s advanced XSS detection on HTTP requests intercepted or crafted within Caido, and view actionable results right in your workflow.
 
 ## What is Caido?
 
 Caido is a modern web security toolkit for penetration testers and bug bounty hunters. It provides an intuitive interface for intercepting, modifying, and replaying HTTP requests, and supports extensibility through active workflows and external tool integrations.
 
-By integrating Dalfox with Caido, you can:
+By integrating XSSFox with Caido, you can:
 
 - Automatically scan HTTP requests for XSS vulnerabilities
 - Receive structured, actionable scan results within Caido
 - Enhance your security testing workflow with minimal manual effort
 
-## Setting Up Dalfox with Caido
+## Setting Up XSSFox with Caido
 
 ### Prerequisites
 
-- **Dalfox v2.12.0 or later** installed on your system
+- **XSSFox v2.12.0 or later** installed on your system
 - **Caido** installed and running
 
 ### Installation
 
-If you haven’t installed Dalfox yet, use one of the following methods:
+If you haven’t installed XSSFox yet, use one of the following methods:
 
 ```bash
 # From source
-go install github.com/hahwul/dalfox/v2@latest
+go install github.com/JGPatelOfficial/xssfox/v2@latest
 
 # Homebrew
-brew install dalfox
+brew install xssfox
 
 # Snapcraft
-snap install dalfox
+snap install xssfox
 ```
 
 *[Installation](/page/installation/)*
 
 ## Configuring the Active Workflow
 
-To use Dalfox as an active workflow in Caido:
+To use XSSFox as an active workflow in Caido:
 
-1. **Set your Dalfox binary path**
-   Update the workflow script with the path to your Dalfox executable:
+1. **Set your XSSFox binary path**
+   Update the workflow script with the path to your XSSFox executable:
    ```bash
-   DALFOX_PATH="/Users/youruser/Projects/dalfox/dalfox"
+   XSSFOX_PATH="/Users/youruser/Projects/xssfox/xssfox"
    ```
 
 2. **Configure the Caido workflow**
    Use the following shell script in your Caido active workflow configuration:
    ```bash
-   cat - | jq -r .request | $DALFOX_PATH pipe --rawdata --silence --report --report-format=md
+   cat - | jq -r .request | $XSSFOX_PATH pipe --rawdata --silence --report --report-format=md
    ```
-   This script takes the intercepted HTTP request from Caido, pipes it to Dalfox, and outputs the results in Markdown format.
+   This script takes the intercepted HTTP request from Caido, pipes it to XSSFox, and outputs the results in Markdown format.
 
 3. **Save and activate the workflow**
    Ensure your workflow is enabled in Caido’s interface.
@@ -73,31 +73,31 @@ To use Dalfox as an active workflow in Caido:
 
 ![Caido Workflow Configuration](/images/page/running/caido/workflow.jpg)
 
-## Using Dalfox in Caido
+## Using XSSFox in Caido
 
-Once configured, you can trigger Dalfox scans directly from Caido’s UI. When you send a request through Caido, the active workflow will automatically invoke Dalfox and display the scan results.
+Once configured, you can trigger XSSFox scans directly from Caido’s UI. When you send a request through Caido, the active workflow will automatically invoke XSSFox and display the scan results.
 
 #### Running from the Context Menu
 
-You can also run the Dalfox workflow directly from Caido’s context menu. Simply right-click on a request, select `Run workflow`, and choose `XSS Scan`.
+You can also run the XSSFox workflow directly from Caido’s context menu. Simply right-click on a request, select `Run workflow`, and choose `XSS Scan`.
 
-![Run Dalfox Workflow from Context Menu](/images/page/running/caido/context.jpg)
+![Run XSSFox Workflow from Context Menu](/images/page/running/caido/context.jpg)
 
 #### Example Scan Result in Caido
 
-![Dalfox Scan Result in Caido](/images/page/running/caido/finding.jpg)
+![XSSFox Scan Result in Caido](/images/page/running/caido/finding.jpg)
 
 ## Advanced Usage
 
-You can customize Dalfox’s behavior by modifying the workflow script to include additional flags, such as custom headers, cookies, or Blind XSS callbacks. For example:
+You can customize XSSFox’s behavior by modifying the workflow script to include additional flags, such as custom headers, cookies, or Blind XSS callbacks. For example:
 
 ```bash
-cat - | jq -r .request | $DALFOX_PATH pipe --rawdata --silence --report --report-format=md --header "Authorization: Bearer <token>" -b your-callback.com
+cat - | jq -r .request | $XSSFOX_PATH pipe --rawdata --silence --report --report-format=md --header "Authorization: Bearer <token>" -b your-callback.com
 ```
 
 ## Best Practices
 
-1. **Keep Dalfox Updated**: Use the latest version for improved detection and features.
+1. **Keep XSSFox Updated**: Use the latest version for improved detection and features.
 2. **Validate Results**: Manually verify critical findings for accuracy.
 3. **Respect Target Systems**: Avoid scanning production systems without permission.
 4. **Leverage Caido Context**: Use Caido’s request manipulation features to test various scenarios before scanning.
@@ -105,28 +105,28 @@ cat - | jq -r .request | $DALFOX_PATH pipe --rawdata --silence --report --report
 
 ---
 
-By integrating Dalfox with Caido, you can supercharge your web security assessments with automated, reliable XSS detection—right where you need it most.
+By integrating XSSFox with Caido, you can supercharge your web security assessments with automated, reliable XSS detection—right where you need it most.
 
 ---
 
 
 ## In the Code
 
-# Using Dalfox in Your Code
+# Using XSSFox in Your Code
 
-This guide provides detailed instructions on how to use Dalfox as a library in your Go projects. Follow the steps below to integrate Dalfox into your code.
+This guide provides detailed instructions on how to use XSSFox as a library in your Go projects. Follow the steps below to integrate XSSFox into your code.
 
-## Get the Dalfox Library
+## Get the XSSFox Library
 
-First, you need to download the Dalfox library using the `go get` command:
+First, you need to download the XSSFox library using the `go get` command:
 
 ```bash
-go get github.com/hahwul/dalfox/v2/lib
+go get github.com/JGPatelOfficial/xssfox/v2/lib
 ```
 
 ## Sample Code
 
-Here is a sample Go program that demonstrates how to use the Dalfox library to perform a scan:
+Here is a sample Go program that demonstrates how to use the XSSFox library to perform a scan:
 
 ```go
 package main
@@ -134,24 +134,24 @@ package main
 import (
     "fmt"
 
-    dalfox "github.com/hahwul/dalfox/v2/lib"
+    xssfox "github.com/JGPatelOfficial/xssfox/v2/lib"
 )
 
 func main() {
     // Set up options for the scan
-    opt := dalfox.Options{
+    opt := xssfox.Options{
         Cookie: "ABCD=1234",
     }
 
     // Create a new scan target
-    target := dalfox.Target{
+    target := xssfox.Target{
         URL:     "https://xss-game.appspot.com/level1/frame",
         Method:  "GET",
         Options: opt,
     }
 
     // Perform the scan
-    result, err := dalfox.NewScan(target)
+    result, err := xssfox.NewScan(target)
     if err != nil {
         fmt.Println("Error:", err)
     } else {
@@ -182,7 +182,7 @@ Next, build your application:
 go build -o testapp
 ```
 
-During the build process, Go will download the Dalfox library and its dependencies.
+During the build process, Go will download the XSSFox library and its dependencies.
 
 ### Run the Application
 
@@ -195,12 +195,12 @@ Finally, run your application:
 You should see output similar to the following:
 
 ```bash
-# [] [{V GET https://xss-game.appspot.com/level1/frame?query=%3Ciframe+srcdoc%3D%22%3Cinput+onauxclick%3Dprint%281%29%3E%22+class%3Ddalfox%3E%3C%2Fiframe%3E}] 2.618998247s 2021-07-11 10:59:26.508483153 +0900 KST m=+0.000794230 2021-07-11 10:59:29.127481217 +0900 KST m=+2.619792477
+# [] [{V GET https://xss-game.appspot.com/level1/frame?query=%3Ciframe+srcdoc%3D%22%3Cinput+onauxclick%3Dprint%281%29%3E%22+class%3Dxssfox%3E%3C%2Fiframe%3E}] 2.618998247s 2021-07-11 10:59:26.508483153 +0900 KST m=+0.000794230 2021-07-11 10:59:29.127481217 +0900 KST m=+2.619792477
 ```
 
 ## More Information
 
-For more information and advanced usage, please refer to the [official Dalfox library documentation](https://pkg.go.dev/github.com/hahwul/dalfox/v2).
+For more information and advanced usage, please refer to the [official XSSFox library documentation](https://pkg.go.dev/github.com/JGPatelOfficial/xssfox/v2).
 
 ---
 
@@ -213,15 +213,15 @@ For more information and advanced usage, please refer to the [official Dalfox li
 Since (v2.10.0)
 {: .label .label-blue }
 
-Dalfox now supports custom HTTP transports, allowing you to customize the HTTP client behavior for your scanning needs. This feature is particularly useful when integrating Dalfox with other pipelines for HTTP control flow, retry mechanisms, and non-trivial authentication scenarios.
+XSSFox now supports custom HTTP transports, allowing you to customize the HTTP client behavior for your scanning needs. This feature is particularly useful when integrating XSSFox with other pipelines for HTTP control flow, retry mechanisms, and non-trivial authentication scenarios.
 
 ## What is a Transport?
 
-In Go's HTTP client, a transport specifies how HTTP requests are made. It handles details like connection pooling, timeouts, TLS configuration, and more. By customizing the transport, you can control how Dalfox makes HTTP requests.
+In Go's HTTP client, a transport specifies how HTTP requests are made. It handles details like connection pooling, timeouts, TLS configuration, and more. By customizing the transport, you can control how XSSFox makes HTTP requests.
 
 ## Benefits for Pipeline Integration
 
-Custom transports provide several benefits when integrating Dalfox into larger security testing pipelines:
+Custom transports provide several benefits when integrating XSSFox into larger security testing pipelines:
 
 1. **HTTP Control Flow**: Customize how requests are made, including adding custom headers, modifying request bodies, or implementing custom routing logic.
 2. **Retry Mechanisms**: Implement resilient scanning by automatically retrying failed requests with configurable backoff strategies.
@@ -465,9 +465,9 @@ Scan("https://example.com", options, "1")
 
 ## Notes
 
-- If you provide a custom transport, Dalfox will still apply proxy settings if specified, but only if your transport is of type `*http.Transport`.
-- If you provide a custom transport, Dalfox will still apply the HAR writer if specified.
-- The custom transport feature is designed to be used with the library mode of Dalfox. If you're using the CLI, you'll need to create a custom application that uses the library mode.
+- If you provide a custom transport, XSSFox will still apply proxy settings if specified, but only if your transport is of type `*http.Transport`.
+- If you provide a custom transport, XSSFox will still apply the HAR writer if specified.
+- The custom transport feature is designed to be used with the library mode of XSSFox. If you're using the CLI, you'll need to create a custom application that uses the library mode.
 - When implementing custom transports, always clone the request before modifying it to avoid side effects.
 - For complex authentication flows, consider implementing a transport that handles token refresh and retry logic.
 
@@ -481,19 +481,19 @@ Scan("https://example.com", options, "1")
 `file` mode is a mode for scanning multiple URLs or for scanning based on a raw request file in Burp Suite/ZAP. Input is filename.
 
 ```shell
-dalfox file {filename}
+xssfox file {filename}
 ```
 
 If the file is a list of URLs, proceed to scan multiple URLs just like the Pipe, and if it is with the `--rawdata` option, recognize it as a raw request, analyze the file, and test it.
 
 ## scanning urls from file
 ```shell
-dalfox file urls.txt
+xssfox file urls.txt
 ```
 
 ## scanning from burp/zap raw request file
 ```shell
-dalfox file req.raw --rawdata
+xssfox file req.raw --rawdata
 ```
 
 ---
@@ -501,35 +501,35 @@ dalfox file req.raw --rawdata
 
 ## In the GitHub Actions
 
-# Using Dalfox in GitHub Actions
+# Using XSSFox in GitHub Actions
 
 ## Overview
 
-GitHub Actions enables you to automate your security testing processes directly in your GitHub repositories. By integrating Dalfox with GitHub Actions, you can:
+GitHub Actions enables you to automate your security testing processes directly in your GitHub repositories. By integrating XSSFox with GitHub Actions, you can:
 
 - Automatically scan for XSS vulnerabilities when code is pushed
 - Include security testing in your pull request workflows
 - Create scheduled security scans of your web applications
 - Generate reports on security findings as part of your CI/CD pipeline
 
-This guide explains how to set up and use Dalfox in GitHub Actions workflows for various scanning scenarios.
+This guide explains how to set up and use XSSFox in GitHub Actions workflows for various scanning scenarios.
 
 ## Available Actions
 
-Dalfox offers official GitHub Actions in the GitHub Marketplace:
+XSSFox offers official GitHub Actions in the GitHub Marketplace:
 
-* [XSS Scan with Dalfox](https://github.com/marketplace/actions/xss-scan-with-dalfox)
-* [hahwul/action-dalfox](https://github.com/hahwul/action-dalfox)
+* [XSS Scan with XSSFox](https://github.com/marketplace/actions/xss-scan-with-xssfox)
+* [hahwul/action-xssfox](https://github.com/hahwul/action-xssfox)
 
 ## Getting Started
 
 ### Basic Usage
 
-To integrate Dalfox in your GitHub Actions workflow, add a step similar to the following to your workflow file:
+To integrate XSSFox in your GitHub Actions workflow, add a step similar to the following to your workflow file:
 
 ```yaml
-- name: Dalfox XSS Scan
-  uses: hahwul/action-dalfox@main
+- name: XSSFox XSS Scan
+  uses: hahwul/action-xssfox@main
   id: xss-scan
   with:
     target: 'https://example.com/search?q=test'
@@ -537,21 +537,21 @@ To integrate Dalfox in your GitHub Actions workflow, add a step similar to the f
     cmd_options: '--follow-redirects --format json'
 ```
 
-This basic example will scan the specified URL for XSS vulnerabilities using Dalfox.
+This basic example will scan the specified URL for XSS vulnerabilities using XSSFox.
 
 ### Input Parameters
 
-The Dalfox GitHub Action accepts the following inputs:
+The XSSFox GitHub Action accepts the following inputs:
 
 | Parameter | Description | Required | Default |
 |-----------|-------------|----------|---------|
 | `target` | The target URL or URLs to scan | Yes | - |
 | `mode` | Scan mode (url, pipe, file, sxss) | Yes | - |
-| `cmd_options` | Additional Dalfox command options | No | '' |
+| `cmd_options` | Additional XSSFox command options | No | '' |
 
 ### Scan Modes
 
-Dalfox supports several scanning modes in GitHub Actions:
+XSSFox supports several scanning modes in GitHub Actions:
 
 - `url`: Scan a single URL
 - `pipe`: Scan multiple URLs provided in the target parameter
@@ -563,8 +563,8 @@ Dalfox supports several scanning modes in GitHub Actions:
 The action provides the scan results in the `result` output variable:
 
 ```yaml
-- name: Dalfox XSS Scan
-  uses: hahwul/action-dalfox@main
+- name: XSSFox XSS Scan
+  uses: hahwul/action-xssfox@main
   id: xss-scan
   with:
     target: 'https://example.com/search?q=test'
@@ -578,7 +578,7 @@ The action provides the scan results in the `result` output variable:
 
 ### On-demand Single URL Scan
 
-This workflow runs a Dalfox scan when manually triggered:
+This workflow runs a XSSFox scan when manually triggered:
 
 ```yaml
 name: XSS Security Scan
@@ -594,10 +594,10 @@ on:
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: ${{ github.event.inputs.url }}
@@ -622,10 +622,10 @@ on:
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: |
@@ -660,7 +660,7 @@ on:
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -671,8 +671,8 @@ jobs:
           # E.g., npm install && npm start
           echo "Starting application on http://localhost:3000"
 
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: 'http://localhost:3000'
@@ -691,7 +691,7 @@ jobs:
 
 ### Scanning with a Configuration File
 
-You can use a Dalfox configuration file in your GitHub Actions workflow:
+You can use a XSSFox configuration file in your GitHub Actions workflow:
 
 ```yaml
 name: Configured XSS Scan
@@ -701,23 +701,23 @@ on: [push]
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: 'https://example.com'
           mode: url
-          cmd_options: '--config ./security/dalfox-config.json'
+          cmd_options: '--config ./security/xssfox-config.json'
 ```
 
 ### Integrating with Security Platforms
 
-You can send Dalfox results to security platforms using the `--found-action` option:
+You can send XSSFox results to security platforms using the `--found-action` option:
 
 ```yaml
 name: XSS Scan with Notifications
@@ -727,13 +727,13 @@ on: [push]
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: 'https://example.com'
@@ -753,13 +753,13 @@ on: [push]
 jobs:
   security_scan:
     runs-on: ubuntu-latest
-    name: Dalfox XSS Scanner
+    name: XSSFox XSS Scanner
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSSFox scan
+        uses: hahwul/action-xssfox@main
         id: xss-scan
         with:
           target: './security/target-urls.txt'
@@ -809,7 +809,7 @@ cmd_options: '--worker 50 --delay 100 --timeout 5'
         owner: context.repo.owner,
         repo: context.repo.repo,
         title: 'XSS Vulnerability Detected',
-        body: 'Dalfox found XSS vulnerabilities in the latest scan:\n\n```\n${{ steps.xss-scan.outputs.result }}\n```'
+        body: 'XSSFox found XSS vulnerabilities in the latest scan:\n\n```\n${{ steps.xss-scan.outputs.result }}\n```'
       })
 ```
 
@@ -832,10 +832,10 @@ cmd_options: '--worker 50 --delay 100 --timeout 5'
 
 ### Getting Help
 
-If you encounter issues with Dalfox GitHub Actions:
-- Check the [Dalfox GitHub repository issues](https://github.com/hahwul/dalfox/issues)
-- Join the [Dalfox community discussions](https://github.com/hahwul/dalfox/discussions)
-- Report specific GitHub Actions issues in the [action-dalfox repository](https://github.com/hahwul/action-dalfox/issues)
+If you encounter issues with XSSFox GitHub Actions:
+- Check the [XSSFox GitHub repository issues](https://github.com/JGPatelOfficial/xssfox/issues)
+- Join the [XSSFox community discussions](https://github.com/JGPatelOfficial/xssfox/discussions)
+- Report specific GitHub Actions issues in the [action-xssfox repository](https://github.com/hahwul/action-xssfox/issues)
 
 ---
 
@@ -844,11 +844,11 @@ If you encounter issues with Dalfox GitHub Actions:
 
 # Installation Guide
 
-This guide provides detailed instructions on how to install Dalfox using various methods. Choose the method that best suits your environment and technical preferences.
+This guide provides detailed instructions on how to install XSSFox using various methods. Choose the method that best suits your environment and technical preferences.
 
 ## Using Homebrew
 
-Homebrew is a popular package manager for macOS and Linux. If you're using a system with Homebrew available, this is the quickest and easiest way to install Dalfox.
+Homebrew is a popular package manager for macOS and Linux. If you're using a system with Homebrew available, this is the quickest and easiest way to install XSSFox.
 
 ### Install Homebrew
 
@@ -858,21 +858,21 @@ If you haven't installed Homebrew yet, you can install it by running the followi
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-### Install Dalfox
+### Install XSSFox
 
-Once Homebrew is installed, you can install Dalfox with a single command:
+Once Homebrew is installed, you can install XSSFox with a single command:
 
 ```shell
-brew install dalfox
+brew install xssfox
 ```
 
 After installation, verify it's working by running:
 
 ```shell
-dalfox --version
+xssfox --version
 ```
 
-For more details about the Dalfox Homebrew package, you can visit the [Homebrew Formula page for Dalfox](https://formulae.brew.sh/formula/dalfox).
+For more details about the XSSFox Homebrew package, you can visit the [Homebrew Formula page for XSSFox](https://formulae.brew.sh/formula/xssfox).
 
 ## Using Snapcraft
 
@@ -882,50 +882,50 @@ Snapcraft is a package manager for Linux that works across many distributions. I
 
 To install Snapcraft on your Linux distribution, please refer to the official documentation: [Installing snapd](https://snapcraft.io/docs/installing-snapd).
 
-### Install Dalfox
+### Install XSSFox
 
-Once Snapcraft is installed, you can install Dalfox by running:
+Once Snapcraft is installed, you can install XSSFox by running:
 
 ```shell
-sudo snap install dalfox
+sudo snap install xssfox
 ```
 
 Verify the installation with:
 
 ```shell
-dalfox --version
+xssfox --version
 ```
 
 ## Using Nixpkgs (Nix/NixOS)
 
-Dalfox is available in the Nix package collection, making installation straightforward for Nix and NixOS users. Please note that the latest version may only be available in the `unstable` channel.
+XSSFox is available in the Nix package collection, making installation straightforward for Nix and NixOS users. Please note that the latest version may only be available in the `unstable` channel.
 
 ### Install Nix
 
 Ensure you have Nix installed on your system. You can find installation instructions on the [official Nix website](https://nixos.org/download/).
 
-### Install Dalfox
+### Install XSSFox
 
-To install and use Dalfox in a shell session, run:
+To install and use XSSFox in a shell session, run:
 
 ```bash
-nix-shell -p dalfox
+nix-shell -p xssfox
  ```
 
 ## From Source
 
-Building from source gives you the most up-to-date version of Dalfox and allows for customization if needed.
+Building from source gives you the most up-to-date version of XSSFox and allows for customization if needed.
 
 ### Prerequisites
 
 Ensure you have Go (version 1.16 or later recommended) installed on your system. You can download it from the [official Go website](https://golang.org/dl/).
 
-### Install Dalfox
+### Install XSSFox
 
-To install the latest version of Dalfox from source, run:
+To install the latest version of XSSFox from source, run:
 
 ```bash
-go install github.com/hahwul/dalfox/v2@latest
+go install github.com/JGPatelOfficial/xssfox/v2@latest
 ```
 
 Make sure your Go bin directory is in your PATH. If you haven't set it up, you can add the following to your shell configuration file (e.g., `.bashrc` or `.zshrc`):
@@ -938,36 +938,36 @@ Note: The installed version might differ slightly from the latest release as `go
 
 ## Using Docker
 
-Docker provides a consistent environment for running Dalfox without worrying about dependencies or system configurations. This is especially useful for CI/CD pipelines or isolated testing environments.
+Docker provides a consistent environment for running XSSFox without worrying about dependencies or system configurations. This is especially useful for CI/CD pipelines or isolated testing environments.
 
 ### Pull the Latest Docker Image
 
-To pull the latest Docker image of Dalfox, run:
+To pull the latest Docker image of XSSFox, run:
 
 ```bash
 # From Docker Hub
-docker pull hahwul/dalfox:latest
+docker pull JGPatelOfficial/xssfox:latest
 
 # Or from GitHub Container Registry
-docker pull ghcr.io/hahwul/dalfox:latest
+docker pull ghcr.io/JGPatelOfficial/xssfox:latest
 ```
 
-### Run Dalfox Using Docker
+### Run XSSFox Using Docker
 
-You can run Dalfox using Docker with the following command:
+You can run XSSFox using Docker with the following command:
 
 ```bash
 # Using Docker Hub image
-docker run -it hahwul/dalfox:latest /app/dalfox url https://www.example.com
+docker run -it JGPatelOfficial/xssfox:latest /app/xssfox url https://www.example.com
 
 # Using GitHub Container Registry image
-docker run -it ghcr.io/hahwul/dalfox:latest /app/dalfox url https://www.example.com
+docker run -it ghcr.io/JGPatelOfficial/xssfox:latest /app/xssfox url https://www.example.com
 ```
 
 For scanning local files or directories, you'll need to mount them to the container:
 
 ```bash
-docker run -it -v $(pwd):/data hahwul/dalfox:latest /app/dalfox file /data/targets.txt
+docker run -it -v $(pwd):/data JGPatelOfficial/xssfox:latest /app/xssfox file /data/targets.txt
 ```
 
 ### Interactive Docker Shell
@@ -976,16 +976,16 @@ For an interactive shell within the Docker container (useful for more complex op
 
 ```bash
 # Using Docker Hub image
-docker run -it hahwul/dalfox:latest /bin/bash
+docker run -it JGPatelOfficial/xssfox:latest /bin/bash
 
 # Using GitHub Container Registry image
-docker run -it ghcr.io/hahwul/dalfox:latest /bin/bash
+docker run -it ghcr.io/JGPatelOfficial/xssfox:latest /bin/bash
 ```
 
-Once inside the container, you can run Dalfox directly:
+Once inside the container, you can run XSSFox directly:
 
 ```bash
-./dalfox --help
+./xssfox --help
 ```
 
 ## Troubleshooting Common Installation Issues
@@ -996,14 +996,14 @@ If you encounter issues during installation, try the following:
 2. **Permission Errors**: Use `sudo` for commands that require elevated privileges
 3. **Version Conflicts**: Check if you have multiple versions installed
 
-For more help, please open an issue on the [Dalfox GitHub repository](https://github.com/hahwul/dalfox/issues).
+For more help, please open an issue on the [XSSFox GitHub repository](https://github.com/JGPatelOfficial/xssfox/issues).
 
 ---
 
 
 ## MCP Mode
 
-# Dalfox MCP Mode
+# XSSFox MCP Mode
 {: .d-inline-block }
 
 New (v2.11.0)
@@ -1011,23 +1011,23 @@ New (v2.11.0)
 
 ## Overview
 
-Model Context Protocol (MCP) mode allows Dalfox to operate as an MCP server, enabling direct integration with AI assistants and language models (LLMs). This integration provides a seamless experience for security testing, allowing AI tools to directly leverage Dalfox's XSS scanning capabilities.
+Model Context Protocol (MCP) mode allows XSSFox to operate as an MCP server, enabling direct integration with AI assistants and language models (LLMs). This integration provides a seamless experience for security testing, allowing AI tools to directly leverage XSSFox's XSS scanning capabilities.
 
 ## What is Model Context Protocol (MCP)?
 
-Model Context Protocol is a specification that allows AI language models to interact with external tools. By running Dalfox as an MCP server, AI coding assistants can:
+Model Context Protocol is a specification that allows AI language models to interact with external tools. By running XSSFox as an MCP server, AI coding assistants can:
 
 - Initiate XSS vulnerability scans
 - Process scan results within the AI conversation
 - Help interpret security findings
 - Suggest remediation steps
 
-## Starting Dalfox in MCP Mode
+## Starting XSSFox in MCP Mode
 
-To run Dalfox as an MCP server:
+To run XSSFox as an MCP server:
 
 ```bash
-dalfox server --type mcp
+xssfox server --type mcp
 ```
 
 ## Client Integrations
@@ -1038,31 +1038,31 @@ VS Code provides robust support for MCP tools when used with AI coding assistant
 
 #### Configuration Steps
 
-1. **Install Dalfox** (if not already installed)
+1. **Install XSSFox** (if not already installed)
    ```bash
    # From source
-   go install github.com/hahwul/dalfox/v2@latest
+   go install github.com/JGPatelOfficial/xssfox/v2@latest
 
    # Homebrew
-   brew install dalfox
+   brew install xssfox
 
    # Snapcraft
-   snap install dalfox
+   snap install xssfox
    ```
 
    *[Installation](/page/installation/)*
 
 2. **Configure VS Code settings**
 
-   To enable the dalfox server in VS Code, update your `settings.json` file with the following configuration:
+   To enable the xssfox server in VS Code, update your `settings.json` file with the following configuration:
 
    ```json
    {
      "mcp": {
        "servers": {
-         "dalfox": {
+         "xssfox": {
            "type": "stdio",
-           "command": "dalfox",
+           "command": "xssfox",
            "args": [
              "server",
              "--type=mcp"
@@ -1073,14 +1073,14 @@ VS Code provides robust support for MCP tools when used with AI coding assistant
    }
    ```
 
-   This setup defines a server named dalfox that uses standard input/output (stdio) and runs the command `dalfox server --type=mcp`. You can manually add the server by pressing `⌘` + `⇧` + `p`, selecting MCP: Add Server, choosing `Command (stdio)`, and entering `dalfox server --type=mcp` in the input field. This ensures seamless integration of the dalfox server with your VS Code environment.
+   This setup defines a server named xssfox that uses standard input/output (stdio) and runs the command `xssfox server --type=mcp`. You can manually add the server by pressing `⌘` + `⇧` + `p`, selecting MCP: Add Server, choosing `Command (stdio)`, and entering `xssfox server --type=mcp` in the input field. This ensures seamless integration of the xssfox server with your VS Code environment.
 
 3. **Use with AI assistant**
 
-   Now your AI coding assistant can directly use Dalfox to scan for XSS vulnerabilities. For example, you can ask:
+   Now your AI coding assistant can directly use XSSFox to scan for XSS vulnerabilities. For example, you can ask:
 
    ```
-   "Can you scan this URL for XSS vulnerabilities using Dalfox?"
+   "Can you scan this URL for XSS vulnerabilities using XSSFox?"
    ```
 
 #### Example VS Code Usage
@@ -1093,16 +1093,16 @@ Claude Desktop is Anthropic's standalone application that can integrate with ext
 
 #### Configuration Steps
 
-1. **Install Dalfox** (if not already installed)
+1. **Install XSSFox** (if not already installed)
    ```bash
    # From source
-   go install github.com/hahwul/dalfox/v2@latest
+   go install github.com/JGPatelOfficial/xssfox/v2@latest
 
    # Homebrew
-   brew install dalfox
+   brew install xssfox
 
    # Snapcraft
-   snap install dalfox
+   snap install xssfox
    ```
 
    *[Installation](/page/installation/)*
@@ -1112,8 +1112,8 @@ Claude Desktop is Anthropic's standalone application that can integrate with ext
    ```json
     {
         "mcpServers": {
-            "dalfox": {
-                "command": "dalfox",
+            "xssfox": {
+                "command": "xssfox",
                 "args": [
                 "server",
                 "--type",
@@ -1126,7 +1126,7 @@ Claude Desktop is Anthropic's standalone application that can integrate with ext
 
 3. **Use with Claude**
 
-   You can now use Dalfox directly through Claude's interface:
+   You can now use XSSFox directly through Claude's interface:
 
    ```
    "Can you scan https://xss-game.appspot.com/level1/frame  for XSS vulnerabilities"
@@ -1140,16 +1140,16 @@ Claude Desktop is Anthropic's standalone application that can integrate with ext
 
 ### Custom Scan Options
 
-When using Dalfox through MCP, you can specify various scan options by providing them in your request:
+When using XSSFox through MCP, you can specify various scan options by providing them in your request:
 
 ```
-"Scan https://example.com with Dalfox using the following options:
+"Scan https://example.com with XSSFox using the following options:
 - Custom headers with an authorization token
 - Cookie-based authentication
 - A blind XSS callback URL"
 ```
 
-The AI assistant will translate these requests into the appropriate Dalfox commands.
+The AI assistant will translate these requests into the appropriate XSSFox commands.
 
 ## Use Cases
 
@@ -1159,7 +1159,7 @@ Ask your AI assistant to review code and then scan endpoints for vulnerabilities
 
 ```
 "Review this controller code and identify any potential XSS vulnerabilities.
-Then use Dalfox to scan the corresponding endpoints."
+Then use XSSFox to scan the corresponding endpoints."
 ```
 
 ### Vulnerability Research
@@ -1168,12 +1168,12 @@ Have the AI assistant help with targeted testing:
 
 ```
 "I found a potential XSS vulnerability in the search parameter.
-Can you use Dalfox to verify if it's exploitable?"
+Can you use XSSFox to verify if it's exploitable?"
 ```
 
 ## Best Practices
 
-1. **Keep Dalfox Updated**: Ensure you're using the latest version for the most current security checks
+1. **Keep XSSFox Updated**: Ensure you're using the latest version for the most current security checks
 2. **Validate Results**: Always verify AI-interpreted scan results manually for critical systems
 3. **Rate Limiting**: Be mindful of scan frequency to avoid overwhelming target systems
 4. **Context Matters**: Provide AI assistants with sufficient context about targets for more effective scanning
@@ -1186,11 +1186,11 @@ Can you use Dalfox to verify if it's exploitable?"
 
 # Output Handling
 
-This guide provides comprehensive instructions on how to capture, filter, and process the output from Dalfox. Understanding these output handling techniques will help you efficiently interpret results and integrate Dalfox into your security workflows.
+This guide provides comprehensive instructions on how to capture, filter, and process the output from XSSFox. Understanding these output handling techniques will help you efficiently interpret results and integrate XSSFox into your security workflows.
 
-## Understanding Dalfox Output Types
+## Understanding XSSFox Output Types
 
-Dalfox generates several types of output during scanning:
+XSSFox generates several types of output during scanning:
 
 - **Progress information**: Status updates about the scanning process
 - **Proof of Concept (PoC) findings**: Actual vulnerabilities discovered
@@ -1201,10 +1201,10 @@ Dalfox generates several types of output during scanning:
 
 ### Redirecting Output to Files
 
-The simplest way to save Dalfox output is by using standard output redirection:
+The simplest way to save XSSFox output is by using standard output redirection:
 
 ```bash
-dalfox url http://example.com/vulnerable.php > results.txt
+xssfox url http://example.com/vulnerable.php > results.txt
 ```
 
 This captures all console output to the specified file.
@@ -1214,7 +1214,7 @@ This captures all console output to the specified file.
 For more controlled output saving, use the `-o` or `--output` flag:
 
 ```bash
-dalfox url http://example.com/vulnerable.php -o results.txt
+xssfox url http://example.com/vulnerable.php -o results.txt
 ```
 
 This approach is recommended as it ensures proper handling of terminal control characters.
@@ -1223,26 +1223,26 @@ This approach is recommended as it ensures proper handling of terminal control c
 
 ### Processing Output with Unix Tools
 
-Dalfox output can be piped to other tools for filtering and processing:
+XSSFox output can be piped to other tools for filtering and processing:
 
 ```bash
 # Extract only verified XSS vulnerabilities
-dalfox url http://example.com/vulnerable.php | grep "\[V\]" > verified_xss.txt
+xssfox url http://example.com/vulnerable.php | grep "\[V\]" > verified_xss.txt
 
 # Extract PoC URLs and open them in a browser
-dalfox url http://example.com/vulnerable.php | grep "\[POC\]" | cut -d " " -f 2 | xargs -I % open %
+xssfox url http://example.com/vulnerable.php | grep "\[POC\]" | cut -d " " -f 2 | xargs -I % open %
 
 # Count different types of findings
-dalfox url http://example.com/vulnerable.php | grep "\[POC\]" | cut -d "[" -f 3 | cut -d "]" -f 1 | sort | uniq -c
+xssfox url http://example.com/vulnerable.php | grep "\[POC\]" | cut -d "[" -f 3 | cut -d "]" -f 1 | sort | uniq -c
 ```
 
 ### Filtering by PoC Type
 
-Dalfox allows you to filter findings by vulnerability type with the `--only-poc` flag:
+XSSFox allows you to filter findings by vulnerability type with the `--only-poc` flag:
 
 ```bash
 # Show only verified (V) and grep-based (G) findings
-dalfox url http://example.com/vulnerable.php --only-poc=g,v
+xssfox url http://example.com/vulnerable.php --only-poc=g,v
 ```
 
 Available PoC types:
@@ -1257,7 +1257,7 @@ Available PoC types:
 To save all scan information, including detailed analysis steps:
 
 ```bash
-dalfox url http://example.com/vulnerable.php -o full_scan.log --output-all
+xssfox url http://example.com/vulnerable.php -o full_scan.log --output-all
 ```
 
 Example of a comprehensive log:
@@ -1282,13 +1282,13 @@ To include raw HTTP requests and responses in your output:
 
 ```bash
 # Include requests
-dalfox url http://example.com/vulnerable.php --output-request
+xssfox url http://example.com/vulnerable.php --output-request
 
 # Include responses
-dalfox url http://example.com/vulnerable.php --output-response
+xssfox url http://example.com/vulnerable.php --output-response
 
 # Include both
-dalfox url http://example.com/vulnerable.php --output-request --output-response
+xssfox url http://example.com/vulnerable.php --output-request --output-response
 ```
 
 ## Output Format Options
@@ -1298,20 +1298,20 @@ dalfox url http://example.com/vulnerable.php --output-request --output-response
 For programmatic processing or integration with other tools, use JSON output:
 
 ```bash
-dalfox url http://example.com/vulnerable.php --format json -o results.json
+xssfox url http://example.com/vulnerable.php --format json -o results.json
 ```
 
 This generates structured JSON data that can be easily parsed by scripts or imported into other security tools.
 
 ### Detailed Report Generation
 
-Dalfox supports generating detailed reports in various formats.
+XSSFox supports generating detailed reports in various formats.
 
 **JSON Report:**
 
 For a structured JSON report:
 ```bash
-dalfox url http://example.com/vulnerable.php --report --report-format json -o detailed_report.json
+xssfox url http://example.com/vulnerable.php --report --report-format json -o detailed_report.json
 ```
 This is useful for machine-readable detailed output.
 
@@ -1319,9 +1319,9 @@ This is useful for machine-readable detailed output.
 
 For a human-readable Markdown report:
 ```bash
-dalfox url http://example.com/vulnerable.php --report --report-format markdown -o detailed_report.md
+xssfox url http://example.com/vulnerable.php --report --report-format markdown -o detailed_report.md
 # You can also use 'md' as an alias for markdown
-dalfox url http://example.com/vulnerable.php --report --report-format md -o detailed_report.md
+xssfox url http://example.com/vulnerable.php --report --report-format md -o detailed_report.md
 ```
 This format is convenient for documentation or quick sharing of findings.
 
@@ -1332,7 +1332,7 @@ This format is convenient for documentation or quick sharing of findings.
 HAR files contain detailed information about HTTP transactions and can be analyzed in various tools:
 
 ```bash
-dalfox url http://example.com/vulnerable.php --har-file-path=scan.har
+xssfox url http://example.com/vulnerable.php --har-file-path=scan.har
 ```
 
 ### Analyzing HAR Files
@@ -1350,14 +1350,14 @@ Example HAR viewer screenshot:
 
 ### Automated Workflows
 
-Dalfox can be integrated into CI/CD pipelines or other security automation:
+XSSFox can be integrated into CI/CD pipelines or other security automation:
 
 ```bash
 # Scan and notify on findings
-dalfox url http://example.com/vulnerable.php --found-action './notify_slack.sh'
+xssfox url http://example.com/vulnerable.php --found-action './notify_slack.sh'
 
 # Scan multiple targets from Burp Suite
-dalfox file targets.txt --format json -o findings.json
+xssfox file targets.txt --format json -o findings.json
 ```
 
 ### Continuous Monitoring Examples
@@ -1365,7 +1365,7 @@ dalfox file targets.txt --format json -o findings.json
 ```bash
 # Daily scan with timestamped output
 echo "$(date +%F)_scan.log"
-dalfox url http://example.com/vulnerable.php -o "$(date +%F)_scan.log"
+xssfox url http://example.com/vulnerable.php -o "$(date +%F)_scan.log"
 ```
 
 ## Troubleshooting Output Issues
@@ -1385,15 +1385,15 @@ For more information on output formats and report interpretation, see the [JSON 
 
 # Overview
 
-Dalfox is a powerful open-source tool designed for automated detection of XSS (Cross-Site Scripting) vulnerabilities. With its advanced testing engine and comprehensive feature set, Dalfox simplifies the process of scanning, analyzing parameters, and verifying vulnerabilities. Whether you are performing quick scans or detailed analyses, Dalfox provides a streamlined experience tailored to the needs of security professionals and researchers.
+XSSFox is a powerful open-source tool designed for automated detection of XSS (Cross-Site Scripting) vulnerabilities. With its advanced testing engine and comprehensive feature set, XSSFox simplifies the process of scanning, analyzing parameters, and verifying vulnerabilities. Whether you are performing quick scans or detailed analyses, XSSFox provides a streamlined experience tailored to the needs of security professionals and researchers.
 
-![Dalfox Screenshot](/images/screen.jpeg)
+![XSSFox Screenshot](/images/screen.jpeg)
 
-The name "Dalfox" has a unique origin:
+The name "XSSFox" has a unique origin:
 - **Dal ([달](https://en.wiktionary.org/wiki/달))**: The Korean word for "moon."
 - **Fox**: An acronym for "Finder Of XSS" 🦊.
 
-Key highlights of Dalfox include:
+Key highlights of XSSFox include:
 - **Flexible Scanning Modes**: Supports URL-based scans, file-based inputs, pipelines, and server modes for versatile testing approaches.
 - **Comprehensive Analysis**: Detects reflected, stored, and DOM-based XSS vulnerabilities, along with parameter mining and static analysis to ensure thorough coverage.
 - **Extensibility**: Offers custom payloads, remote wordlists, and API integrations for highly tailored testing to meet your specific requirements.
@@ -1402,11 +1402,11 @@ Key highlights of Dalfox include:
 
 ## Contributors
 
-Dalfox is an open-source project made with ❤️
+XSSFox is an open-source project made with ❤️
 
-If you want to contribute to this project, please see [CONTRIBUTING.md](https://github.com/hahwul/dalfox/blob/main/CONTRIBUTING.md) and submit a Pull Request with your contributions.
+If you want to contribute to this project, please see [CONTRIBUTING.md](https://github.com/JGPatelOfficial/xssfox/blob/main/CONTRIBUTING.md) and submit a Pull Request with your contributions.
 
-[![Contributors](https://github.com/hahwul/dalfox/raw/main/CONTRIBUTORS.svg)](https://github.com/hahwul/dalfox/graphs/contributors)
+[![Contributors](https://github.com/JGPatelOfficial/xssfox/raw/main/CONTRIBUTORS.svg)](https://github.com/JGPatelOfficial/xssfox/graphs/contributors)
 
 ---
 
@@ -1418,19 +1418,19 @@ If you want to contribute to this project, please see [CONTRIBUTING.md](https://
 `payload` mode is a mode for easy testing of XSS. Generate and Enumerate XSS Payloads and wordlists
 
 ```bash
-dalfox payload {flags}
+xssfox payload {flags}
 ```
 
 e.g
 ```bash
-dalfox payload --enum-injs --entity-event-handler"
+xssfox payload --enum-injs --entity-event-handler"
 ```
 
 ## Make-Bulk
 Make-bulk generates many xss payloads. At this point, the parameters of the alert are configured as sequence and it is easy to find which payload was triggered during the XSS test.
 
 ```bash
-dalfox payload --make-bulk
+xssfox payload --make-bulk
 ```
 
 output
@@ -1487,12 +1487,12 @@ output
 
 `pipe` mode is the mode for scanning multiple URLs. I receive input as system I/O, so you can connect with other tools through pipeline.
 ```shell
-dalfox pipe
+xssfox pipe
 ```
 
 e.g
 ```shell
-echo urls.txt | dalfox pipe
+echo urls.txt | xssfox pipe
 ```
 
 ---
@@ -1507,9 +1507,9 @@ echo urls.txt | dalfox pipe
 
 ## From Raw Request
 
-# Scanning from Raw Request with Dalfox
+# Scanning from Raw Request with XSSFox
 
-This guide provides detailed instructions on how to scan a target using a raw HTTP request with Dalfox. Follow the steps below to perform a scan using a raw request.
+This guide provides detailed instructions on how to scan a target using a raw HTTP request with XSSFox. Follow the steps below to perform a scan using a raw request.
 
 ## Using `file` mode
 
@@ -1518,7 +1518,7 @@ This guide provides detailed instructions on how to scan a target using a raw HT
 Create a file named `sample_rawdata.txt` with the following content:
 
 ```http
-POST https://www.hahwul.com/?q=dalfox HTTP/1.1
+POST https://www.hahwul.com/?q=xssfox HTTP/1.1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:56.0) Gecko/20100101 Firefox/56.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: ko-KR,ko;q=0.8,en-US;q=0.5,en;q=0.3
@@ -1535,7 +1535,7 @@ asdf=asdf
 To scan using the raw request from a file, use the following command:
 
 ```bash
-dalfox file ./samples/sample_rawdata.txt --rawdata
+xssfox file ./samples/sample_rawdata.txt --rawdata
 ```
 
 ## Using `pipe` mode
@@ -1545,16 +1545,16 @@ You can also provide the raw request via stdin using the `pipe` command.
 ### Command
 
 ```bash
-cat ./samples/sample_rawdata.txt | dalfox pipe --rawdata
+cat ./samples/sample_rawdata.txt | xssfox pipe --rawdata
 ```
 
 Or for base64 encoded requests:
 
 ```bash
-cat ./samples/sample_rawdata.txt | base64 | dalfox pipe --rawdata
+cat ./samples/sample_rawdata.txt | base64 | xssfox pipe --rawdata
 ```
 
-Dalfox will automatically detect if the piped input is base64 encoded and decode it before parsing.
+XSSFox will automatically detect if the piped input is base64 encoded and decode it before parsing.
 
 ## Output
 
@@ -1594,16 +1594,16 @@ Here is an example of the output you can expect from running the above command:
 
 ## Multiple URL
 
-# Scanning Multiple URLs with Dalfox
+# Scanning Multiple URLs with XSSFox
 
-This guide provides detailed instructions on how to scan multiple URLs using Dalfox. You can use various methods such as pipe mode and file mode to handle multiple targets.
+This guide provides detailed instructions on how to scan multiple URLs using XSSFox. You can use various methods such as pipe mode and file mode to handle multiple targets.
 
 ## Using Pipe Mode
-Pipe mode allows you to pass multiple URLs to Dalfox via a pipeline.
+Pipe mode allows you to pass multiple URLs to XSSFox via a pipeline.
 
 ### Command
 ```bash
-cat samples/sample_target.txt | dalfox pipe
+cat samples/sample_target.txt | xssfox pipe
 ```
 
 ### Output
@@ -1633,38 +1633,38 @@ cat samples/sample_target.txt | dalfox pipe
 [*] Start BAV(Basic Another Vulnerability) analysis / [sqli, ssti, OpenRedirect]  🔍
 [*] Start parameter analysis.. 🔍
 [*] Start static analysis.. 🔍
-[G] Found dalfox-error-mysql via built-in grepping / payload: toGrepping
+[G] Found xssfox-error-mysql via built-in grepping / payload: toGrepping
     Warning: mysql_fetch_array() expects parameter 1 to be resource, boolean given in /hj/var/www/listproducts.php on line 74
-[POC][G][BUILT-IN/dalfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf&ff=%3B
-[G] Found dalfox-error-mysql2 via built-in grepping / payload: toGrepping
+[POC][G][BUILT-IN/xssfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf&ff=%3B
+[G] Found xssfox-error-mysql2 via built-in grepping / payload: toGrepping
     Warning: mysql
-[POC][G][BUILT-IN/dalfox-error-mysql2/GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf&ff=%3B
-[G] Found dalfox-error-mysql5 via built-in grepping / payload: toGrepping
+[POC][G][BUILT-IN/xssfox-error-mysql2/GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf&ff=%3B
+[G] Found xssfox-error-mysql5 via built-in grepping / payload: toGrepping
     check the manual that corresponds to your MySQL server version
-[POC][G][BUILT-IN/dalfox-error-mysql5/GET] http://testphp.vulnweb.com/listproducts.php?cat=+AND+0&ff=1
-[G] Found dalfox-error-mysql1 via built-in grepping / payload: toGrepping
+[POC][G][BUILT-IN/xssfox-error-mysql5/GET] http://testphp.vulnweb.com/listproducts.php?cat=+AND+0&ff=1
+[G] Found xssfox-error-mysql1 via built-in grepping / payload: toGrepping
     SQL syntax; check the manual that corresponds to your MySQL
-[POC][G][BUILT-IN/dalfox-error-mysql1/GET] http://testphp.vulnweb.com/listproducts.php?cat=+AND+0&ff=1
+[POC][G][BUILT-IN/xssfox-error-mysql1/GET] http://testphp.vulnweb.com/listproducts.php?cat=+AND+0&ff=1
 [I] Found 2 testing points in DOM Mining
 [*] Static analysis done ✓
 [*] BAV analysis done ✓
 [*] Parameter analysis done ✓
 [I] Content-Type is text/html; charset=UTF-8
 [I] Reflected cat param => Injected: /inHTML-none(1)  ▶
-    48 line:  	Error: Unknown column 'asdfDalfox' in 'where cl
+    48 line:  	Error: Unknown column 'asdfXSSFox' in 'where cl
 [*] Generate XSS payload and optimization.. 🛠
 [*] Start XSS Scanning.. with 201 queries 🗡
-[V] Triggered XSS Payload (found DOM Object): cat='><sVg/onload=alert(45) class=dalfox>
-    48 line:  syntax to use near ''><sVg/onload=alert(45) class=dalfox>' at line 1
-[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf%27%3E%3CsVg%2Fonload%3Dalert%2845%29+class%3Ddalfox%3E&ff=1
+[V] Triggered XSS Payload (found DOM Object): cat='><sVg/onload=alert(45) class=xssfox>
+    48 line:  syntax to use near ''><sVg/onload=alert(45) class=xssfox>' at line 1
+[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf%27%3E%3CsVg%2Fonload%3Dalert%2845%29+class%3Dxssfox%3E&ff=1
 ```
 
 ## Using File Mode
-File mode allows you to pass a file containing multiple URLs to Dalfox.
+File mode allows you to pass a file containing multiple URLs to XSSFox.
 
 ### Command
 ```bash
-dalfox file ./samples/sample_target.txt
+xssfox file ./samples/sample_target.txt
 ```
 
 ### Output
@@ -1694,29 +1694,29 @@ dalfox file ./samples/sample_target.txt
 [*] Start BAV(Basic Another Vulnerability) analysis / [sqli, ssti, OpenRedirect]  🔍
 [*] Start parameter analysis.. 🔍
 [*] Start static analysis.. 🔍
-[G] Found dalfox-error-mysql via built-in grepping / payload: toGrepping
+[G] Found xssfox-error-mysql via built-in grepping / payload: toGrepping
     Warning: mysql_fetch_array() expects parameter 1 to be resource, boolean given in /hj/var/www/listproducts.php on line 74
-[POC][G][BUILT-IN/dalfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf&ff=%27+or+
-[G] Found dalfox-error-mysql2 via built-in grepping / payload: toGrepping
+[POC][G][BUILT-IN/xssfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf&ff=%27+or+
+[G] Found xssfox-error-mysql2 via built-in grepping / payload: toGrepping
     Warning: mysql
-[POC][G][BUILT-IN/dalfox-error-mysql2/GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf&ff=%27+or+
+[POC][G][BUILT-IN/xssfox-error-mysql2/GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf&ff=%27+or+
 [*] Static analysis done ✓
-[G] Found dalfox-error-mysql5 via built-in grepping / payload: toGrepping
+[G] Found xssfox-error-mysql5 via built-in grepping / payload: toGrepping
     check the manual that corresponds to your MySQL server version
-[POC][G][BUILT-IN/dalfox-error-mysql5/GET] http://testphp.vulnweb.com/listproducts.php?cat=+HAVING+1%3D1--&ff=1
-[G] Found dalfox-error-mysql1 via built-in grepping / payload: toGrepping
+[POC][G][BUILT-IN/xssfox-error-mysql5/GET] http://testphp.vulnweb.com/listproducts.php?cat=+HAVING+1%3D1--&ff=1
+[G] Found xssfox-error-mysql1 via built-in grepping / payload: toGrepping
     SQL syntax; check the manual that corresponds to your MySQL
-[POC][G][BUILT-IN/dalfox-error-mysql1/GET] http://testphp.vulnweb.com/listproducts.php?cat=+HAVING+1%3D1--&ff=1
+[POC][G][BUILT-IN/xssfox-error-mysql1/GET] http://testphp.vulnweb.com/listproducts.php?cat=+HAVING+1%3D1--&ff=1
 [I] Found 2 testing points in DOM Mining
 [*] BAV analysis done ✓
 [*] Parameter analysis done ✓
 [I] Content-Type is text/html; charset=UTF-8
 [I] Reflected cat param => Injected: /inHTML-none(1)  ▶
-    48 line:  	Error: Unknown column 'asdfDalfox' in 'where cl
+    48 line:  	Error: Unknown column 'asdfXSSFox' in 'where cl
 [*] Generate XSS payload and optimization.. 🛠
 [*] Start XSS Scanning.. with 201 queries 🗡
-[V] Triggered XSS Payload (found DOM Object): cat=</ScriPt><sCripT class=dalfox>alert(45)</sCriPt>
-[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf%3C%2FScriPt%3E%3CsCripT+class%3Ddalfox%3Ealert%2845%29%3C%2FsCriPt%3E&ff=1
+[V] Triggered XSS Payload (found DOM Object): cat=</ScriPt><sCripT class=xssfox>alert(45)</sCriPt>
+[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?cat=asdf%3C%2FScriPt%3E%3CsCripT+class%3Dxssfox%3Ealert%2845%29%3C%2FsCriPt%3E&ff=1
 [*] Finish :D
 ```
 
@@ -1725,16 +1725,16 @@ dalfox file ./samples/sample_target.txt
 
 ## Single URL
 
-# Scanning a Single URL with Dalfox
+# Scanning a Single URL with XSSFox
 
-This guide provides detailed instructions on how to scan a single URL using Dalfox. Follow the steps below to perform a scan on a single target URL.
+This guide provides detailed instructions on how to scan a single URL using XSSFox. Follow the steps below to perform a scan on a single target URL.
 
 ## Command
 
 To scan a single URL, use the following command:
 
 ```bash
-dalfox url http://testphp.vulnweb.com/listproducts.php
+xssfox url http://testphp.vulnweb.com/listproducts.php
 ```
 
 ## Output
@@ -1754,28 +1754,28 @@ Finder Of XSS and Dal is the Korean pronunciation of moon. @hahwul
 [*] BAV analysis done ✓
 [*] Start parameter analysis.. 🔍
 [I] Found 2 testing point in DOM Mining
-[G] Found dalfox-error-mysql2 via built-in grepping / original request
+[G] Found xssfox-error-mysql2 via built-in grepping / original request
     Warning: mysql
-[POC][G][BUILT-IN/dalfox-error-mysql2/GET] http://testphp.vulnweb.com/listproducts.php
-[G] Found dalfox-error-mysql via built-in grepping / original request
+[POC][G][BUILT-IN/xssfox-error-mysql2/GET] http://testphp.vulnweb.com/listproducts.php
+[G] Found xssfox-error-mysql via built-in grepping / original request
     Warning: mysql_fetch_array() expects parameter 1 to be resource, null given in /hj/var/www/listproducts.php on line 74
-[POC][G][BUILT-IN/dalfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php
+[POC][G][BUILT-IN/xssfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php
 [*] Static analysis done ✓
-[G] Found dalfox-error-mysql1 via built-in grepping / payload: dalfox>
+[G] Found xssfox-error-mysql1 via built-in grepping / payload: xssfox>
     SQL syntax; check the manual that corresponds to your MySQL
-[POC][G][BUILT-IN/dalfox-error-mysql1/GET] http://testphp.vulnweb.com/listproducts.php?cat=dalfox%3E
-[G] Found dalfox-error-mysql5 via built-in grepping / payload: dalfox>
+[POC][G][BUILT-IN/xssfox-error-mysql1/GET] http://testphp.vulnweb.com/listproducts.php?cat=xssfox%3E
+[G] Found xssfox-error-mysql5 via built-in grepping / payload: xssfox>
     check the manual that corresponds to your MySQL server version
-[POC][G][BUILT-IN/dalfox-error-mysql5/GET] http://testphp.vulnweb.com/listproducts.php?cat=dalfox%3E
+[POC][G][BUILT-IN/xssfox-error-mysql5/GET] http://testphp.vulnweb.com/listproducts.php?cat=xssfox%3E
 [*] Parameter analysis  done ✓
 [I] Content-Type is text/html; charset=UTF-8
 [I] Reflected cat param => Injected: /inHTML-none(1)  ▶
-    48 line:  	Error: Unknown column 'Dalfox' in 'where cl
+    48 line:  	Error: Unknown column 'XSSFox' in 'where cl
 [*] Generate XSS payload and optimization.Optimization.. 🛠
 [*] Start XSS Scanning.. with 201 queries 🗡
-[V] Triggered XSS Payload (found DOM Object): cat=<dalfox class=dalfox>
-    48 line:  yntax to use near '=<dalfox class=dalfox>' at line 1
-[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?cat=%3Cdalfox+class%3Ddalfox%3E
+[V] Triggered XSS Payload (found DOM Object): cat=<xssfox class=xssfox>
+    48 line:  yntax to use near '=<xssfox class=xssfox>' at line 1
+[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?cat=%3Cxssfox+class%3Dxssfox%3E
 [*] Finish :D
 ```
 
@@ -1800,13 +1800,13 @@ Finder Of XSS and Dal is the Korean pronunciation of moon. @hahwul
 
 ## Overview
 
-Server mode transforms Dalfox into a service that can be used in different ways. By default, Dalfox runs as a REST API service, but it can also operate as an MCP (Model Context Protocol) server using the `--type` flag.
+Server mode transforms XSSFox into a service that can be used in different ways. By default, XSSFox runs as a REST API service, but it can also operate as an MCP (Model Context Protocol) server using the `--type` flag.
 
 ### Server Types
 
 1. **REST API Mode (Default)**: Enables integration with other security tools, automation workflows, and continuous security pipelines through HTTP endpoints.
 
-2. **MCP Mode**: Allows Dalfox to operate as a Model Context Protocol server, making it compatible with advanced AI assistants and development environments like Visual Studio Code.
+2. **MCP Mode**: Allows XSSFox to operate as a Model Context Protocol server, making it compatible with advanced AI assistants and development environments like Visual Studio Code.
 
 These modes are particularly valuable for:
 - Security operations centers (SOCs) looking to build centralized scanning infrastructure
@@ -1817,23 +1817,23 @@ These modes are particularly valuable for:
 
 ## Starting the Server
 
-To start Dalfox in server mode, use the `server` command:
+To start XSSFox in server mode, use the `server` command:
 
 ```bash
 # Start with default settings (listening on 0.0.0.0:6664 in REST API mode)
-dalfox server
+xssfox server
 
 # Specify custom host and port
-dalfox server --host 127.0.0.1 --port 8090
+xssfox server --host 127.0.0.1 --port 8090
 
 # Start REST API server with API key authentication
-dalfox server --api-key "your-secret-key"
+xssfox server --api-key "your-secret-key"
 
 # Start REST API server with CORS and JSONP enabled
-dalfox server --allowed-origins "http://localhost:3000,https://example.com" --jsonp
+xssfox server --allowed-origins "http://localhost:3000,https://example.com" --jsonp
 
 # Start as an MCP server
-dalfox server --type mcp
+xssfox server --type mcp
 ```
 
 ### Server Mode Flags
@@ -1850,7 +1850,7 @@ dalfox server --type mcp
 ### Example Output
 
 ```bash
-dalfox server --host 0.0.0.0 --port 8090
+xssfox server --host 0.0.0.0 --port 8090
     _..._
   .' .::::.   __   _   _    ___ _ __ __
  :  :::::::: |  \ / \ | |  | __/ \\ V /
@@ -1873,7 +1873,7 @@ Finder Of XSS and Dal is the Korean pronunciation of moon. @hahwul
 
 ## API Documentation
 
-The Dalfox server provides a Swagger UI for easy API exploration and testing. Access it at:
+The XSSFox server provides a Swagger UI for easy API exploration and testing. Access it at:
 
 ```
 http://your-server-address:port/swagger/index.html
@@ -1885,7 +1885,7 @@ For example: `http://localhost:8090/swagger/index.html`
 
 ## API Endpoints
 
-Dalfox's server mode provides several RESTful endpoints for scan management:
+XSSFox's server mode provides several RESTful endpoints for scan management:
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -1979,7 +1979,7 @@ The server mode accepts the same options available in CLI mode. Below are some c
 }
 ```
 
-For a complete list of options, refer to the [options model](https://github.com/hahwul/dalfox/blob/master/pkg/model/options.go).
+For a complete list of options, refer to the [options model](https://github.com/JGPatelOfficial/xssfox/blob/master/pkg/model/options.go).
 
 ## Integration Examples
 
@@ -1990,18 +1990,18 @@ import requests
 import json
 import time
 
-DALFOX_SERVER = "http://localhost:8090"
+XSSFOX_SERVER = "http://localhost:8090"
 
 def start_scan(url, options=None):
     payload = {"url": url}
     if options:
         payload["options"] = options
 
-    response = requests.post(f"{DALFOX_SERVER}/scan", json=payload)
+    response = requests.post(f"{XSSFOX_SERVER}/scan", json=payload)
     return response.json()["msg"]  # Return the scan ID
 
 def get_scan_results(scan_id):
-    response = requests.get(f"{DALFOX_SERVER}/result/{scan_id}")
+    response = requests.get(f"{XSSFOX_SERVER}/result/{scan_id}")
     return response.json()
 
 def main():
@@ -2032,7 +2032,7 @@ if __name__ == "__main__":
 ### CI/CD Integration (GitHub Actions)
 
 ```yaml
-name: Dalfox Security Scan
+name: XSSFox Security Scan
 
 on:
   push:
@@ -2047,9 +2047,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run Dalfox Server
+      - name: Run XSSFox Server
         run: |
-          docker run -d -p 6664:6664 hahwul/dalfox:latest server
+          docker run -d -p 6664:6664 JGPatelOfficial/xssfox:latest server
           sleep 5  # Wait for server to start
 
       - name: Run Scan
@@ -2069,11 +2069,11 @@ jobs:
 
 ## Security Considerations
 
-When deploying Dalfox in server mode, consider the following security practices:
+When deploying XSSFox in server mode, consider the following security practices:
 
 1. **Access Control**: Restrict access to the API server using a reverse proxy, firewall rules, or API keys
 2. **Resource Limits**: Set appropriate worker and timeout values to avoid resource exhaustion
-3. **Monitoring**: Implement monitoring for the Dalfox server to track resource usage and scan activity
+3. **Monitoring**: Implement monitoring for the XSSFox server to track resource usage and scan activity
 4. **Isolation**: Run the server in an isolated environment (Docker container or separate VM)
 
 ## Common Issues and Solutions
@@ -2091,7 +2091,7 @@ When deploying Dalfox in server mode, consider the following security practices:
 - For production deployments, set up logging and monitoring
 - Use a proper API key mechanism for authenticating clients
 - Consider implementing rate limiting for public-facing instances
-- Regularly update your Dalfox installation to get the latest security checks and bug fixes
+- Regularly update your XSSFox installation to get the latest security checks and bug fixes
 
 ## MCP Server Mode
 {: .d-inline-block }
@@ -2099,29 +2099,29 @@ When deploying Dalfox in server mode, consider the following security practices:
 New (v2.11.0)
 {: .label .label-blue }
 
-Dalfox can function as a Model Context Protocol (MCP) server, enabling direct integration with AI-powered development environments like Visual Studio Code and compatible AI assistants.
+XSSFox can function as a Model Context Protocol (MCP) server, enabling direct integration with AI-powered development environments like Visual Studio Code and compatible AI assistants.
 
 ### What is MCP?
 
-Model Context Protocol (MCP) is a protocol designed to enable AI assistants to execute specialized tools in a controlled environment. By running Dalfox as an MCP server, AI coding assistants can directly leverage Dalfox's XSS scanning capabilities within your development workflow.
+Model Context Protocol (MCP) is a protocol designed to enable AI assistants to execute specialized tools in a controlled environment. By running XSSFox as an MCP server, AI coding assistants can directly leverage XSSFox's XSS scanning capabilities within your development workflow.
 
 ### Setting Up MCP Integration with VS Code
 
-To use Dalfox as an MCP server with Visual Studio Code:
+To use XSSFox as an MCP server with Visual Studio Code:
 
-1. Start Dalfox in MCP server mode:
+1. Start XSSFox in MCP server mode:
    ```bash
-   dalfox server --type mcp
+   xssfox server --type mcp
    ```
 
-2. Configure VS Code to use Dalfox as an MCP server by adding the following to your `settings.json`:
+2. Configure VS Code to use XSSFox as an MCP server by adding the following to your `settings.json`:
    ```json
    {
      "mcp": {
        "servers": {
-         "dalfox": {
+         "xssfox": {
            "type": "stdio",
-           "command": "dalfox",
+           "command": "xssfox",
            "args": [
              "server",
              "--type=mcp"
@@ -2132,7 +2132,7 @@ To use Dalfox as an MCP server with Visual Studio Code:
    }
    ```
 
-3. With this configuration, compatible AI coding assistants can now use Dalfox to perform XSS vulnerability scanning directly within your IDE.
+3. With this configuration, compatible AI coding assistants can now use XSSFox to perform XSS vulnerability scanning directly within your IDE.
 
 ### Benefits of MCP Mode
 
@@ -2151,17 +2151,17 @@ To use Dalfox as an MCP server with Visual Studio Code:
 `sxss` mode is a mode for easy identification of Stored XSS. The default behavior is the same as url mode, but you can specify a separate URL to validate, and you can generate a dynamic verification URL with the --sequence option in case the verification URL changes.
 
 ```bash
-dalfox sxss {TARGET-URL} --trigger {VERIFY_URL}
+xssfox sxss {TARGET-URL} --trigger {VERIFY_URL}
 ```
 
 e.g
 ```bash
-dalfox sxss https://test.url.local/update_profile -d "nickname=abc" --trigger "https://test.url.local/my_profile"
+xssfox sxss https://test.url.local/update_profile -d "nickname=abc" --trigger "https://test.url.local/my_profile"
 ```
 
 send POST request to Store the XSS payload and verify it working of the payload with an GET request
 ```bash
-dalfox sxss -X POST https://test.url.local/update_profile -d "nickname=abc" --trigger "https://test.url.local/my_profile" --reqeust-method GET
+xssfox sxss -X POST https://test.url.local/update_profile -d "nickname=abc" --trigger "https://test.url.local/my_profile" --reqeust-method GET
 ```
 
 ---
@@ -2169,11 +2169,11 @@ dalfox sxss -X POST https://test.url.local/update_profile -d "nickname=abc" --tr
 
 ## Update
 
-# Keeping Dalfox Updated
+# Keeping XSSFox Updated
 
-## Why Update Dalfox?
+## Why Update XSSFox?
 
-Regularly updating Dalfox provides several important benefits:
+Regularly updating XSSFox provides several important benefits:
 
 - **New Features**: Access to the latest scanning capabilities and improvements
 - **Security Fixes**: Protection against vulnerabilities in the tool itself
@@ -2181,62 +2181,62 @@ Regularly updating Dalfox provides several important benefits:
 - **Performance Improvements**: Better scanning efficiency and reduced resource usage
 - **New Payload Patterns**: Enhanced detection of the latest XSS techniques and bypasses
 
-This guide provides detailed instructions on how to update Dalfox using various installation methods.
+This guide provides detailed instructions on how to update XSSFox using various installation methods.
 
 ## Version Information
 
 Before updating, you may want to check your current version and compare it with the latest release:
 
 ```bash
-# Check your current Dalfox version
-dalfox version
+# Check your current XSSFox version
+xssfox version
 
 # Compare with the latest GitHub release
-curl -s https://api.github.com/repos/hahwul/dalfox/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/'
+curl -s https://api.github.com/repos/JGPatelOfficial/xssfox/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/'
 ```
 
 ## Update Methods
 
 ### Using Homebrew
 
-If you installed Dalfox using Homebrew on macOS or Linux, updating is straightforward:
+If you installed XSSFox using Homebrew on macOS or Linux, updating is straightforward:
 
 ```bash
 # Update Homebrew's formula list
 brew update
 
-# Upgrade Dalfox to the latest version
-brew upgrade dalfox
+# Upgrade XSSFox to the latest version
+brew upgrade xssfox
 ```
 
 After upgrading, verify the new version:
 
 ```bash
-dalfox version
+xssfox version
 ```
 
 ### Using Snapcraft
 
-For Linux systems using Snap packages, update Dalfox with:
+For Linux systems using Snap packages, update XSSFox with:
 
 ```bash
-# Update Dalfox snap package
-sudo snap refresh dalfox
+# Update XSSFox snap package
+sudo snap refresh xssfox
 ```
 
 Verify the update:
 
 ```bash
-dalfox version
+xssfox version
 ```
 
 ### Using Go Install
 
-If you installed Dalfox from source using Go, you can update it with the `go install` command:
+If you installed XSSFox from source using Go, you can update it with the `go install` command:
 
 ```bash
 # Install the latest version
-go install github.com/hahwul/dalfox/v2@latest
+go install github.com/JGPatelOfficial/xssfox/v2@latest
 ```
 
 If you encounter any issues, try clearing the module cache first:
@@ -2246,7 +2246,7 @@ If you encounter any issues, try clearing the module cache first:
 go clean -modcache
 
 # Install the latest version
-go install github.com/hahwul/dalfox/v2@latest
+go install github.com/JGPatelOfficial/xssfox/v2@latest
 ```
 
 Verify that your PATH includes Go's bin directory:
@@ -2262,97 +2262,97 @@ source ~/.bashrc
 
 ### Using Docker
 
-If you're using Dalfox with Docker, update by pulling the latest image:
+If you're using XSSFox with Docker, update by pulling the latest image:
 
 ```bash
 # Update from Docker Hub
-docker pull hahwul/dalfox:latest
+docker pull JGPatelOfficial/xssfox:latest
 
 # OR update from GitHub Container Registry
-docker pull ghcr.io/hahwul/dalfox:latest
+docker pull ghcr.io/JGPatelOfficial/xssfox:latest
 ```
 
 To verify you have the latest version:
 
 ```bash
 # Check Docker image version
-docker run --rm hahwul/dalfox:latest /app/dalfox version
+docker run --rm JGPatelOfficial/xssfox:latest /app/xssfox version
 ```
 
 #### Running the Updated Docker Image
 
-After pulling the latest image, run Dalfox using the updated container:
+After pulling the latest image, run XSSFox using the updated container:
 
 ```bash
 # Run with Docker Hub image
-docker run -it hahwul/dalfox:latest /app/dalfox url https://example.com
+docker run -it JGPatelOfficial/xssfox:latest /app/xssfox url https://example.com
 
 # OR run with GitHub Container Registry image
-docker run -it ghcr.io/hahwul/dalfox:latest /app/dalfox url https://example.com
+docker run -it ghcr.io/JGPatelOfficial/xssfox:latest /app/xssfox url https://example.com
 ```
 
 For persistent storage of results, mount a volume:
 
 ```bash
-docker run -it -v "$(pwd):/output" hahwul/dalfox:latest /app/dalfox url https://example.com -o /output/results.txt
+docker run -it -v "$(pwd):/output" JGPatelOfficial/xssfox:latest /app/xssfox url https://example.com -o /output/results.txt
 ```
 
 ## Updating to a Specific Version
 
-If you need to use a specific version of Dalfox rather than the latest:
+If you need to use a specific version of XSSFox rather than the latest:
 
 ### Using Go
 
 ```bash
 # Install a specific version (e.g., v2.8.0)
-go install github.com/hahwul/dalfox/v2@v2.8.0
+go install github.com/JGPatelOfficial/xssfox/v2@v2.8.0
 ```
 
 ### Using Docker
 
 ```bash
 # Pull a specific version (e.g., v2.8.0)
-docker pull hahwul/dalfox:v2.8.0
+docker pull JGPatelOfficial/xssfox:v2.8.0
 ```
 
 ## Post-Update Steps
 
-After updating Dalfox, consider taking these additional steps:
+After updating XSSFox, consider taking these additional steps:
 
-1. **Review new features**: Check the [release notes](https://github.com/hahwul/dalfox/releases) to understand new capabilities
+1. **Review new features**: Check the [release notes](https://github.com/JGPatelOfficial/xssfox/releases) to understand new capabilities
 2. **Update configuration files**: Make any necessary adjustments to your configuration files for compatibility with new features
 3. **Clear cached data**: Remove any temporary files from previous scans
 4. **Run a test scan**: Perform a quick scan to verify the updated version works correctly
 
 ```bash
 # Test the updated installation
-dalfox url https://example.com --format json -o test-result.json
+xssfox url https://example.com --format json -o test-result.json
 ```
 
 ## Update Automation
 
-You can create simple scripts to automate Dalfox updates:
+You can create simple scripts to automate XSSFox updates:
 
 ### Homebrew Update Script
 
 ```bash
 #!/bin/bash
-# update-dalfox.sh
-echo "Updating Dalfox..."
-brew update && brew upgrade dalfox
-dalfox version
-echo "Dalfox update completed."
+# update-xssfox.sh
+echo "Updating XSSFox..."
+brew update && brew upgrade xssfox
+xssfox version
+echo "XSSFox update completed."
 ```
 
 ### Docker Update Script
 
 ```bash
 #!/bin/bash
-# update-dalfox-docker.sh
-echo "Updating Dalfox Docker image..."
-docker pull hahwul/dalfox:latest
-echo "Dalfox Docker image updated to:"
-docker run --rm hahwul/dalfox:latest /app/dalfox version
+# update-xssfox-docker.sh
+echo "Updating XSSFox Docker image..."
+docker pull JGPatelOfficial/xssfox:latest
+echo "XSSFox Docker image updated to:"
+docker run --rm JGPatelOfficial/xssfox:latest /app/xssfox version
 ```
 
 ## Troubleshooting Update Issues
@@ -2375,41 +2375,41 @@ If you encounter issues during the update process:
 
 ### Getting Help
 
-If you continue experiencing problems updating Dalfox:
+If you continue experiencing problems updating XSSFox:
 
-- Check the [GitHub Issues](https://github.com/hahwul/dalfox/issues) for similar problems
-- Join the [Dalfox community discussions](https://github.com/hahwul/dalfox/discussions)
+- Check the [GitHub Issues](https://github.com/JGPatelOfficial/xssfox/issues) for similar problems
+- Join the [XSSFox community discussions](https://github.com/JGPatelOfficial/xssfox/discussions)
 - Report a new issue if your problem hasn't been addressed
 
 ## Checking for Updates Automatically
 
-You can add this function to your shell configuration to check for Dalfox updates when opening a terminal:
+You can add this function to your shell configuration to check for XSSFox updates when opening a terminal:
 
 ```bash
 # Add to ~/.bashrc or ~/.zshrc
-check_dalfox_update() {
-  if command -v dalfox &> /dev/null; then
-    local current_version=$(dalfox version | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
-    local latest_version=$(curl -s https://api.github.com/repos/hahwul/dalfox/releases/latest | grep -Eo '"tag_name": "v[0-9]+\.[0-9]+\.[0-9]+"' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+check_xssfox_update() {
+  if command -v xssfox &> /dev/null; then
+    local current_version=$(xssfox version | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+    local latest_version=$(curl -s https://api.github.com/repos/JGPatelOfficial/xssfox/releases/latest | grep -Eo '"tag_name": "v[0-9]+\.[0-9]+\.[0-9]+"' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
 
     if [[ "$current_version" != "$latest_version" ]]; then
-      echo "📢 Dalfox update available: $current_version → $latest_version"
+      echo "📢 XSSFox update available: $current_version → $latest_version"
     fi
   fi
 }
 
 # Run the check when starting a shell
-check_dalfox_update
+check_xssfox_update
 ```
 
 ## Community Resources
 
-For additional help and information about Dalfox:
+For additional help and information about XSSFox:
 
-- [Official Dalfox GitHub Repository](https://github.com/hahwul/dalfox)
-- [Dalfox Documentation](https://dalfox.hahwul.com)
-- [Dalfox Community Discussions](https://github.com/hahwul/dalfox/discussions)
-- [Issue Tracker](https://github.com/hahwul/dalfox/issues)
+- [Official XSSFox GitHub Repository](https://github.com/JGPatelOfficial/xssfox)
+- [XSSFox Documentation](https://xssfox.hahwul.com)
+- [XSSFox Community Discussions](https://github.com/JGPatelOfficial/xssfox/discussions)
+- [Issue Tracker](https://github.com/JGPatelOfficial/xssfox/issues)
 
 ---
 
@@ -2421,12 +2421,12 @@ For additional help and information about Dalfox:
 `url` mode is the mode for detecting XSS for a single URL.
 
 ```shell
-dalfox url {TARGET-URL}
+xssfox url {TARGET-URL}
 ```
 
 e.g
 ```shell
-dalfox url http://testphp.vulnweb.com/listproducts.php\?cat\=123\&artist\=123\&asdf\=ff
+xssfox url http://testphp.vulnweb.com/listproducts.php\?cat\=123\&artist\=123\&asdf\=ff
 ```
 
 ---
@@ -2436,10 +2436,10 @@ dalfox url http://testphp.vulnweb.com/listproducts.php\?cat\=123\&artist\=123\&a
 
 # Usage
 
-Dalfox provides a powerful command-line interface with various modes and options to tailor your XSS scanning experience. The basic command structure is:
+XSSFox provides a powerful command-line interface with various modes and options to tailor your XSS scanning experience. The basic command structure is:
 
 ```shell
-dalfox [mode] [target] [flags]
+xssfox [mode] [target] [flags]
 ```
 
 ## Quick Start Examples
@@ -2448,27 +2448,27 @@ Here are some common usage examples to get you started:
 
 ```bash
 # Scan a single URL
-dalfox url https://example.com
+xssfox url https://example.com
 
 # Scan a URL with parameters
-dalfox url "https://example.com/search?q=test"
+xssfox url "https://example.com/search?q=test"
 
 # Use blind XSS payload with callback URL
-dalfox url https://example.com -b https://your-callback-url.com
+xssfox url https://example.com -b https://your-callback-url.com
 
 # Scan multiple URLs from a file
-dalfox file targets.txt
+xssfox file targets.txt
 
 # Process URLs from another tool via pipeline
-cat urls.txt | dalfox pipe
+cat urls.txt | xssfox pipe
 
-# Start Dalfox as a REST API server
-dalfox server --host 0.0.0.0 --port 8080
+# Start XSSFox as a REST API server
+xssfox server --host 0.0.0.0 --port 8080
 ```
 
 ## Available Modes
 
-Dalfox supports several operational modes to accommodate different scanning scenarios:
+XSSFox supports several operational modes to accommodate different scanning scenarios:
 
 | Mode | Description |
 |------|-------------|
@@ -2478,7 +2478,7 @@ Dalfox supports several operational modes to accommodate different scanning scen
 | `sxss` | Test for stored XSS vulnerabilities |
 | `server` | Run as a REST API server |
 | `payload` | Generate and manipulate XSS payloads |
-| `version` | Display the Dalfox version |
+| `version` | Display the XSSFox version |
 | `help` | Show help information |
 
 For detailed documentation on each mode, see the corresponding pages:
@@ -2639,7 +2639,7 @@ Different modes have specific flags to customize their behavior. Here's a summar
 
 ## Overview
 
-Dalfox supports configuration files that allow you to define and reuse scan settings across multiple sessions. Using configuration files provides several advantages:
+XSSFox supports configuration files that allow you to define and reuse scan settings across multiple sessions. Using configuration files provides several advantages:
 
 - **Consistency**: Maintain consistent scan settings across multiple targets
 - **Reproducibility**: Easily reproduce scans with identical settings
@@ -2651,11 +2651,11 @@ Configuration files use JSON format and can include any option that's available 
 
 ### Default Configuration Directories
 
-Dalfox will automatically look for configuration files in the following locations:
+XSSFox will automatically look for configuration files in the following locations:
 
 | Platform | Default Configuration Location |
 |----------|--------------------------------|
-| Linux/macOS | `$XDG_CONFIG_HOME/dalfox/config.json` or `$HOME/.config/dalfox/config.json` |
+| Linux/macOS | `$XDG_CONFIG_HOME/xssfox/config.json` or `$HOME/.config/xssfox/config.json` |
 
 ## Creating a Configuration File
 
@@ -2731,7 +2731,7 @@ Here's a more comprehensive configuration example that utilizes many available o
 
 ## Configuration Options
 
-Dalfox configuration files can include a wide range of options, organized into the following categories:
+XSSFox configuration files can include a wide range of options, organized into the following categories:
 
 ### Target Configuration
 
@@ -2797,16 +2797,16 @@ Dalfox configuration files can include a wide range of options, organized into t
 
 ## Using Configuration Files
 
-To use a configuration file with Dalfox, use the `--config` flag followed by the path to your configuration file:
+To use a configuration file with XSSFox, use the `--config` flag followed by the path to your configuration file:
 
 ```bash
-dalfox url https://example.com --config config.json
+xssfox url https://example.com --config config.json
 ```
 
 You can also override specific configuration file settings with command-line arguments:
 
 ```bash
-dalfox url https://example.com --config config.json --worker 200 --blind https://different-callback.xss.ht
+xssfox url https://example.com --config config.json --worker 200 --blind https://different-callback.xss.ht
 ```
 
 In this case, the `worker` and `blind` values from the command line will override those in the configuration file.
@@ -2828,10 +2828,10 @@ For testing across different environments:
 
 ```bash
 # Development environment
-dalfox url https://dev.example.com --config config-dev.json
+xssfox url https://dev.example.com --config config-dev.json
 
 # Production environment
-dalfox url https://www.example.com --config config-prod.json
+xssfox url https://www.example.com --config config-prod.json
 ```
 
 ### Sharing Configurations
@@ -2883,7 +2883,7 @@ When sharing configurations with a team:
   "worker": 100,
   "timeout": 10,
   "format": "json",
-  "output": "dalfox-results.json",
+  "output": "xssfox-results.json",
   "report-format": "json",
   "report": true,
   "silence": true,
@@ -2900,11 +2900,11 @@ If you encounter issues with your configuration file:
 3. Ensure that array values are properly formatted with square brackets
 4. Verify that file paths in your configuration are correct and accessible
 
-You can use tools like JSONLint to validate your configuration file before using it with Dalfox.
+You can use tools like JSONLint to validate your configuration file before using it with XSSFox.
 
 ## Reference
 
-For a complete list of available configuration options, you can refer to the [options model](https://github.com/hahwul/dalfox/blob/main/pkg/model/options.go) in the Dalfox source code, or check the [sample configuration file](https://github.com/hahwul/dalfox/blob/main/samples/sample_config.json) provided with Dalfox.
+For a complete list of available configuration options, you can refer to the [options model](https://github.com/JGPatelOfficial/xssfox/blob/main/pkg/model/options.go) in the XSSFox source code, or check the [sample configuration file](https://github.com/JGPatelOfficial/xssfox/blob/main/samples/sample_config.json) provided with XSSFox.
 
 ---
 
@@ -2922,7 +2922,7 @@ For a complete list of available configuration options, you can refer to the [op
 
 ## What is BAV?
 
-BAV (Basic Another Vulnerability) is a powerful feature in Dalfox that automatically tests for additional vulnerabilities beyond XSS during scanning. While Dalfox is primarily designed for finding XSS vulnerabilities, the BAV module extends its capabilities to detect other common web security issues with minimal additional overhead.
+BAV (Basic Another Vulnerability) is a powerful feature in XSSFox that automatically tests for additional vulnerabilities beyond XSS during scanning. While XSSFox is primarily designed for finding XSS vulnerabilities, the BAV module extends its capabilities to detect other common web security issues with minimal additional overhead.
 
 By default, BAV is enabled in all scanning modes, providing a more comprehensive security assessment without requiring additional tools.
 
@@ -2941,7 +2941,7 @@ The BAV module can detect several types of common web vulnerabilities:
 
 The BAV module operates through two main mechanisms:
 
-1. **Active Testing**: Dalfox injects special test payloads designed to trigger specific vulnerability patterns
+1. **Active Testing**: XSSFox injects special test payloads designed to trigger specific vulnerability patterns
 2. **Pattern Matching**: Responses are analyzed for characteristic error messages, behavior changes, or other indicators
 
 This integration into the main scanning process is efficient, as it:
@@ -2956,7 +2956,7 @@ This integration into the main scanning process is efficient, as it:
 If you prefer to focus solely on XSS testing or want to reduce scanning time, you can disable BAV using the `--skip-bav` flag:
 
 ```bash
-dalfox url https://example.com --skip-bav
+xssfox url https://example.com --skip-bav
 ```
 
 ### Explicitly Enabling BAV
@@ -2964,7 +2964,7 @@ dalfox url https://example.com --skip-bav
 Although BAV is enabled by default, you can explicitly enable it using the `--use-bav` flag:
 
 ```bash
-dalfox url https://example.com --use-bav
+xssfox url https://example.com --use-bav
 ```
 
 This is useful when combined with other configuration options or when you want to be explicit about which features are active.
@@ -2977,7 +2977,7 @@ Here's an example of what you might see in the output when BAV detects vulnerabi
 [*] 🦊 Starting scan of http://vulnerable-website.com/page.php?id=1
 [*] Parameter analysis in progress... 🔍
 [G] Found SQL Injection via built-in grepping (MySQL error)
-[POC][G][BUILT-IN/dalfox-error-mysql1/GET] http://vulnerable-website.com/page.php?id=1'
+[POC][G][BUILT-IN/xssfox-error-mysql1/GET] http://vulnerable-website.com/page.php?id=1'
 
 [G] Found CRLF Injection vulnerability
 [POC][G][CRLF/GET] http://vulnerable-website.com/page.php?id=%0D%0ASet-Cookie:+crlf=injection
@@ -2990,11 +2990,11 @@ Here's an example of what you might see in the output when BAV detects vulnerabi
 [POC][V][GET] http://vulnerable-website.com/page.php?id=<script>alert(1)</script>
 ```
 
-Notice how Dalfox integrates BAV findings with XSS results, providing a unified view of discovered vulnerabilities.
+Notice how XSSFox integrates BAV findings with XSS results, providing a unified view of discovered vulnerabilities.
 
 ## BAV Detection Patterns
 
-Dalfox uses sophisticated pattern matching to identify vulnerability indicators. Some examples include:
+XSSFox uses sophisticated pattern matching to identify vulnerability indicators. Some examples include:
 
 ### SQL Injection Patterns
 - `SQL syntax; check the manual that corresponds to your MySQL`
@@ -3028,11 +3028,11 @@ While BAV provides valuable additional security testing, it's important to under
 - It's not a replacement for dedicated SQL injection or SSTI scanners
 - Advanced vulnerabilities requiring complex exploitation are not covered
 
-For critical applications, consider supplementing Dalfox with specialized tools for each vulnerability type.
+For critical applications, consider supplementing XSSFox with specialized tools for each vulnerability type.
 
 ## Adding Custom BAV Patterns
 
-Advanced users can contribute to the BAV module by adding new detection patterns. To learn how, see the [CONTRIBUTING.md](https://github.com/hahwul/dalfox/blob/main/CONTRIBUTING.md) file in the Dalfox repository.
+Advanced users can contribute to the BAV module by adding new detection patterns. To learn how, see the [CONTRIBUTING.md](https://github.com/JGPatelOfficial/xssfox/blob/main/CONTRIBUTING.md) file in the XSSFox repository.
 
 ---
 
@@ -3041,11 +3041,11 @@ Advanced users can contribute to the BAV module by adding new detection patterns
 
 # Command Line Flags
 
-This page provides a comprehensive overview of Dalfox's command line flags, organized by functionality.
+This page provides a comprehensive overview of XSSFox's command line flags, organized by functionality.
 
 ## Request Configuration Flags
 
-These flags allow you to customize the HTTP requests sent by Dalfox:
+These flags allow you to customize the HTTP requests sent by XSSFox:
 
 | Flag | Description |
 |------|-------------|
@@ -3081,7 +3081,7 @@ These flags control the behavior of the scanning process:
 
 ## Performance Flags
 
-These flags allow you to fine-tune the performance of Dalfox:
+These flags allow you to fine-tune the performance of XSSFox:
 
 | Flag | Description |
 |------|-------------|
@@ -3090,7 +3090,7 @@ These flags allow you to fine-tune the performance of Dalfox:
 
 ## Parameter Mining Flags
 
-These flags control how Dalfox discovers and tests parameters:
+These flags control how XSSFox discovers and tests parameters:
 
 | Flag | Description |
 |------|-------------|
@@ -3119,7 +3119,7 @@ These flags allow you to control the scanning flow:
 
 ## Output and Reporting Flags
 
-These flags control how Dalfox presents its findings:
+These flags control how XSSFox presents its findings:
 
 | Flag | Description |
 |------|-------------|
@@ -3145,47 +3145,47 @@ These flags control how Dalfox presents its findings:
 
 Basic scanning with custom headers and cookies:
 ```bash
-dalfox url https://example.com -H 'Authorization: Bearer token' -C 'session=abc123'
+xssfox url https://example.com -H 'Authorization: Bearer token' -C 'session=abc123'
 ```
 
 Using POST method with data:
 ```bash
-dalfox url https://example.com/login -d 'username=admin&password=admin'
+xssfox url https://example.com/login -d 'username=admin&password=admin'
 ```
 
 Output results to a JSON file with detailed reporting:
 ```bash
-dalfox url https://example.com --format json -o results.json --report --report-format json
+xssfox url https://example.com --format json -o results.json --report --report-format json
 ```
 
 Parameter mining with custom wordlist and increased workers:
 ```bash
-dalfox url https://example.com -W wordlist.txt -w 200
+xssfox url https://example.com -W wordlist.txt -w 200
 ```
 
 Using blind XSS detection with a callback URL:
 ```bash
-dalfox url https://example.com -b https://your-xss-catcher.com/hook
+xssfox url https://example.com -b https://your-xss-catcher.com/hook
 ```
 
 WAF evasion with custom payloads:
 ```bash
-dalfox url https://example.com --waf-evasion --custom-payload payloads.txt
+xssfox url https://example.com --waf-evasion --custom-payload payloads.txt
 ```
 
 Using a proxy and following redirects:
 ```bash
-dalfox url https://example.com --proxy http://127.0.0.1:8080 -F
+xssfox url https://example.com --proxy http://127.0.0.1:8080 -F
 ```
 
 Executing a notification script when vulnerabilities are found:
 ```bash
-dalfox url https://example.com --found-action './notify.sh'
+xssfox url https://example.com --found-action './notify.sh'
 ```
 
 Saving HAR files for further analysis:
 ```bash
-dalfox url https://example.com --har-file-path scan.har
+xssfox url https://example.com --har-file-path scan.har
 ```
 
 ---
@@ -3197,7 +3197,7 @@ dalfox url https://example.com --har-file-path scan.har
 
 ## Overview
 
-Dalfox provides powerful options to customize both the XSS payloads used during scanning and the alert mechanisms triggered upon successful exploitation. These customization features are particularly valuable when:
+XSSFox provides powerful options to customize both the XSS payloads used during scanning and the alert mechanisms triggered upon successful exploitation. These customization features are particularly valuable when:
 
 - Testing against applications with specific XSS filters or WAFs
 - Verifying vulnerabilities in environments where standard payloads fail
@@ -3207,7 +3207,7 @@ Dalfox provides powerful options to customize both the XSS payloads used during 
 
 ## Custom Payloads
 
-The custom payload feature allows you to provide your own list of XSS payloads that Dalfox will use during testing, either alongside or instead of the built-in payloads.
+The custom payload feature allows you to provide your own list of XSS payloads that XSSFox will use during testing, either alongside or instead of the built-in payloads.
 
 ### Using Custom Payload Files
 
@@ -3223,15 +3223,15 @@ Create a text file containing your custom payloads, with one payload per line:
 Then use the file with the `--custom-payload` flag:
 
 ```bash
-dalfox url https://example.com/search?q=test --custom-payload my-payloads.txt
+xssfox url https://example.com/search?q=test --custom-payload my-payloads.txt
 ```
 
 ### Only Using Custom Payloads
 
-If you want Dalfox to use only your custom payloads and skip the built-in ones, add the `--only-custom-payload` flag:
+If you want XSSFox to use only your custom payloads and skip the built-in ones, add the `--only-custom-payload` flag:
 
 ```bash
-dalfox url https://example.com/search?q=test --custom-payload my-payloads.txt --only-custom-payload
+xssfox url https://example.com/search?q=test --custom-payload my-payloads.txt --only-custom-payload
 ```
 
 This is particularly useful when:
@@ -3241,10 +3241,10 @@ This is particularly useful when:
 
 ### Payload Templating
 
-Your custom payloads can include special placeholder values that Dalfox will replace during testing:
+Your custom payloads can include special placeholder values that XSSFox will replace during testing:
 
-- `{{title}}` - Replaced with "Dalfox"
-- `{{version}}` - Replaced with the current Dalfox version
+- `{{title}}` - Replaced with "XSSFox"
+- `{{version}}` - Replaced with the current XSSFox version
 
 Example payload using placeholders:
 ```
@@ -3253,21 +3253,21 @@ Example payload using placeholders:
 
 ## Custom Alert Mechanisms
 
-Dalfox allows you to customize the JavaScript function and value used for XSS proof-of-concept verification. This is controlled by two flags:
+XSSFox allows you to customize the JavaScript function and value used for XSS proof-of-concept verification. This is controlled by two flags:
 
 - `--custom-alert-value`: Changes what value is passed to the alert function
 - `--custom-alert-type`: Controls how the value is formatted (string, numeric, etc.)
 
 ### Custom Alert Value
 
-By default, Dalfox uses `alert(1)` for XSS verification. You can change the value inside the alert:
+By default, XSSFox uses `alert(1)` for XSS verification. You can change the value inside the alert:
 
 ```bash
 # Use alert(1337) instead of alert(1)
-dalfox url https://example.com/search?q=test --custom-alert-value 1337
+xssfox url https://example.com/search?q=test --custom-alert-value 1337
 
 # Execute more complex JavaScript
-dalfox url https://example.com/search?q=test --custom-alert-value "document.domain"
+xssfox url https://example.com/search?q=test --custom-alert-value "document.domain"
 ```
 
 ### Alert Types
@@ -3280,11 +3280,11 @@ The `--custom-alert-type` flag controls how the value is formatted:
 | `str` | Wrap value in quotes | `alert("1337")`, `alert('document.cookie')` |
 | `int` | Ensure value is treated as integer | `alert(1337)` |
 
-You can specify multiple types to have Dalfox test with different formats:
+You can specify multiple types to have XSSFox test with different formats:
 
 ```bash
 # Test with both string and numeric formats
-dalfox url https://example.com/search?q=test --custom-alert-value 1337 --custom-alert-type "str,int"
+xssfox url https://example.com/search?q=test --custom-alert-value 1337 --custom-alert-type "str,int"
 ```
 
 ### Examples with Different Alert Types
@@ -3292,7 +3292,7 @@ dalfox url https://example.com/search?q=test --custom-alert-value 1337 --custom-
 #### Default (No Custom Alert)
 
 ```bash
-dalfox url http://vulnerable-site.com/page?param=test
+xssfox url http://vulnerable-site.com/page?param=test
 ```
 
 Generated payloads will use the default `alert(1)`:
@@ -3304,7 +3304,7 @@ Generated payloads will use the default `alert(1)`:
 #### Custom Alert Value (No Type Specified)
 
 ```bash
-dalfox url http://vulnerable-site.com/page?param=test --custom-alert-value document.cookie
+xssfox url http://vulnerable-site.com/page?param=test --custom-alert-value document.cookie
 ```
 
 Generated payloads:
@@ -3316,7 +3316,7 @@ Generated payloads:
 #### Custom Alert Value with String Type
 
 ```bash
-dalfox url http://vulnerable-site.com/page?param=test --custom-alert-value XSS --custom-alert-type str
+xssfox url http://vulnerable-site.com/page?param=test --custom-alert-value XSS --custom-alert-type str
 ```
 
 Generated payloads:
@@ -3328,7 +3328,7 @@ Generated payloads:
 #### Multiple Alert Types
 
 ```bash
-dalfox url http://vulnerable-site.com/page?param=test --custom-alert-value 1337 --custom-alert-type str,none
+xssfox url http://vulnerable-site.com/page?param=test --custom-alert-value 1337 --custom-alert-type str,none
 ```
 
 Both formats will be tested:
@@ -3352,7 +3352,7 @@ Create a custom payload file with WAF evasion techniques:
 
 Run the scan with these payloads:
 ```bash
-dalfox url https://waf-protected-site.com/search --custom-payload waf-bypass.txt
+xssfox url https://waf-protected-site.com/search --custom-payload waf-bypass.txt
 ```
 
 ### Data Exfiltration Example
@@ -3368,7 +3368,7 @@ Create payloads that send data to your server:
 
 Run with your exfiltration payloads:
 ```bash
-dalfox url https://target-site.com --custom-payload exfiltration.txt
+xssfox url https://target-site.com --custom-payload exfiltration.txt
 ```
 
 ### DOM Exploration
@@ -3383,7 +3383,7 @@ Custom payloads to explore DOM properties:
 
 Combined with custom alert type:
 ```bash
-dalfox url https://target-site.com --custom-payload dom-explore.txt --custom-alert-type none
+xssfox url https://target-site.com --custom-payload dom-explore.txt --custom-alert-type none
 ```
 
 ## Best Practices
@@ -3392,7 +3392,7 @@ dalfox url https://target-site.com --custom-payload dom-explore.txt --custom-ale
 2. **Test Variations**: Create multiple variations of the same payload to bypass different filters
 3. **Use Context-Specific Payloads**: Create separate payload files for different contexts (HTML, JS, attribute, etc.)
 4. **Document Your Payloads**: Add comments in your payload files to remember their purpose
-5. **Combine with Other Features**: Use custom payloads with other Dalfox features like blind XSS for best results
+5. **Combine with Other Features**: Use custom payloads with other XSSFox features like blind XSS for best results
 
 ---
 
@@ -3401,7 +3401,7 @@ dalfox url https://target-site.com --custom-payload dom-explore.txt --custom-ale
 
 # Integration with found-action
 
-The `--found-action` option in Dalfox allows you to specify actions to take when a vulnerability is detected. This can be useful for automating responses to findings, such as logging, alerting, or further processing.
+The `--found-action` option in XSSFox allows you to specify actions to take when a vulnerability is detected. This can be useful for automating responses to findings, such as logging, alerting, or further processing.
 
 ## Using found-action
 
@@ -3416,14 +3416,14 @@ The `--found-action` option lets you define a command to execute when a vulnerab
 ### Example Command
 
 ```bash
-dalfox url http://testphp.vulnweb.com/listproducts.php?cat=123&artist=123&asdf=ff --found-action "echo '@@query@@' > data"
+xssfox url http://testphp.vulnweb.com/listproducts.php?cat=123&artist=123&asdf=ff --found-action "echo '@@query@@' > data"
 ```
 
 ### Example Output
 
 ```bash
 cat data
-http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123%27%3E%3Csvg%2Fclass%3D%27dalfox%27onLoad%3Dalert%2845%29%3E
+http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123%27%3E%3Csvg%2Fclass%3D%27xssfox%27onLoad%3Dalert%2845%29%3E
 ```
 
 ## Modifying the Shell Application for found-action
@@ -3433,18 +3433,18 @@ The `--found-action-shell` flag allows you to change the shell application used 
 ### Example Command with zsh
 
 ```bash
-dalfox url http://testphp.vulnweb.com/listproducts.php?cat=123&artist=123&asdf=ff --found-action "echo '@@query@@' > data" --found-action-shell=zsh
+xssfox url http://testphp.vulnweb.com/listproducts.php?cat=123&artist=123&asdf=ff --found-action "echo '@@query@@' > data" --found-action-shell=zsh
 ```
 
 ### Example Command with sh (for Alpine Linux)
 
 ```bash
-dalfox url http://testphp.vulnweb.com/listproducts.php?cat=123&artist=123&asdf=ff --found-action "echo '@@query@@' > data" --found-action-shell=sh
+xssfox url http://testphp.vulnweb.com/listproducts.php?cat=123&artist=123&asdf=ff --found-action "echo '@@query@@' > data" --found-action-shell=sh
 ```
 
 ## Additional Resources
 
-For more information and advanced usage, please refer to the [blog post on Dalfox's fun options](https://www.hahwul.com/2020/05/04/how-to-use-dalfoxs-fun-options/).
+For more information and advanced usage, please refer to the [blog post on XSSFox's fun options](https://www.hahwul.com/2020/05/04/how-to-use-xssfoxs-fun-options/).
 
 ---
 
@@ -3453,105 +3453,105 @@ For more information and advanced usage, please refer to the [blog post on Dalfo
 
 # Grepping
 
-Grepping is a passive scan with patterns during the XSS scanning flow. By default, grepping is enabled in Dalfox.
+Grepping is a passive scan with patterns during the XSS scanning flow. By default, grepping is enabled in XSSFox.
 
 ## Built-in Patterns
 
-Dalfox includes a set of built-in patterns for grepping. Here are some examples:
+XSSFox includes a set of built-in patterns for grepping. Here are some examples:
 
 ```go
 {
-    "dalfox-ssti":                  "2958816",
-    "dalfox-rsa-key":               "-----BEGIN RSA PRIVATE KEY-----|-----END RSA PRIVATE KEY-----",
-    "dalfox-priv-key":              "-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----",
-    "dalfox-aws-s3":                "s3\\.amazonaws.com[/]+|[a-zA-Z0-9_-]*\\.s3\\.amazonaws.com",
-    "dalfox-aws-appsync-graphql":   "da2-[a-z0-9]{26}",
-    "dalfox-slack-webhook1":        "https://hooks.slack.com/services/T[a-zA-Z0-9_]{8}/B[a-zA-Z0-9_]{8}/[a-zA-Z0-9_]{24}",
-    "dalfox-slack-webhook2":        "https://hooks.slack.com/services/T[a-zA-Z0-9_]{8,10}/B[a-zA-Z0-9_]{8,10}/[a-zA-Z0-9_]{24}",
-    "dalfox-slack-token":           "(xox[p|b|o|a]-[0-9]{12}-[0-9]{12}-[0-9]{12}-[a-z0-9]{32})",
-    "dalfox-facebook-oauth":        "[f|F][a|A][c|C][e|E][b|B][o|O][o|O][k|K].{0,30}['\"\\s][0-9a-f]{32}['\"\\s]",
-    "dalfox-twitter-oauth":         "[t|T][w|W][i|I][t|T][t|T][e|E][r|R].{0,30}['\"\\s][0-9a-zA-Z]{35,44}['\"\\s]",
-    "dalfox-heroku-api":            "[h|H][e|E][r|R][o|O][k|K][u|U].{0,30}[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}",
-    "dalfox-mailgun-api":           "key-[0-9a-zA-Z]{32}",
-    "dalfox-mailchamp-api":         "[0-9a-f]{32}-us[0-9]{1,2}",
-    "dalfox-picatic-api":           "sk_live_[0-9a-z]{32}",
-    "dalfox-google-oauth-id":       "[0-9(+-[0-9A-Za-z_]{32}.apps.googleusercontent.com",
-    "dalfox-google-api":            "AIza[0-9A-Za-z-_]{35}",
-    "dalfox-google-oauth":          "ya29\\.[0-9A-Za-z\\-_]+",
-    "dalfox-aws-access-key":        "AKIA[0-9A-Z]{16}",
-    "dalfox-amazon-mws-auth-token": "amzn\\.mws\\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
-    "dalfox-facebook-access-token": "EAACEdEose0cBA[0-9A-Za-z]+",
-    "dalfox-github-access-token":   "[a-zA-Z0-9_-]*:[a-zA-Z0-9_\\-]+@github\\.com*",
-    "dalfox-github":                "[gG][iI][tT][hH][uU][bB].*['|\"][0-9a-zA-Z]{35,40}['|\"]",
-    "dalfox-azure-storage":         "[a-zA-Z0-9_-]*\\.file.core.windows.net",
-    "dalfox-telegram-bot-api-key":  "[0-9]+:AA[0-9A-Za-z\\-_]{33}",
-    "dalfox-square-access-token":   "sq0atp-[0-9A-Za-z\\-_]{22}",
-    "dalfox-square-oauth-secret":   "sq0csp-[0-9A-Za-z\\-_]{43}",
-    "dalfox-twitter-access-token":  "[tT][wW][iI][tT][tT][eE][rR].*[1-9][0-9]+-[0-9a-zA-Z]{40}",
-    "dalfox-twilio-api-key":        "SK[0-9a-fA-F]{32}",
-    "dalfox-braintree-token":       "access_token\\$production\\$[0-9a-z]{16}\\$[0-9a-f]{32}",
-    "dalfox-stripe-api-key":        "sk_live_[0-9a-zA-Z]{24}",
-    "dalfox-stripe-restricted-key": "rk_live_[0-9a-zA-Z]{24}",
-    "dalfox-error-mysql":           "(SQL syntax.*MySQL|Warning.*mysql_.*|MySqlException \\(0x|valid MySQL result|check the manual that corresponds to your (MySQL|MariaDB) server version|MySqlClient\\.|com\\.mysql\\.jdbc\\.exceptions)",
-    "dalfox-error-postgresql":      "(PostgreSQL.*ERROR|Warning.*\\Wpg_.*|valid PostgreSQL result|Npgsql\\.|PG::SyntaxError:|org\\.postgresql\\.util\\.PSQLException|ERROR:\\s\\ssyntax error at or near)",
-    "dalfox-error-mssql":           "(Driver.* SQL[\\-\\_\\ ]*Server|OLE DB.* SQL Server|\bSQL Server.*Driver|Warning.*mssql_.*|\bSQL Server.*[0-9a-fA-F]{8}|[\\s\\S]Exception.*\\WSystem\\.Data\\.SqlClient\\.|[\\s\\S]Exception.*\\WRoadhouse\\.Cms\\.|Microsoft SQL Native Client.*[0-9a-fA-F]{8})",
-    "dalfox-error-msaccess":        "(Microsoft Access (\\d+ )?Driver|JET Database Engine|Access Database Engine|ODBC Microsoft Access)",
-    "dalfox-error-oracle":          "(\\bORA-\\d{5}|Oracle error|Oracle.*Driver|Warning.*\\Woci_.*|Warning.*\\Wora_.*)",
-    "dalfox-error-ibmdb2":          "(CLI Driver.*DB2|DB2 SQL error|\\bdb2_\\w+\\(|SQLSTATE.+SQLCODE)",
-    "dalfox-error-informix":        "(Exception.*Informix)",
-    "dalfox-error-firebird":        "(Dynamic SQL Error|Warning.*ibase_.*)",
-    "dalfox-error-sqlite":          "(SQLite\\/JDBCDriver|SQLite.Exception|System.Data.SQLite.SQLiteException|Warning.*sqlite_.*|Warning.*SQLite3::|\\[SQLITE_ERROR\\])",
-    "dalfox-error-sapdb":           "(SQL error.*POS([0-9]+).*|Warning.*maxdb.*)",
-    "dalfox-error-sybase":          "(Warning.*sybase.*|Sybase message|Sybase.*Server message.*|SybSQLException|com\\.sybase\\.jdbc)",
-    "dalfox-error-ingress":         "(Warning.*ingres_|Ingres SQLSTATE|Ingres\\W.*Driver)",
-    "dalfox-error-frontbase":       "(Exception (condition )?\\d+. Transaction rollback.)",
-    "dalfox-error-hsqldb":          "(org\\.hsqldb\\.jdbc|Unexpected end of command in statement \\[|Unexpected token.*in statement \\[)",
+    "xssfox-ssti":                  "2958816",
+    "xssfox-rsa-key":               "-----BEGIN RSA PRIVATE KEY-----|-----END RSA PRIVATE KEY-----",
+    "xssfox-priv-key":              "-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----",
+    "xssfox-aws-s3":                "s3\\.amazonaws.com[/]+|[a-zA-Z0-9_-]*\\.s3\\.amazonaws.com",
+    "xssfox-aws-appsync-graphql":   "da2-[a-z0-9]{26}",
+    "xssfox-slack-webhook1":        "https://hooks.slack.com/services/T[a-zA-Z0-9_]{8}/B[a-zA-Z0-9_]{8}/[a-zA-Z0-9_]{24}",
+    "xssfox-slack-webhook2":        "https://hooks.slack.com/services/T[a-zA-Z0-9_]{8,10}/B[a-zA-Z0-9_]{8,10}/[a-zA-Z0-9_]{24}",
+    "xssfox-slack-token":           "(xox[p|b|o|a]-[0-9]{12}-[0-9]{12}-[0-9]{12}-[a-z0-9]{32})",
+    "xssfox-facebook-oauth":        "[f|F][a|A][c|C][e|E][b|B][o|O][o|O][k|K].{0,30}['\"\\s][0-9a-f]{32}['\"\\s]",
+    "xssfox-twitter-oauth":         "[t|T][w|W][i|I][t|T][t|T][e|E][r|R].{0,30}['\"\\s][0-9a-zA-Z]{35,44}['\"\\s]",
+    "xssfox-heroku-api":            "[h|H][e|E][r|R][o|O][k|K][u|U].{0,30}[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}",
+    "xssfox-mailgun-api":           "key-[0-9a-zA-Z]{32}",
+    "xssfox-mailchamp-api":         "[0-9a-f]{32}-us[0-9]{1,2}",
+    "xssfox-picatic-api":           "sk_live_[0-9a-z]{32}",
+    "xssfox-google-oauth-id":       "[0-9(+-[0-9A-Za-z_]{32}.apps.googleusercontent.com",
+    "xssfox-google-api":            "AIza[0-9A-Za-z-_]{35}",
+    "xssfox-google-oauth":          "ya29\\.[0-9A-Za-z\\-_]+",
+    "xssfox-aws-access-key":        "AKIA[0-9A-Z]{16}",
+    "xssfox-amazon-mws-auth-token": "amzn\\.mws\\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+    "xssfox-facebook-access-token": "EAACEdEose0cBA[0-9A-Za-z]+",
+    "xssfox-github-access-token":   "[a-zA-Z0-9_-]*:[a-zA-Z0-9_\\-]+@github\\.com*",
+    "xssfox-github":                "[gG][iI][tT][hH][uU][bB].*['|\"][0-9a-zA-Z]{35,40}['|\"]",
+    "xssfox-azure-storage":         "[a-zA-Z0-9_-]*\\.file.core.windows.net",
+    "xssfox-telegram-bot-api-key":  "[0-9]+:AA[0-9A-Za-z\\-_]{33}",
+    "xssfox-square-access-token":   "sq0atp-[0-9A-Za-z\\-_]{22}",
+    "xssfox-square-oauth-secret":   "sq0csp-[0-9A-Za-z\\-_]{43}",
+    "xssfox-twitter-access-token":  "[tT][wW][iI][tT][tT][eE][rR].*[1-9][0-9]+-[0-9a-zA-Z]{40}",
+    "xssfox-twilio-api-key":        "SK[0-9a-fA-F]{32}",
+    "xssfox-braintree-token":       "access_token\\$production\\$[0-9a-z]{16}\\$[0-9a-f]{32}",
+    "xssfox-stripe-api-key":        "sk_live_[0-9a-zA-Z]{24}",
+    "xssfox-stripe-restricted-key": "rk_live_[0-9a-zA-Z]{24}",
+    "xssfox-error-mysql":           "(SQL syntax.*MySQL|Warning.*mysql_.*|MySqlException \\(0x|valid MySQL result|check the manual that corresponds to your (MySQL|MariaDB) server version|MySqlClient\\.|com\\.mysql\\.jdbc\\.exceptions)",
+    "xssfox-error-postgresql":      "(PostgreSQL.*ERROR|Warning.*\\Wpg_.*|valid PostgreSQL result|Npgsql\\.|PG::SyntaxError:|org\\.postgresql\\.util\\.PSQLException|ERROR:\\s\\ssyntax error at or near)",
+    "xssfox-error-mssql":           "(Driver.* SQL[\\-\\_\\ ]*Server|OLE DB.* SQL Server|\bSQL Server.*Driver|Warning.*mssql_.*|\bSQL Server.*[0-9a-fA-F]{8}|[\\s\\S]Exception.*\\WSystem\\.Data\\.SqlClient\\.|[\\s\\S]Exception.*\\WRoadhouse\\.Cms\\.|Microsoft SQL Native Client.*[0-9a-fA-F]{8})",
+    "xssfox-error-msaccess":        "(Microsoft Access (\\d+ )?Driver|JET Database Engine|Access Database Engine|ODBC Microsoft Access)",
+    "xssfox-error-oracle":          "(\\bORA-\\d{5}|Oracle error|Oracle.*Driver|Warning.*\\Woci_.*|Warning.*\\Wora_.*)",
+    "xssfox-error-ibmdb2":          "(CLI Driver.*DB2|DB2 SQL error|\\bdb2_\\w+\\(|SQLSTATE.+SQLCODE)",
+    "xssfox-error-informix":        "(Exception.*Informix)",
+    "xssfox-error-firebird":        "(Dynamic SQL Error|Warning.*ibase_.*)",
+    "xssfox-error-sqlite":          "(SQLite\\/JDBCDriver|SQLite.Exception|System.Data.SQLite.SQLiteException|Warning.*sqlite_.*|Warning.*SQLite3::|\\[SQLITE_ERROR\\])",
+    "xssfox-error-sapdb":           "(SQL error.*POS([0-9]+).*|Warning.*maxdb.*)",
+    "xssfox-error-sybase":          "(Warning.*sybase.*|Sybase message|Sybase.*Server message.*|SybSQLException|com\\.sybase\\.jdbc)",
+    "xssfox-error-ingress":         "(Warning.*ingres_|Ingres SQLSTATE|Ingres\\W.*Driver)",
+    "xssfox-error-frontbase":       "(Exception (condition )?\\d+. Transaction rollback.)",
+    "xssfox-error-hsqldb":          "(org\\.hsqldb\\.jdbc|Unexpected end of command in statement \\[|Unexpected token.*in statement \\[)",
 
     // SQL Injection patterns
-    "dalfox-error-mysql1":  "SQL syntax.*?MySQL",
-    "dalfox-error-mysql2":  "Warning.*?mysqli?",
-    "dalfox-error-mysql3":  "MySQLSyntaxErrorException",
-    "dalfox-error-mysql4":  "valid MySQL result",
-    "dalfox-error-mysql5":  "check the manual that (corresponds to|fits) your MySQL server version",
-    "dalfox-error-mysql6":  "check the manual that (corresponds to|fits) your MariaDB server version",
-    "dalfox-error-mysql7":  "check the manual that (corresponds to|fits) your Drizzle server version",
-    "dalfox-error-mysql8":  "Unknown column '[^ ]+' in 'field list'",
-    "dalfox-error-mysql9":  "com\\.mysql\\.jdbc",
-    "dalfox-error-mysql10": "Zend_Db_(Adapter|Statement)_Mysqli_Exception",
-    "dalfox-error-mysql11": "MySqlException",
-    "dalfox-error-mysql12": "Syntax error or access violation",
+    "xssfox-error-mysql1":  "SQL syntax.*?MySQL",
+    "xssfox-error-mysql2":  "Warning.*?mysqli?",
+    "xssfox-error-mysql3":  "MySQLSyntaxErrorException",
+    "xssfox-error-mysql4":  "valid MySQL result",
+    "xssfox-error-mysql5":  "check the manual that (corresponds to|fits) your MySQL server version",
+    "xssfox-error-mysql6":  "check the manual that (corresponds to|fits) your MariaDB server version",
+    "xssfox-error-mysql7":  "check the manual that (corresponds to|fits) your Drizzle server version",
+    "xssfox-error-mysql8":  "Unknown column '[^ ]+' in 'field list'",
+    "xssfox-error-mysql9":  "com\\.mysql\\.jdbc",
+    "xssfox-error-mysql10": "Zend_Db_(Adapter|Statement)_Mysqli_Exception",
+    "xssfox-error-mysql11": "MySqlException",
+    "xssfox-error-mysql12": "Syntax error or access violation",
 
     // PostgreSQL patterns
-    "dalfox-error-psql1":  "PostgreSQL.*?ERROR",
-    "dalfox-error-psql2":  "Warning.*?\\Wpg_",
-    "dalfox-error-psql3":  "valid PostgreSQL result",
-    "dalfox-error-psql4":  "Npgsql\\.",
-    "dalfox-error-psql5":  "PG::SyntaxError:",
-    "dalfox-error-psql6":  "org\\.postgresql\\.util\\.PSQLException",
-    "dalfox-error-psql7":  "ERROR:\\s\\ssyntax error at or near",
-    "dalfox-error-psql8":  "ERROR: parser: parse error at or near",
-    "dalfox-error-psql9":  "PostgreSQL query failed",
-    "dalfox-error-psql10": "org\\.postgresql\\.jdbc",
-    "dalfox-error-psql11": "PSQLException",
+    "xssfox-error-psql1":  "PostgreSQL.*?ERROR",
+    "xssfox-error-psql2":  "Warning.*?\\Wpg_",
+    "xssfox-error-psql3":  "valid PostgreSQL result",
+    "xssfox-error-psql4":  "Npgsql\\.",
+    "xssfox-error-psql5":  "PG::SyntaxError:",
+    "xssfox-error-psql6":  "org\\.postgresql\\.util\\.PSQLException",
+    "xssfox-error-psql7":  "ERROR:\\s\\ssyntax error at or near",
+    "xssfox-error-psql8":  "ERROR: parser: parse error at or near",
+    "xssfox-error-psql9":  "PostgreSQL query failed",
+    "xssfox-error-psql10": "org\\.postgresql\\.jdbc",
+    "xssfox-error-psql11": "PSQLException",
 
     // MSSQL patterns
-    "dalfox-error-mssql1":  "Driver.*? SQL[\\-\\_\\ ]*Server",
-    "dalfox-error-mssql2":  "OLE DB.*? SQL Server",
-    "dalfox-error-mssql3":  "\bSQL Server[^&lt;&quot;]+Driver",
-    "dalfox-error-mssql4":  "Warning.*?\\W(mssql|sqlsrv)_",
-    "dalfox-error-mssql5":  "\bSQL Server[^&lt;&quot;]+[0-9a-fA-F]{8}",
-    "dalfox-error-mssql6":  "System\\.Data\\.SqlClient\\.SqlException",
-    "dalfox-error-mssql7":  "(?s)Exception.*?\bRoadhouse\\.Cms\\.",
-    "dalfox-error-mssql8":  "Microsoft SQL Native Client error '[0-9a-fA-F]{8}",
-    "dalfox-error-mssql9":  "\\[SQL Server\\]",
-    "dalfox-error-mssql10": "ODBC SQL Server Driver",
-    "dalfox-error-mssql11": "ODBC Driver \\d+ for SQL Server",
-    "dalfox-error-mssql12": "SQLServer JDBC Driver",
-    "dalfox-error-mssql13": "com\\.jnetdirect\\.jsql",
-    "dalfox-error-mssql14": "macromedia\\.jdbc\\.sqlserver",
-    "dalfox-error-mssql15": "Zend_Db_(Adapter|Statement)_Sqlsrv_Exception",
-    "dalfox-error-mssql16": "com\\.microsoft\\.sqlserver\\.jdbc",
-    "dalfox-error-mssql18": "SQL(Srv|Server)Exception"
+    "xssfox-error-mssql1":  "Driver.*? SQL[\\-\\_\\ ]*Server",
+    "xssfox-error-mssql2":  "OLE DB.*? SQL Server",
+    "xssfox-error-mssql3":  "\bSQL Server[^&lt;&quot;]+Driver",
+    "xssfox-error-mssql4":  "Warning.*?\\W(mssql|sqlsrv)_",
+    "xssfox-error-mssql5":  "\bSQL Server[^&lt;&quot;]+[0-9a-fA-F]{8}",
+    "xssfox-error-mssql6":  "System\\.Data\\.SqlClient\\.SqlException",
+    "xssfox-error-mssql7":  "(?s)Exception.*?\bRoadhouse\\.Cms\\.",
+    "xssfox-error-mssql8":  "Microsoft SQL Native Client error '[0-9a-fA-F]{8}",
+    "xssfox-error-mssql9":  "\\[SQL Server\\]",
+    "xssfox-error-mssql10": "ODBC SQL Server Driver",
+    "xssfox-error-mssql11": "ODBC Driver \\d+ for SQL Server",
+    "xssfox-error-mssql12": "SQLServer JDBC Driver",
+    "xssfox-error-mssql13": "com\\.jnetdirect\\.jsql",
+    "xssfox-error-mssql14": "macromedia\\.jdbc\\.sqlserver",
+    "xssfox-error-mssql15": "Zend_Db_(Adapter|Statement)_Sqlsrv_Exception",
+    "xssfox-error-mssql16": "com\\.microsoft\\.sqlserver\\.jdbc",
+    "xssfox-error-mssql18": "SQL(Srv|Server)Exception"
 }
 ```
 
@@ -3562,7 +3562,7 @@ If you do not want to use the built-in grepping patterns, you can disable them u
 ### Command
 
 ```bash
-dalfox url https://google.com --skip-grepping
+xssfox url https://google.com --skip-grepping
 ```
 
 ## Output Format
@@ -3571,9 +3571,9 @@ Here is an example of the output you can expect when grepping is enabled:
 
 ```
 [*] 🦊 Start scan [SID:Single] / URL: http://testphp.vulnweb.com/listproducts.php
-[G] Found dalfox-error-mysql via built-in grepping / original request
+[G] Found xssfox-error-mysql via built-in grepping / original request
     Warning: mysql_fetch_array() expects parameter 1 to be resource, null given in /hj/var/www/listproducts.php on line 74
-[POC][G][BUILT-IN/dalfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php
+[POC][G][BUILT-IN/xssfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php
 ```
 
 ## Using Custom Grepping
@@ -3583,7 +3583,7 @@ If you want to use custom grepping patterns, you can specify a custom file using
 ### Command
 
 ```bash
-dalfox url https://google.com --grep grep_pattern.json
+xssfox url https://google.com --grep grep_pattern.json
 ```
 
 ### Example Output
@@ -3596,7 +3596,7 @@ dalfox url https://google.com --grep grep_pattern.json
 
 ### Sample Custom Grepping File
 
-You can find a sample custom grepping file [here](https://github.com/hahwul/dalfox/blob/main/samples/sample_grep.json).
+You can find a sample custom grepping file [here](https://github.com/JGPatelOfficial/xssfox/blob/main/samples/sample_grep.json).
 
 ---
 
@@ -3607,7 +3607,7 @@ You can find a sample custom grepping file [here](https://github.com/hahwul/dalf
 
 ## What is Parameter Mining?
 
-Parameter mining is an advanced feature in Dalfox that automatically discovers potential injection points in web applications. Instead of only testing parameters that are visible in the URL, parameter mining helps identify hidden, undocumented, or forgotten parameters that might be vulnerable to XSS attacks.
+Parameter mining is an advanced feature in XSSFox that automatically discovers potential injection points in web applications. Instead of only testing parameters that are visible in the URL, parameter mining helps identify hidden, undocumented, or forgotten parameters that might be vulnerable to XSS attacks.
 
 Effective parameter discovery is crucial for thorough security testing because:
 
@@ -3616,7 +3616,7 @@ Effective parameter discovery is crucial for thorough security testing because:
 - Legacy parameters might remain functional but undocumented
 - Frontend code might reveal parameters used by APIs and background processes
 
-Dalfox implements two complementary parameter mining techniques:
+XSSFox implements two complementary parameter mining techniques:
 
 1. **Dictionary-based Mining**: Tests common parameter names from wordlists
 2. **DOM-based Mining**: Analyzes JavaScript code to extract parameter names
@@ -3629,7 +3629,7 @@ This technique involves testing a curated list of common parameter names against
 
 ### Default Wordlist
 
-By default, Dalfox uses parameter lists from [Gf-Patterns](https://github.com/1ndianl33t/Gf-Patterns), specifically optimized for XSS vulnerability discovery. These lists include common parameter names like:
+By default, XSSFox uses parameter lists from [Gf-Patterns](https://github.com/1ndianl33t/Gf-Patterns), specifically optimized for XSS vulnerability discovery. These lists include common parameter names like:
 
 - `q`, `search`, `query` (search functionality)
 - `redirect`, `url`, `next` (redirection)
@@ -3641,7 +3641,7 @@ By default, Dalfox uses parameter lists from [Gf-Patterns](https://github.com/1n
 For more targeted testing, you can provide your own parameter wordlist:
 
 ```bash
-dalfox url https://example.com --mining-dict-word=./my-params.txt
+xssfox url https://example.com --mining-dict-word=./my-params.txt
 ```
 
 Your custom wordlist should contain one parameter name per line:
@@ -3662,14 +3662,14 @@ callback
 
 ### Using Remote Wordlists
 
-Dalfox can also retrieve and use wordlists from well-known security resources:
+XSSFox can also retrieve and use wordlists from well-known security resources:
 
 ```bash
 # Use one remote wordlist
-dalfox url https://example.com --remote-wordlists=burp
+xssfox url https://example.com --remote-wordlists=burp
 
 # Use multiple remote wordlists
-dalfox url https://example.com --remote-wordlists=burp,assetnote
+xssfox url https://example.com --remote-wordlists=burp,assetnote
 ```
 
 Available remote wordlists:
@@ -3681,18 +3681,18 @@ Available remote wordlists:
 
 ### Parameter Testing Methodology
 
-When mining parameters, Dalfox:
+When mining parameters, XSSFox:
 
 1. Takes each parameter from the wordlist
 2. Appends it to the target URL with a special marker value
 3. Analyzes the response for reflections or changes in behavior
 4. Flags potential injection points for further testing
 
-For example, if the target is `https://example.com`, Dalfox might test:
+For example, if the target is `https://example.com`, XSSFox might test:
 ```
-https://example.com?search=DalfoxParameterCheck
-https://example.com?q=DalfoxParameterCheck
-https://example.com?id=DalfoxParameterCheck
+https://example.com?search=XSSFoxParameterCheck
+https://example.com?q=XSSFoxParameterCheck
+https://example.com?id=XSSFoxParameterCheck
 ...
 ```
 
@@ -3702,7 +3702,7 @@ DOM-based mining is a more sophisticated approach that analyzes JavaScript code 
 
 ### How DOM Mining Works
 
-Dalfox performs the following steps:
+XSSFox performs the following steps:
 
 1. Downloads and parses all JavaScript files linked from the target page
 2. Analyzes JavaScript code for parameter access patterns and URL manipulations
@@ -3734,17 +3734,17 @@ searchForm.addEventListener('submit', function(e) {
 
 ### Fine-tuning Mining Behavior
 
-Dalfox provides several options to control the parameter mining process:
+XSSFox provides several options to control the parameter mining process:
 
 ```bash
 # Disable only DOM-based mining
-dalfox url https://example.com --skip-mining-dom
+xssfox url https://example.com --skip-mining-dom
 
 # Disable only dictionary-based mining
-dalfox url https://example.com --skip-mining-dict
+xssfox url https://example.com --skip-mining-dict
 
 # Disable all parameter mining
-dalfox url https://example.com --skip-mining-all
+xssfox url https://example.com --skip-mining-all
 ```
 
 ### When to Disable Mining
@@ -3763,7 +3763,7 @@ Consider disabling parameter mining in these scenarios:
 For most effective parameter discovery, combine multiple techniques:
 
 ```bash
-dalfox url https://example.com --remote-wordlists=burp,assetnote --mining-dict-word=./custom-params.txt
+xssfox url https://example.com --remote-wordlists=burp,assetnote --mining-dict-word=./custom-params.txt
 ```
 
 ### Mining with Specified Parameters
@@ -3771,10 +3771,10 @@ dalfox url https://example.com --remote-wordlists=burp,assetnote --mining-dict-w
 You can combine parameter mining with specific parameter testing:
 
 ```bash
-dalfox url https://example.com -p knownparam1 -p knownparam2
+xssfox url https://example.com -p knownparam1 -p knownparam2
 ```
 
-Dalfox will test both the specified parameters and any discovered through mining.
+XSSFox will test both the specified parameters and any discovered through mining.
 
 ### Mining in Different Contexts
 
@@ -3782,13 +3782,13 @@ Parameter mining works across different scan modes:
 
 ```bash
 # URL mode with mining
-dalfox url https://example.com
+xssfox url https://example.com
 
 # File mode with mining (multiple URLs)
-dalfox file urls.txt
+xssfox file urls.txt
 
 # Pipe mode with mining
-cat urls.txt | dalfox pipe
+cat urls.txt | xssfox pipe
 ```
 
 ## Practical Examples
@@ -3797,7 +3797,7 @@ cat urls.txt | dalfox pipe
 
 ```bash
 # Discover and test parameters on a target website
-dalfox url https://example.com
+xssfox url https://example.com
 ```
 
 Output example:
@@ -3814,14 +3814,14 @@ Output example:
 
 ```bash
 # Combine known parameters with mining
-dalfox url https://example.com -p admin -p token --remote-wordlists=burp
+xssfox url https://example.com -p admin -p token --remote-wordlists=burp
 ```
 
 ### Mining with Output Filtering
 
 ```bash
 # Only show discovered parameters, skip testing
-dalfox url https://example.com --only-discovery
+xssfox url https://example.com --only-discovery
 ```
 
 ## Best Practices
@@ -3844,10 +3844,10 @@ dalfox url https://example.com --only-discovery
 
 ```bash
 # Faster mining with more workers
-dalfox url https://example.com -w 200
+xssfox url https://example.com -w 200
 
 # Use only the most common parameters
-dalfox url https://example.com --mining-dict-word=./common-top100.txt
+xssfox url https://example.com --mining-dict-word=./common-top100.txt
 ```
 
 ---
@@ -3859,7 +3859,7 @@ dalfox url https://example.com --mining-dict-word=./common-top100.txt
 
 ## Overview
 
-The Remote Payloads feature allows Dalfox to dynamically fetch and use XSS payloads from well-maintained external sources. This capability significantly expands Dalfox's testing coverage by incorporating hundreds of specialized payloads developed by security researchers.
+The Remote Payloads feature allows XSSFox to dynamically fetch and use XSS payloads from well-maintained external sources. This capability significantly expands XSSFox's testing coverage by incorporating hundreds of specialized payloads developed by security researchers.
 
 Benefits of using remote payloads include:
 
@@ -3876,7 +3876,7 @@ Benefits of using remote payloads include:
 To use payloads from a single remote source:
 
 ```bash
-dalfox url https://example.com --remote-payloads portswigger
+xssfox url https://example.com --remote-payloads portswigger
 ```
 
 ### Using Multiple Sources
@@ -3884,7 +3884,7 @@ dalfox url https://example.com --remote-payloads portswigger
 Combine multiple remote payload sources for maximum coverage:
 
 ```bash
-dalfox url https://example.com --remote-payloads portswigger,payloadbox
+xssfox url https://example.com --remote-payloads portswigger,payloadbox
 ```
 
 ### Combining with Custom Payloads
@@ -3892,17 +3892,17 @@ dalfox url https://example.com --remote-payloads portswigger,payloadbox
 Remote payloads can be used alongside your custom payloads for a comprehensive approach:
 
 ```bash
-dalfox url https://example.com --remote-payloads portswigger --custom-payload my-payloads.txt
+xssfox url https://example.com --remote-payloads portswigger --custom-payload my-payloads.txt
 ```
 
 ## Supported Remote Sources
 
-Dalfox currently supports the following remote payload sources:
+XSSFox currently supports the following remote payload sources:
 
 ### PortSwigger XSS Cheat Sheet
 
 ```bash
-dalfox url https://example.com --remote-payloads portswigger
+xssfox url https://example.com --remote-payloads portswigger
 ```
 
 - **Source**: [PortSwigger XSS Cheat Sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
@@ -3918,7 +3918,7 @@ dalfox url https://example.com --remote-payloads portswigger
 ### PayloadBox XSS Payload List
 
 ```bash
-dalfox url https://example.com --remote-payloads payloadbox
+xssfox url https://example.com --remote-payloads payloadbox
 ```
 
 - **Source**: [PayloadBox XSS Payload List](https://github.com/payloadbox/xss-payload-list)
@@ -3933,12 +3933,12 @@ dalfox url https://example.com --remote-payloads payloadbox
 
 ## How Remote Payloads Work
 
-When you use the `--remote-payloads` option, Dalfox:
+When you use the `--remote-payloads` option, XSSFox:
 
 1. Connects to the specified source(s) and downloads the latest payload collections
 2. Parses and processes the payloads to ensure compatibility
 3. Integrates them with the built-in payload database
-4. Uses these payloads during the scanning process alongside Dalfox's native ones
+4. Uses these payloads during the scanning process alongside XSSFox's native ones
 
 The download process occurs once per scan, and the payloads are kept in memory for the duration of the scan.
 
@@ -3951,7 +3951,7 @@ The download process occurs once per scan, and the payloads are kept in memory f
 When testing against sites with Web Application Firewalls (WAFs), leverage the specialized bypass payloads:
 
 ```bash
-dalfox url https://waf-protected-site.com --remote-payloads portswigger --waf-evasion
+xssfox url https://waf-protected-site.com --remote-payloads portswigger --waf-evasion
 ```
 
 ### High-Coverage Scanning
@@ -3959,7 +3959,7 @@ dalfox url https://waf-protected-site.com --remote-payloads portswigger --waf-ev
 For maximum vulnerability detection in critical applications:
 
 ```bash
-dalfox url https://critical-app.com --remote-payloads portswigger,payloadbox --deep-domxss --custom-payload ./specialized-payloads.txt
+xssfox url https://critical-app.com --remote-payloads portswigger,payloadbox --deep-domxss --custom-payload ./specialized-payloads.txt
 ```
 
 ### Browser-Specific Testing
@@ -3968,12 +3968,12 @@ When testing for XSS in specific browsers:
 
 ```bash
 # Testing with diverse payloads that might work in various browsers
-dalfox url https://example.com --remote-payloads portswigger,payloadbox
+xssfox url https://example.com --remote-payloads portswigger,payloadbox
 ```
 
 ## Best Practices
 
-1. **Start with Built-In Payloads**: For quick scans, Dalfox's default payloads are often sufficient
+1. **Start with Built-In Payloads**: For quick scans, XSSFox's default payloads are often sufficient
 2. **Use Remote Payloads for Thorough Testing**: Add remote payloads for comprehensive security assessments
 3. **Combine Sources**: Different sources have different strengths; using multiple sources provides better coverage
 4. **Consider Performance**: Using all remote sources increases scan time; for quick scans, choose one source
@@ -3983,13 +3983,13 @@ dalfox url https://example.com --remote-payloads portswigger,payloadbox
 
 ### Connection Issues
 
-If Dalfox can't connect to remote sources:
+If XSSFox can't connect to remote sources:
 
 - Verify your internet connection
 - Check if the remote source is accessible
 - Consider using a proxy if necessary:
   ```bash
-  dalfox url https://example.com --remote-payloads portswigger --proxy http://your-proxy:8080
+  xssfox url https://example.com --remote-payloads portswigger --proxy http://your-proxy:8080
   ```
 
 ### Performance Considerations
@@ -3999,22 +3999,22 @@ If scanning with remote payloads is too slow:
 - Use a single remote source instead of multiple
 - Increase the worker count for faster processing:
   ```bash
-  dalfox url https://example.com --remote-payloads portswigger -w 150
+  xssfox url https://example.com --remote-payloads portswigger -w 150
   ```
 - Consider testing specific parameters only:
   ```bash
-  dalfox url https://example.com --remote-payloads portswigger -p search -p q
+  xssfox url https://example.com --remote-payloads portswigger -p search -p q
   ```
 
 ## Future Payload Sources
 
-The Dalfox team is continuously working to integrate additional remote payload sources. Future versions may include:
+The XSSFox team is continuously working to integrate additional remote payload sources. Future versions may include:
 
 - Additional community-maintained XSS repositories
 - Context-specific payload collections
 - Framework-specific bypass techniques
 
-For requests to add new remote payload sources, please open an issue on the [Dalfox GitHub repository](https://github.com/hahwul/dalfox/issues).
+For requests to add new remote payload sources, please open an issue on the [XSSFox GitHub repository](https://github.com/JGPatelOfficial/xssfox/issues).
 
 ---
 
@@ -4029,7 +4029,7 @@ Since (v2.8.0)
 
 ## Overview
 
-Dalfox's reporting feature allows you to generate detailed reports of your XSS scans, providing comprehensive information about vulnerabilities, scanning parameters, and results. These reports are invaluable for:
+XSSFox's reporting feature allows you to generate detailed reports of your XSS scans, providing comprehensive information about vulnerabilities, scanning parameters, and results. These reports are invaluable for:
 
 - Documenting security assessments
 - Sharing findings with development teams
@@ -4044,7 +4044,7 @@ Dalfox's reporting feature allows you to generate detailed reports of your XSS s
 To generate a detailed report with your scan, use the `--report` flag:
 
 ```shell
-dalfox url https://example.com/search?q=test --report
+xssfox url https://example.com/search?q=test --report
 ```
 
 This command will execute the scan and produce a comprehensive report in plain text format, which includes detailed information about the scan configuration, discovered parameters, and any vulnerabilities found.
@@ -4056,7 +4056,7 @@ This command will execute the scan and produce a comprehensive report in plain t
 For integrating with other tools or for programmatic processing of results, you can generate reports in JSON format:
 
 ```shell
-dalfox url https://example.com/search?q=test --report --report-format json
+xssfox url https://example.com/search?q=test --report --report-format json
 ```
 
 JSON reports are particularly useful for:
@@ -4069,14 +4069,14 @@ JSON reports are particularly useful for:
 
 ## Report Contents
 
-A comprehensive Dalfox report includes:
+A comprehensive XSSFox report includes:
 
 ### 1. Scan Configuration
 
 - Target URL or files
 - Scan mode and options used
 - Date and time of the scan
-- Dalfox version information
+- XSSFox version information
 
 ### 2. Parameter Analysis
 
@@ -4105,13 +4105,13 @@ A comprehensive Dalfox report includes:
 To save the report to a file, combine the `--report` flag with the `-o` (output) flag:
 
 ```shell
-dalfox url https://example.com/search?q=test --report --report-format json -o scan_results.json
+xssfox url https://example.com/search?q=test --report --report-format json -o scan_results.json
 ```
 
 For plain text reports:
 
 ```shell
-dalfox url https://example.com/search?q=test --report -o scan_results.txt
+xssfox url https://example.com/search?q=test --report -o scan_results.txt
 ```
 
 ### Including Raw HTTP Data
@@ -4119,7 +4119,7 @@ dalfox url https://example.com/search?q=test --report -o scan_results.txt
 For even more detailed reports, you can include the raw HTTP requests and responses:
 
 ```shell
-dalfox url https://example.com/search?q=test --report --output-request --output-response -o full_report.txt
+xssfox url https://example.com/search?q=test --report --output-request --output-response -o full_report.txt
 ```
 
 ## Using Reports Effectively
@@ -4147,7 +4147,7 @@ dalfox url https://example.com/search?q=test --report --output-request --output-
 ### Plain Text Report Example
 
 ```
-[Report] Dalfox v2.9.1 | Parameter Analysis and XSS Scanner Report
+[Report] XSSFox v2.9.1 | Parameter Analysis and XSS Scanner Report
 [Time] 2023-01-15 14:22:18
 [Target] https://example.com/search?q=test
 
@@ -4238,7 +4238,7 @@ dalfox url https://example.com/search?q=test --report --output-request --output-
 
 - **Large Reports**: For very large targets, reports may be substantial. Consider filtering with `--only-poc`
 - **Format Issues**: If a JSON report seems malformed, check for Unicode characters that might affect parsing
-- **Missing Information**: Ensure you're using the latest version of Dalfox for the most comprehensive reports
+- **Missing Information**: Ensure you're using the latest version of XSSFox for the most comprehensive reports
 
 ---
 
@@ -4251,14 +4251,14 @@ dalfox url https://example.com/search?q=test --report --output-request --output-
 SINCE (v2.9.0)
 {: .label .label-green }
 
-In Dalfox 2.9 and later, all requests can be logged in HAR format. This allows you to save the HTTP Archive (HAR) file for further analysis or interaction with other tools.
+In XSSFox 2.9 and later, all requests can be logged in HAR format. This allows you to save the HTTP Archive (HAR) file for further analysis or interaction with other tools.
 
 ## Generating a HAR File
 
 To generate a HAR file, use the `--har-file-path` flag to specify the file path where the HAR file will be saved. Here is an example command:
 
 ```bash
-dalfox url http://testphp.vulnweb.com/listproducts.php?cat=2 \
+xssfox url http://testphp.vulnweb.com/listproducts.php?cat=2 \
     --no-spinner \
     --no-color \
     --output-all \
@@ -4279,7 +4279,7 @@ Here is an example of the content you can expect in the generated HAR file:
     "time": 413.50575,
     "request": {
       "method": "GET",
-      "url": "http://testphp.vulnweb.com/listproducts.php?cat=2%27%22%3E%3Csvg%2Fclass%3Ddalfox+onload%3D%26%2397%26%23108%26%23101%26%23114%26%2300116%26%2340%26%2341%26%23x2f%26%23x2f",
+      "url": "http://testphp.vulnweb.com/listproducts.php?cat=2%27%22%3E%3Csvg%2Fclass%3Dxssfox+onload%3D%26%2397%26%23108%26%23101%26%23114%26%2300116%26%2340%26%2341%26%23x2f%26%23x2f",
       "httpVersion": "HTTP/1.1",
       "cookies": [],
       "headers": [
@@ -4295,7 +4295,7 @@ Here is an example of the content you can expect in the generated HAR file:
       "queryString": [
         {
           "name": "cat",
-          "value": "2'\"><svg/class=dalfox onload=&#97&#108&#101&#114&#00116&#40&#41&#x2f&#x2f"
+          "value": "2'\"><svg/class=xssfox onload=&#97&#108&#101&#114&#00116&#40&#41&#x2f&#x2f"
         }
       ],
       "headersSize": -1,
@@ -4356,7 +4356,7 @@ You can load the generated HAR file into Chrome DevTools or other tools that sup
 
 ## Additional Resources
 
-For more information and advanced usage, please refer to the [pull request](https://github.com/hahwul/dalfox/pull/440) that introduced this feature.
+For more information and advanced usage, please refer to the [pull request](https://github.com/JGPatelOfficial/xssfox/pull/440) that introduced this feature.
 
 ---
 
@@ -4397,7 +4397,7 @@ For more information and advanced usage, please refer to the [pull request](http
     --grep string                 Using custom grepping file
                                     * Example: --grep ./samples/sample_grep.json
 -H, --header strings              Add custom headers
--h, --help                        help for dalfox
+-h, --help                        help for xssfox
     --ignore-return string        Ignore scanning from return code
                                     * Example: --ignore-return 302,403,404
 -X, --method string               Force overriding HTTP Method
@@ -4444,23 +4444,23 @@ For more information and advanced usage, please refer to the [pull request](http
 
 # Format Of PoC
 
-This guide provides a detailed explanation of the format of Proof of Concept (PoC) logs generated by Dalfox. The PoC log contains various information along with the PoC code. The distinction character between information data and PoC code is a blank space.
+This guide provides a detailed explanation of the format of Proof of Concept (PoC) logs generated by XSSFox. The PoC log contains various information along with the PoC code. The distinction character between information data and PoC code is a blank space.
 
 ## Sample PoC Log
 
 Here is a sample PoC log:
 
 ```
-[POC][G][BUILT-IN/dalfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123Dalfox
-[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123%22%3E%3Csvg%2Fclass%3D%22dalfox%22onLoad%3Dalert%2845%29%3E
+[POC][G][BUILT-IN/xssfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123XSSFox
+[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123%22%3E%3Csvg%2Fclass%3D%22xssfox%22onLoad%3Dalert%2845%29%3E
 ```
 
 ## PoC Log Format
 
 | Identity | Type | Information                     | BLANK | PoC Code                                                     |
 | -------- | ---- | ------------------------------- | ----- | ------------------------------------------------------------ |
-| POC      | G    | BUILT-IN/dalfox-error-mysql/GET |       | http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123Dalfox |
-| POC      | V    | GET                             |       | http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123%22%3E%3Csvg%2Fclass%3D%22dalfox%22onLoad%3Dalert%2845%29%3E |
+| POC      | G    | BUILT-IN/xssfox-error-mysql/GET |       | http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123XSSFox |
+| POC      | V    | GET                             |       | http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123%22%3E%3Csvg%2Fclass%3D%22xssfox%22onLoad%3Dalert%2845%29%3E |
 
 ### Explanation of Fields
 
@@ -4478,10 +4478,10 @@ Here is a sample PoC log:
 The gap (blank space) is used to make it easier to parse only the PoC code using tools like `cut`. For example, you can extract the PoC code as follows:
 
 ```shell
-dalfox url http://testphp.vulnweb.com/listproducts.php?cat=123&artist=123&asdf=ff | cut -d " " -f 2 > output
+xssfox url http://testphp.vulnweb.com/listproducts.php?cat=123&artist=123&asdf=ff | cut -d " " -f 2 > output
 cat output
-http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123Dalfox
-http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123%22%3E%3Csvg%2FOnLoad%3D%22%60%24%7Bprompt%60%60%7D%60%22+class%3Ddalfox%3E
+http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123XSSFox
+http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123%22%3E%3Csvg%2FOnLoad%3D%22%60%24%7Bprompt%60%60%7D%60%22+class%3Dxssfox%3E
 ```
 
 ---
@@ -4491,11 +4491,11 @@ http://testphp.vulnweb.com/listproducts.php?artist=123&asdf=ff&cat=123%22%3E%3Cs
 
 # Injectable Points
 
-This guide provides detailed information on the various injectable points that Dalfox can identify during scans. Understanding these points can help you better interpret the results and understand where and how payloads are being injected.
+This guide provides detailed information on the various injectable points that XSSFox can identify during scans. Understanding these points can help you better interpret the results and understand where and how payloads are being injected.
 
 ## Injected Points
 
-Dalfox identifies several types of injectable points in the response. Here are the main categories:
+XSSFox identifies several types of injectable points in the response. Here are the main categories:
 
 - **inHTML-none**: Injection point within HTML content without any surrounding quotes.
 - **inJS-none**: Injection point within JavaScript content without any surrounding quotes.
@@ -4508,7 +4508,7 @@ Dalfox identifies several types of injectable points in the response. Here are t
 
 ## Parameter Types
 
-Dalfox can identify injectable points in different types of parameters:
+XSSFox can identify injectable points in different types of parameters:
 
 - **URL**: Parameters passed in the URL query string.
 - **FORM**: Parameters passed in the body of a form submission.
@@ -4544,7 +4544,7 @@ In this example, the value `testabcd` is injected into the JavaScript context wi
 
 # Result JSON Format
 
-This guide provides a detailed explanation of the JSON format used for scan results generated by Dalfox. Understanding this format can help you better interpret the results and integrate them with other tools.
+This guide provides a detailed explanation of the JSON format used for scan results generated by XSSFox. Understanding this format can help you better interpret the results and integrate them with other tools.
 
 ## Scan Result
 
@@ -4559,15 +4559,15 @@ Here is an example of a scan result in JSON format:
    "inject_type": "inHTML-none(1)-URL",
    "poc_type": "plain",
    "method": "GET",
-   "data": "https://xss-game.appspot.com/level1/frame?query=%3Caudio+controls+ondurationchange%3Dalert%281%29+id%3Ddalfox%3E%3Csource+src%3D1.mp3+type%3Daudio%2Fmpeg%3E%3C%2Faudio%3E",
+   "data": "https://xss-game.appspot.com/level1/frame?query=%3Caudio+controls+ondurationchange%3Dalert%281%29+id%3Dxssfox%3E%3Csource+src%3D1.mp3+type%3Daudio%2Fmpeg%3E%3C%2Faudio%3E",
    "param": "query",
-   "payload": "\u003caudio controls ondurationchange=alert(1) id=dalfox\u003e\u003csource src=1.mp3 type=audio/mpeg\u003e\u003c/audio\u003e",
-   "evidence": "13 line:  s were found for \u003cb\u003e\u003caudio controls ondurationchange=alert(1) id=dalfox\u003e\u003csource ",
+   "payload": "\u003caudio controls ondurationchange=alert(1) id=xssfox\u003e\u003csource src=1.mp3 type=audio/mpeg\u003e\u003c/audio\u003e",
+   "evidence": "13 line:  s were found for \u003cb\u003e\u003caudio controls ondurationchange=alert(1) id=xssfox\u003e\u003csource ",
    "cwe": "CWE-79",
    "severity": "High",
    "message_id": 223,
-   "message_str": "Triggered XSS Payload (found DOM Object): query=\u003caudio controls ondurationchange=alert(1) id=dalfox\u003e\u003csource src=1.mp3 type=audio/mpeg\u003e\u003c/audio\u003e",
-   "raw_request": "GET /level1/frame?query=%3Caudio+controls+ondurationchange%3Dalert%281%29+id%3Ddalfox%3E%3Csource+src%3D1.mp3+type%3Daudio%2Fmpeg%3E%3C%2Faudio%3E HTTP/1.1\r\nHost: xss-game.appspot.com\r\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:75.0) Gecko/20100101 Firefox/75.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\nAccept-Encoding: gzip\r\n\r\n"
+   "message_str": "Triggered XSS Payload (found DOM Object): query=\u003caudio controls ondurationchange=alert(1) id=xssfox\u003e\u003csource src=1.mp3 type=audio/mpeg\u003e\u003c/audio\u003e",
+   "raw_request": "GET /level1/frame?query=%3Caudio+controls+ondurationchange%3Dalert%281%29+id%3Dxssfox%3E%3Csource+src%3D1.mp3+type%3Daudio%2Fmpeg%3E%3C%2Faudio%3E HTTP/1.1\r\nHost: xss-game.appspot.com\r\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:75.0) Gecko/20100101 Firefox/75.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\nAccept-Encoding: gzip\r\n\r\n"
   }
  ],
  "params": [
@@ -4576,7 +4576,7 @@ Here is an example of a scan result in JSON format:
    "Type": "URL",
    "Reflected": true,
    "ReflectedPoint": "/inHTML-none(1)",
-   "ReflectedCode": "13 line:  Sorry, no results were found for \u003cb\u003eDalfox\u003c/b\u003e. \u003ca href='?'\u003eTry again",
+   "ReflectedCode": "13 line:  Sorry, no results were found for \u003cb\u003eXSSFox\u003c/b\u003e. \u003ca href='?'\u003eTry again",
    "Chars": [
     "\\",
     ")",
@@ -4656,10 +4656,10 @@ Here is a detailed explanation of the PoC (Proof of Concept) section in the JSON
     "inject_type": "inHTML-URL",
     "poc_type": "plain",
     "method": "GET",
-    "data": "http://testphp.vulnweb.com/listproducts.php?cat=%27%22%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60+class%3Ddalfox%3E",
+    "data": "http://testphp.vulnweb.com/listproducts.php?cat=%27%22%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60+class%3Dxssfox%3E",
     "param": "cat",
-    "payload": "'\"><img/src/onerror=.1|alert`` class=dalfox>",
-    "evidence": "48 line:  syntax to use near ''\"><img/src/onerror=.1|alert`` class=dalfox>' at line 1",
+    "payload": "'\"><img/src/onerror=.1|alert`` class=xssfox>",
+    "evidence": "48 line:  syntax to use near ''\"><img/src/onerror=.1|alert`` class=xssfox>' at line 1",
     "cwe": "CWE-79",
     "severity": "High"
 }
@@ -4676,7 +4676,7 @@ Here is a detailed explanation of the PoC (Proof of Concept) section in the JSON
 New (v2.11.0)
 {: .label .label-blue }
 
-This guide provides a detailed explanation of the JSONL (JSON Lines) format used for scan results generated by Dalfox. Understanding this format can help you better interpret the results and integrate them with other tools.
+This guide provides a detailed explanation of the JSONL (JSON Lines) format used for scan results generated by XSSFox. Understanding this format can help you better interpret the results and integrate them with other tools.
 
 ## JSONL Format Overview
 
@@ -4687,9 +4687,9 @@ JSONL (JSON Lines) is a convenient format for storing structured data that may b
 Here is an example of scan results in JSONL format:
 
 ```json
-{"type":"R","inject_type":"inHTML","poc_type":"plain","method":"GET","data":"https://xss-game.appspot.com/level1/frame?query=%27%3E%3Ca+href%3Djavas%26%2399%3Bript%3Aalert%281%29%2Fclass%3Ddalfox%3Eclick","param":"query","payload":"'\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=dalfox\u003eclick","evidence":"13 line:  s were found for \u003cb\u003e'\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=dalfox\u003eclick\u003c/b\u003e. \u003ca","cwe":"CWE-79","severity":"Medium","message_id":174,"message_str":"Reflected Payload in HTML: query='\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=dalfox\u003eclick"}
+{"type":"R","inject_type":"inHTML","poc_type":"plain","method":"GET","data":"https://xss-game.appspot.com/level1/frame?query=%27%3E%3Ca+href%3Djavas%26%2399%3Bript%3Aalert%281%29%2Fclass%3Dxssfox%3Eclick","param":"query","payload":"'\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=xssfox\u003eclick","evidence":"13 line:  s were found for \u003cb\u003e'\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=xssfox\u003eclick\u003c/b\u003e. \u003ca","cwe":"CWE-79","severity":"Medium","message_id":174,"message_str":"Reflected Payload in HTML: query='\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=xssfox\u003eclick"}
 {"type":"R","inject_type":"inHTML","poc_type":"plain","method":"GET","data":"https://xss-game.appspot.com/level1/frame?query=%27%22%3E%3Csvg%2Fonload%3D%26%2397%26%23108%26%23101%26%23114%26%2300116%26%2340%26%2341%26%23x2f%26%23x2f","param":"query","payload":"'\"\u003e\u003csvg/onload=\u0026#97\u0026#108\u0026#101\u0026#114\u0026#00116\u0026#40\u0026#41\u0026#x2f\u0026#x2f","evidence":"13 line:  s were found for \u003cb\u003e'\"\u003e\u003csvg/onload=\u0026#97\u0026#108\u0026#101\u0026#114\u0026#00116\u0026#40\u0026#41\u0026#x2f\u0026#x2f\u003c","cwe":"CWE-79","severity":"Medium","message_id":242,"message_str":"Reflected Payload in HTML: query='\"\u003e\u003csvg/onload=\u0026#97\u0026#108\u0026#101\u0026#114\u0026#00116\u0026#40\u0026#41\u0026#x2f\u0026#x2f"}
-{"type":"V","inject_type":"inHTML","poc_type":"plain","method":"GET","data":"https://xss-game.appspot.com/level1/frame?query=%3C%2FScriPt%3E%3CsCripT+id%3Ddalfox%3Ealert%281%29%3C%2FsCriPt%3E","param":"query","payload":"\u003c/ScriPt\u003e\u003csCripT id=dalfox\u003ealert(1)\u003c/sCriPt\u003e","evidence":"13 line:  s were found for \u003cb\u003e\u003c/ScriPt\u003e\u003csCripT id=dalfox\u003ealert(1)\u003c/sCriPt\u003e\u003c/b\u003e. \u003ca href='?","cwe":"CWE-79","severity":"High","message_id":162,"message_str":"Triggered XSS Payload (found DOM Object): query=\u003c/ScriPt\u003e\u003csCripT id=dalfox\u003ealert(1)\u003c/sCriPt\u003e"}
+{"type":"V","inject_type":"inHTML","poc_type":"plain","method":"GET","data":"https://xss-game.appspot.com/level1/frame?query=%3C%2FScriPt%3E%3CsCripT+id%3Dxssfox%3Ealert%281%29%3C%2FsCriPt%3E","param":"query","payload":"\u003c/ScriPt\u003e\u003csCripT id=xssfox\u003ealert(1)\u003c/sCriPt\u003e","evidence":"13 line:  s were found for \u003cb\u003e\u003c/ScriPt\u003e\u003csCripT id=xssfox\u003ealert(1)\u003c/sCriPt\u003e\u003c/b\u003e. \u003ca href='?","cwe":"CWE-79","severity":"High","message_id":162,"message_str":"Triggered XSS Payload (found DOM Object): query=\u003c/ScriPt\u003e\u003csCripT id=xssfox\u003ealert(1)\u003c/sCriPt\u003e"}
 ```
 
 ## PoC
@@ -4740,10 +4740,10 @@ Here is a detailed explanation of the PoC (Proof of Concept) section in the JSON
     "inject_type": "inHTML-URL",
     "poc_type": "plain",
     "method": "GET",
-    "data": "http://testphp.vulnweb.com/listproducts.php?cat=%27%22%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60+class%3Ddalfox%3E",
+    "data": "http://testphp.vulnweb.com/listproducts.php?cat=%27%22%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60+class%3Dxssfox%3E",
     "param": "cat",
-    "payload": "'\"><img/src/onerror=.1|alert`` class=dalfox>",
-    "evidence": "48 line:  syntax to use near ''\"><img/src/onerror=.1|alert`` class=dalfox>' at line 1",
+    "payload": "'\"><img/src/onerror=.1|alert`` class=xssfox>",
+    "evidence": "48 line:  syntax to use near ''\"><img/src/onerror=.1|alert`` class=xssfox>' at line 1",
     "cwe": "CWE-79",
     "severity": "High"
 }
@@ -4758,24 +4758,24 @@ Here is a detailed explanation of the PoC (Proof of Concept) section in the JSON
 
 * Scanning XSS from host / from [@cihanmehmet in awesome-oneliner-bugbounty](https://github.com/dwisiswant0/awesome-oneliner-bugbounty)
 ```bash
-gospider -S targets_urls.txt -c 10 -d 5 --blacklist ".(jpg|jpeg|gif|css|tif|tiff|png|ttf|woff|woff2|ico|pdf|svg|txt)" --other-source | grep -e "code-200" | awk '{print $5}'| grep "=" | qsreplace -a | dalfox pipe | tee result.txt
+gospider -S targets_urls.txt -c 10 -d 5 --blacklist ".(jpg|jpeg|gif|css|tif|tiff|png|ttf|woff|woff2|ico|pdf|svg|txt)" --other-source | grep -e "code-200" | awk '{print $5}'| grep "=" | qsreplace -a | xssfox pipe | tee result.txt
 ```
-* [Automating XSS using Dalfox, GF and Waybackurls](https://medium.com/bugbountywriteup/automating-xss-using-dalfox-gf-and-waybackurls-bc6de16a5c75)
+* [Automating XSS using XSSFox, GF and Waybackurls](https://medium.com/bugbountywriteup/automating-xss-using-xssfox-gf-and-waybackurls-bc6de16a5c75)
 ```bash
-cat test.txt | gf xss | sed ‘s/=.*/=/’ | sed ‘s/URL: //’ | tee testxss.txt ; dalfox file testxss.txt -b yours-xss-hunter-domain(e.g yours.xss.ht)
+cat test.txt | gf xss | sed ‘s/=.*/=/’ | sed ‘s/URL: //’ | tee testxss.txt ; xssfox file testxss.txt -b yours-xss-hunter-domain(e.g yours.xss.ht)
 ```
 * [Find XSS and Blind XSS, and send every request to burpsuite for more manual testing
 ](https://twitter.com/Alra3ees/status/1407058456323014659)
 ```bash
-dalfox file hosts --mining-dom  --deep-domxss --ignore-return -b 'YOURS.xss.ht' --follow-redirects --proxy http://127.0.0.1:8080
+xssfox file hosts --mining-dom  --deep-domxss --ignore-return -b 'YOURS.xss.ht' --follow-redirects --proxy http://127.0.0.1:8080
 ```
-* [dalfox scan to bugbounty targets / from KingOfBugBountyTips](https://github.com/KingOfBugbounty/KingOfBugBountyTips#dalfox-scan-to-bugbounty-targets-1)
+* [xssfox scan to bugbounty targets / from KingOfBugBountyTips](https://github.com/KingOfBugbounty/KingOfBugBountyTips#xssfox-scan-to-bugbounty-targets-1)
 ```bash
-wget https://raw.githubusercontent.com/arkadiyt/bounty-targets-data/master/data/domains.txt -nv ; cat domains.txt | anew | httpx -silent -threads 500 | xargs -I@ dalfox url @
+wget https://raw.githubusercontent.com/arkadiyt/bounty-targets-data/master/data/domains.txt -nv ; cat domains.txt | anew | httpx -silent -threads 500 | xargs -I@ xssfox url @
 ```
-* [Recon subdomains and gau to search vuls Dalfox / from KingOfBugBountyTips](https://github.com/KingOfBugbounty/KingOfBugBountyTips#recon-subdomains-and-gau-to-search-vuls-dalfox)
+* [Recon subdomains and gau to search vuls XSSFox / from KingOfBugBountyTips](https://github.com/KingOfBugbounty/KingOfBugBountyTips#recon-subdomains-and-gau-to-search-vuls-xssfox)
 ```bash
-assetfinder testphp.vulnweb.com | gau |  dalfox pipe
+assetfinder testphp.vulnweb.com | gau |  xssfox pipe
 ```
 
 ---
@@ -4785,21 +4785,21 @@ assetfinder testphp.vulnweb.com | gau |  dalfox pipe
 
 # Community Resources
 
-This page gathers various resources related to Dalfox, including articles, videos, and tutorials.
+This page gathers various resources related to XSSFox, including articles, videos, and tutorials.
 
 ## Articles
 
-- [Dalfox: My New Weapon for XSS](https://www.hahwul.com/2020/04/22/my-new-xss-tool-dalfox/)
+- [XSSFox: My New Weapon for XSS](https://www.hahwul.com/2020/04/22/my-new-xss-tool-xssfox/)
 
 ## Videos
 
-- [Find XSS the easy way! Dalfox - Hacker Tools @Intigriti](https://www.youtube.com/watch?v=m64aviF1Two&pp=ugMICgJrbxABGAHKBQZkYWxmb3g%3D)
-- [Dalfox XSS Automation Scanner for Bug Bounty @Meta4sec](https://www.youtube.com/watch?v=EJzf_g0Vw38&pp=ygUGZGFsZm94)
+- [Find XSS the easy way! XSSFox - Hacker Tools @Intigriti](https://www.youtube.com/watch?v=m64aviF1Two&pp=ugMICgJrbxABGAHKBQZkYWxmb3g%3D)
+- [XSSFox XSS Automation Scanner for Bug Bounty @Meta4sec](https://www.youtube.com/watch?v=EJzf_g0Vw38&pp=ygUGZGFsZm94)
 - [Testing XSS Tools On Target Protected By WAF @BePractical](https://www.youtube.com/watch?v=_oLyUxRMnJk)
-- [More](https://www.youtube.com/results?search_query=dalfox)
+- [More](https://www.youtube.com/results?search_query=xssfox)
 
 ## Tutorials
 
-- [Dalfox – Hacker Tools: XSS Scanning Made Easy 👩‍💻](https://blog.intigriti.com/hacking-tools/hacker-tools-dalfox)
+- [XSSFox – Hacker Tools: XSS Scanning Made Easy 👩‍💻](https://blog.intigriti.com/hacking-tools/hacker-tools-xssfox)
 
 ---

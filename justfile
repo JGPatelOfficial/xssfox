@@ -5,10 +5,10 @@ default:
 # List of available commands
 alias help := default
 
-# Build the dalfox binary
+# Build the xssfox binary
 build:
-    @echo "Building dalfox binary..."
-    go build -o dalfox .
+    @echo "Building xssfox binary..."
+    go build -o xssfox .
 
 # Run go unit tests
 test:
@@ -38,7 +38,7 @@ update:
 # Clean build artifacts
 clean:
     @echo "Cleaning build artifacts..."
-    rm -f dalfox
+    rm -f xssfox
     rm -rf vendor
     go clean
 
@@ -46,7 +46,7 @@ clean:
 test-functional-setup:
     @echo "Setting up functional test environment..."
     go mod vendor
-    go build -o dalfox .
+    go build -o xssfox .
 
 # Run the functional tests (requires RSpec)
 test-functional: test-functional-setup

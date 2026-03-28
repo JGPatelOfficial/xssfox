@@ -1,8 +1,8 @@
 ---
-name: dalfox
+name: xssfox
 summary: Powerful open-source XSS scanner and utility focused on automation.
 description: |
-  Dalfox is a powerful open-source tool that focuses on automation, making it ideal for quickly scanning for XSS flaws and analyzing parameters.
+  XSSFox is a powerful open-source tool that focuses on automation, making it ideal for quickly scanning for XSS flaws and analyzing parameters.
   Its advanced testing engine and niche features are designed to streamline the process of detecting and verifying vulnerabilities.
 base: core20
 grade: stable
@@ -11,17 +11,17 @@ license: MIT
 version: v2.12.0
 
 apps:
-  dalfox:
-    command: dalfox
+  xssfox:
+    command: xssfox
     plugs: [home, network, network-bind]
 parts:
-  dalfox:
-    source: https://github.com/hahwul/dalfox.git
+  xssfox:
+    source: https://github.com/JGPatelOfficial/xssfox.git
     source-type: git
     plugin: go
     build-snaps: [go]
     build-packages: [build-essential]
     override-build: |
       go build .
-      cp ./dalfox $SNAPCRAFT_PART_INSTALL/
+      cp ./xssfox $SNAPCRAFT_PART_INSTALL/
       snapcraftctl build

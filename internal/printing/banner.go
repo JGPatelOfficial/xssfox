@@ -1,10 +1,10 @@
 package printing
 
-import "github.com/hahwul/dalfox/v2/pkg/model"
+import "github.com/JGPatelOfficial/xssfox/pkg/model"
 
-// Banner is Dalfox banner function
+// Banner is XSSFox banner function
 func Banner(options model.Options) {
-	DalLog("", `                                                        
+	XSSLog("", `                                                        
                ░█▒               
              ████     ▓                    
            ▓█████  ▓██▓                  
@@ -13,7 +13,7 @@ func Banner(options model.Options) {
      ░████████████████        ▒██░    
     ▓██████████▒███████     ░█████▓░    
    ██████████████░ ████        █▓     
- ░█████▓          ░████▒       ░         Dalfox `+VERSION+`
+ ░█████▓          ░████▒       ░         XSSFox `+VERSION+`
  █████               ▓██░             
  ████                  ▓██      Powerful open-source XSS scanner       
  ███▓        ▓███████▓▒▓█░     and utility focused on automation.       

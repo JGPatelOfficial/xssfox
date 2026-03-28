@@ -11,7 +11,7 @@ layout: page
 
 ## What is Parameter Mining?
 
-Parameter mining is an advanced feature in Dalfox that automatically discovers potential injection points in web applications. Instead of only testing parameters that are visible in the URL, parameter mining helps identify hidden, undocumented, or forgotten parameters that might be vulnerable to XSS attacks.
+Parameter mining is an advanced feature in XSSFox that automatically discovers potential injection points in web applications. Instead of only testing parameters that are visible in the URL, parameter mining helps identify hidden, undocumented, or forgotten parameters that might be vulnerable to XSS attacks.
 
 Effective parameter discovery is crucial for thorough security testing because:
 
@@ -20,7 +20,7 @@ Effective parameter discovery is crucial for thorough security testing because:
 - Legacy parameters might remain functional but undocumented
 - Frontend code might reveal parameters used by APIs and background processes
 
-Dalfox implements two complementary parameter mining techniques:
+XSSFox implements two complementary parameter mining techniques:
 
 1. **Dictionary-based Mining**: Tests common parameter names from wordlists
 2. **DOM-based Mining**: Analyzes JavaScript code to extract parameter names
@@ -33,7 +33,7 @@ This technique involves testing a curated list of common parameter names against
 
 ### Default Wordlist
 
-By default, Dalfox uses parameter lists from [Gf-Patterns](https://github.com/1ndianl33t/Gf-Patterns), specifically optimized for XSS vulnerability discovery. These lists include common parameter names like:
+By default, XSSFox uses parameter lists from [Gf-Patterns](https://github.com/1ndianl33t/Gf-Patterns), specifically optimized for XSS vulnerability discovery. These lists include common parameter names like:
 
 - `q`, `search`, `query` (search functionality)
 - `redirect`, `url`, `next` (redirection)
@@ -45,7 +45,7 @@ By default, Dalfox uses parameter lists from [Gf-Patterns](https://github.com/1n
 For more targeted testing, you can provide your own parameter wordlist:
 
 ```bash
-dalfox url https://example.com --mining-dict-word=./my-params.txt
+xssfox url https://example.com --mining-dict-word=./my-params.txt
 ```
 
 Your custom wordlist should contain one parameter name per line:
@@ -66,14 +66,14 @@ callback
 
 ### Using Remote Wordlists
 
-Dalfox can also retrieve and use wordlists from well-known security resources:
+XSSFox can also retrieve and use wordlists from well-known security resources:
 
 ```bash
 # Use one remote wordlist
-dalfox url https://example.com --remote-wordlists=burp
+xssfox url https://example.com --remote-wordlists=burp
 
 # Use multiple remote wordlists
-dalfox url https://example.com --remote-wordlists=burp,assetnote
+xssfox url https://example.com --remote-wordlists=burp,assetnote
 ```
 
 Available remote wordlists:
@@ -85,18 +85,18 @@ Available remote wordlists:
 
 ### Parameter Testing Methodology
 
-When mining parameters, Dalfox:
+When mining parameters, XSSFox:
 
 1. Takes each parameter from the wordlist
 2. Appends it to the target URL with a special marker value
 3. Analyzes the response for reflections or changes in behavior
 4. Flags potential injection points for further testing
 
-For example, if the target is `https://example.com`, Dalfox might test:
+For example, if the target is `https://example.com`, XSSFox might test:
 ```
-https://example.com?search=DalfoxParameterCheck
-https://example.com?q=DalfoxParameterCheck
-https://example.com?id=DalfoxParameterCheck
+https://example.com?search=XSSFoxParameterCheck
+https://example.com?q=XSSFoxParameterCheck
+https://example.com?id=XSSFoxParameterCheck
 ...
 ```
 
@@ -106,7 +106,7 @@ DOM-based mining is a more sophisticated approach that analyzes JavaScript code 
 
 ### How DOM Mining Works
 
-Dalfox performs the following steps:
+XSSFox performs the following steps:
 
 1. Downloads and parses all JavaScript files linked from the target page
 2. Analyzes JavaScript code for parameter access patterns and URL manipulations
@@ -138,17 +138,17 @@ searchForm.addEventListener('submit', function(e) {
 
 ### Fine-tuning Mining Behavior
 
-Dalfox provides several options to control the parameter mining process:
+XSSFox provides several options to control the parameter mining process:
 
 ```bash
 # Disable only DOM-based mining
-dalfox url https://example.com --skip-mining-dom
+xssfox url https://example.com --skip-mining-dom
 
 # Disable only dictionary-based mining
-dalfox url https://example.com --skip-mining-dict
+xssfox url https://example.com --skip-mining-dict
 
 # Disable all parameter mining
-dalfox url https://example.com --skip-mining-all
+xssfox url https://example.com --skip-mining-all
 ```
 
 ### When to Disable Mining
@@ -167,7 +167,7 @@ Consider disabling parameter mining in these scenarios:
 For most effective parameter discovery, combine multiple techniques:
 
 ```bash
-dalfox url https://example.com --remote-wordlists=burp,assetnote --mining-dict-word=./custom-params.txt
+xssfox url https://example.com --remote-wordlists=burp,assetnote --mining-dict-word=./custom-params.txt
 ```
 
 ### Mining with Specified Parameters
@@ -175,10 +175,10 @@ dalfox url https://example.com --remote-wordlists=burp,assetnote --mining-dict-w
 You can combine parameter mining with specific parameter testing:
 
 ```bash
-dalfox url https://example.com -p knownparam1 -p knownparam2
+xssfox url https://example.com -p knownparam1 -p knownparam2
 ```
 
-Dalfox will test both the specified parameters and any discovered through mining.
+XSSFox will test both the specified parameters and any discovered through mining.
 
 ### Mining in Different Contexts
 
@@ -186,13 +186,13 @@ Parameter mining works across different scan modes:
 
 ```bash
 # URL mode with mining
-dalfox url https://example.com
+xssfox url https://example.com
 
 # File mode with mining (multiple URLs)
-dalfox file urls.txt
+xssfox file urls.txt
 
 # Pipe mode with mining
-cat urls.txt | dalfox pipe
+cat urls.txt | xssfox pipe
 ```
 
 ## Practical Examples
@@ -201,7 +201,7 @@ cat urls.txt | dalfox pipe
 
 ```bash
 # Discover and test parameters on a target website
-dalfox url https://example.com
+xssfox url https://example.com
 ```
 
 Output example:
@@ -218,14 +218,14 @@ Output example:
 
 ```bash
 # Combine known parameters with mining
-dalfox url https://example.com -p admin -p token --remote-wordlists=burp
+xssfox url https://example.com -p admin -p token --remote-wordlists=burp
 ```
 
 ### Mining with Output Filtering
 
 ```bash
 # Only show discovered parameters, skip testing
-dalfox url https://example.com --only-discovery
+xssfox url https://example.com --only-discovery
 ```
 
 ## Best Practices
@@ -248,8 +248,8 @@ dalfox url https://example.com --only-discovery
 
 ```bash
 # Faster mining with more workers
-dalfox url https://example.com -w 200
+xssfox url https://example.com -w 200
 
 # Use only the most common parameters
-dalfox url https://example.com --mining-dict-word=./common-top100.txt
+xssfox url https://example.com --mining-dict-word=./common-top100.txt
 ```

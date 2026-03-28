@@ -5,7 +5,7 @@ import (
 	"sync"
 	t "time"
 
-	"github.com/hahwul/dalfox/v2/internal/har"
+	"github.com/JGPatelOfficial/xssfox/internal/har"
 
 	s "github.com/briandowns/spinner"
 	a "github.com/logrusorgru/aurora"

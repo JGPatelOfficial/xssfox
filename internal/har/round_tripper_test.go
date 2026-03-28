@@ -1,4 +1,4 @@
-// Package har implements HAR file output support for Dalfox
+// Package har implements HAR file output support for XSSFox
 package har
 
 import (

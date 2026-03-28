@@ -9,10 +9,10 @@ layout: page
 
 # Usage
 
-Dalfox provides a powerful command-line interface with various modes and options to tailor your XSS scanning experience. The basic command structure is:
+XSSFox provides a powerful command-line interface with various modes and options to tailor your XSS scanning experience. The basic command structure is:
 
 ```shell
-dalfox [mode] [target] [flags]
+xssfox [mode] [target] [flags]
 ```
 
 ## Quick Start Examples
@@ -21,27 +21,27 @@ Here are some common usage examples to get you started:
 
 ```bash
 # Scan a single URL
-dalfox url https://example.com
+xssfox url https://example.com
 
 # Scan a URL with parameters
-dalfox url "https://example.com/search?q=test"
+xssfox url "https://example.com/search?q=test"
 
 # Use blind XSS payload with callback URL
-dalfox url https://example.com -b https://your-callback-url.com
+xssfox url https://example.com -b https://your-callback-url.com
 
 # Scan multiple URLs from a file
-dalfox file targets.txt
+xssfox file targets.txt
 
 # Process URLs from another tool via pipeline
-cat urls.txt | dalfox pipe
+cat urls.txt | xssfox pipe
 
-# Start Dalfox as a REST API server
-dalfox server --host 0.0.0.0 --port 8080
+# Start XSSFox as a REST API server
+xssfox server --host 0.0.0.0 --port 8080
 ```
 
 ## Available Modes
 
-Dalfox supports several operational modes to accommodate different scanning scenarios:
+XSSFox supports several operational modes to accommodate different scanning scenarios:
 
 | Mode | Description |
 |------|-------------|
@@ -51,7 +51,7 @@ Dalfox supports several operational modes to accommodate different scanning scen
 | `sxss` | Test for stored XSS vulnerabilities |
 | `server` | Run as a REST API server |
 | `payload` | Generate and manipulate XSS payloads |
-| `version` | Display the Dalfox version |
+| `version` | Display the XSSFox version |
 | `help` | Show help information |
 
 For detailed documentation on each mode, see the corresponding pages:

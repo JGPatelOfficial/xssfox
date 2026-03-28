@@ -12,13 +12,13 @@ layout: page
 
 ## Overview
 
-Server mode transforms Dalfox into a service that can be used in different ways. By default, Dalfox runs as a REST API service, but it can also operate as an MCP (Model Context Protocol) server using the `--type` flag.
+Server mode transforms XSSFox into a service that can be used in different ways. By default, XSSFox runs as a REST API service, but it can also operate as an MCP (Model Context Protocol) server using the `--type` flag.
 
 ### Server Types
 
 1. **REST API Mode (Default)**: Enables integration with other security tools, automation workflows, and continuous security pipelines through HTTP endpoints.
 
-2. **MCP Mode**: Allows Dalfox to operate as a Model Context Protocol server, making it compatible with advanced AI assistants and development environments like Visual Studio Code.
+2. **MCP Mode**: Allows XSSFox to operate as a Model Context Protocol server, making it compatible with advanced AI assistants and development environments like Visual Studio Code.
 
 These modes are particularly valuable for:
 - Security operations centers (SOCs) looking to build centralized scanning infrastructure
@@ -29,23 +29,23 @@ These modes are particularly valuable for:
 
 ## Starting the Server
 
-To start Dalfox in server mode, use the `server` command:
+To start XSSFox in server mode, use the `server` command:
 
 ```bash
 # Start with default settings (listening on 0.0.0.0:6664 in REST API mode)
-dalfox server
+xssfox server
 
 # Specify custom host and port
-dalfox server --host 127.0.0.1 --port 8090
+xssfox server --host 127.0.0.1 --port 8090
 
 # Start REST API server with API key authentication
-dalfox server --api-key "your-secret-key"
+xssfox server --api-key "your-secret-key"
 
 # Start REST API server with CORS and JSONP enabled
-dalfox server --allowed-origins "http://localhost:3000,https://example.com" --jsonp
+xssfox server --allowed-origins "http://localhost:3000,https://example.com" --jsonp
 
 # Start as an MCP server
-dalfox server --type mcp
+xssfox server --type mcp
 ```
 
 ### Server Mode Flags
@@ -62,7 +62,7 @@ dalfox server --type mcp
 ### Example Output
 
 ```bash
-dalfox server --host 0.0.0.0 --port 8090
+xssfox server --host 0.0.0.0 --port 8090
     _..._
   .' .::::.   __   _   _    ___ _ __ __
  :  :::::::: |  \ / \ | |  | __/ \\ V /
@@ -85,7 +85,7 @@ Finder Of XSS and Dal is the Korean pronunciation of moon. @hahwul
 
 ## API Documentation
 
-The Dalfox server provides a Swagger UI for easy API exploration and testing. Access it at:
+The XSSFox server provides a Swagger UI for easy API exploration and testing. Access it at:
 
 ```
 http://your-server-address:port/swagger/index.html
@@ -97,7 +97,7 @@ For example: `http://localhost:8090/swagger/index.html`
 
 ## API Endpoints
 
-Dalfox's server mode provides several RESTful endpoints for scan management:
+XSSFox's server mode provides several RESTful endpoints for scan management:
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -191,7 +191,7 @@ The server mode accepts the same options available in CLI mode. Below are some c
 }
 ```
 
-For a complete list of options, refer to the [options model](https://github.com/hahwul/dalfox/blob/master/pkg/model/options.go).
+For a complete list of options, refer to the [options model](https://github.com/JGPatelOfficial/xssfox/blob/master/pkg/model/options.go).
 
 ## Integration Examples
 
@@ -202,18 +202,18 @@ import requests
 import json
 import time
 
-DALFOX_SERVER = "http://localhost:8090"
+XSSFOX_SERVER = "http://localhost:8090"
 
 def start_scan(url, options=None):
     payload = {"url": url}
     if options:
         payload["options"] = options
     
-    response = requests.post(f"{DALFOX_SERVER}/scan", json=payload)
+    response = requests.post(f"{XSSFOX_SERVER}/scan", json=payload)
     return response.json()["msg"]  # Return the scan ID
 
 def get_scan_results(scan_id):
-    response = requests.get(f"{DALFOX_SERVER}/result/{scan_id}")
+    response = requests.get(f"{XSSFOX_SERVER}/result/{scan_id}")
     return response.json()
 
 def main():
@@ -244,7 +244,7 @@ if __name__ == "__main__":
 ### CI/CD Integration (GitHub Actions)
 
 ```yaml
-name: Dalfox Security Scan
+name: XSSFox Security Scan
 
 on:
   push:
@@ -259,9 +259,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Run Dalfox Server
+      - name: Run XSSFox Server
         run: |
-          docker run -d -p 6664:6664 hahwul/dalfox:latest server
+          docker run -d -p 6664:6664 JGPatelOfficial/xssfox:latest server
           sleep 5  # Wait for server to start
       
       - name: Run Scan
@@ -281,11 +281,11 @@ jobs:
 
 ## Security Considerations
 
-When deploying Dalfox in server mode, consider the following security practices:
+When deploying XSSFox in server mode, consider the following security practices:
 
 1. **Access Control**: Restrict access to the API server using a reverse proxy, firewall rules, or API keys
 2. **Resource Limits**: Set appropriate worker and timeout values to avoid resource exhaustion
-3. **Monitoring**: Implement monitoring for the Dalfox server to track resource usage and scan activity
+3. **Monitoring**: Implement monitoring for the XSSFox server to track resource usage and scan activity
 4. **Isolation**: Run the server in an isolated environment (Docker container or separate VM)
 
 ## Common Issues and Solutions
@@ -303,7 +303,7 @@ When deploying Dalfox in server mode, consider the following security practices:
 - For production deployments, set up logging and monitoring
 - Use a proper API key mechanism for authenticating clients
 - Consider implementing rate limiting for public-facing instances
-- Regularly update your Dalfox installation to get the latest security checks and bug fixes
+- Regularly update your XSSFox installation to get the latest security checks and bug fixes
 
 ## MCP Server Mode
 {: .d-inline-block }
@@ -311,29 +311,29 @@ When deploying Dalfox in server mode, consider the following security practices:
 New (v2.11.0) 
 {: .label .label-blue }
 
-Dalfox can function as a Model Context Protocol (MCP) server, enabling direct integration with AI-powered development environments like Visual Studio Code and compatible AI assistants.
+XSSFox can function as a Model Context Protocol (MCP) server, enabling direct integration with AI-powered development environments like Visual Studio Code and compatible AI assistants.
 
 ### What is MCP?
 
-Model Context Protocol (MCP) is a protocol designed to enable AI assistants to execute specialized tools in a controlled environment. By running Dalfox as an MCP server, AI coding assistants can directly leverage Dalfox's XSS scanning capabilities within your development workflow.
+Model Context Protocol (MCP) is a protocol designed to enable AI assistants to execute specialized tools in a controlled environment. By running XSSFox as an MCP server, AI coding assistants can directly leverage XSSFox's XSS scanning capabilities within your development workflow.
 
 ### Setting Up MCP Integration with VS Code
 
-To use Dalfox as an MCP server with Visual Studio Code:
+To use XSSFox as an MCP server with Visual Studio Code:
 
-1. Start Dalfox in MCP server mode:
+1. Start XSSFox in MCP server mode:
    ```bash
-   dalfox server --type mcp
+   xssfox server --type mcp
    ```
 
-2. Configure VS Code to use Dalfox as an MCP server by adding the following to your `settings.json`:
+2. Configure VS Code to use XSSFox as an MCP server by adding the following to your `settings.json`:
    ```json
    {
      "mcp": {
        "servers": {
-         "dalfox": {
+         "xssfox": {
            "type": "stdio",
-           "command": "dalfox",
+           "command": "xssfox",
            "args": [
              "server",
              "--type=mcp"
@@ -344,7 +344,7 @@ To use Dalfox as an MCP server with Visual Studio Code:
    }
    ```
 
-3. With this configuration, compatible AI coding assistants can now use Dalfox to perform XSS vulnerability scanning directly within your IDE.
+3. With this configuration, compatible AI coding assistants can now use XSSFox to perform XSS vulnerability scanning directly within your IDE.
 
 ### Benefits of MCP Mode
 

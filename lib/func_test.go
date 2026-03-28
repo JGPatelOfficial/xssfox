@@ -4,13 +4,13 @@ import (
 	"testing"
 	"time"
 
-	dalfox "github.com/hahwul/dalfox/v2/lib"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	xssfox "github.com/JGPatelOfficial/xssfox/lib"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestInitialize(t *testing.T) {
-	opt := dalfox.Options{
+	opt := xssfox.Options{
 		Cookie:            "ABCD=1234",
 		UniqParam:         []string{"q"},
 		BlindURL:          "your-callback-url",
@@ -48,13 +48,13 @@ func TestInitialize(t *testing.T) {
 		WAFEvasion:        true,
 		Sequence:          1,
 	}
-	target := dalfox.Target{
+	target := xssfox.Target{
 		URL:     "https://www.hahwul.com",
 		Method:  "GET",
 		Options: opt,
 	}
 
-	newOptions := dalfox.Initialize(target, opt)
+	newOptions := xssfox.Initialize(target, opt)
 	assert.NotEqual(t, newOptions.Cookie, "", "they should not be equal")
 	assert.NotEqual(t, newOptions.UniqParam, []string{}, "they should not be equal")
 	assert.NotEqual(t, newOptions.BlindURL, "", "they should not be equal")
@@ -102,14 +102,14 @@ func TestInitialize(t *testing.T) {
 }
 
 func TestNewScan(t *testing.T) {
-	opt := dalfox.Options{}
-	target := dalfox.Target{
+	opt := xssfox.Options{}
+	target := xssfox.Target{
 		URL:     "https://www.hahwul.com",
 		Method:  "GET",
 		Options: opt,
 	}
 
-	result, err := dalfox.NewScan(target)
+	result, err := xssfox.NewScan(target)
 	assert.NoError(t, err, "Error should be nil")
 	assert.NotNil(t, result, "Result should not be nil")
 	assert.NotZero(t, result.Duration, "Duration should not be zero")
@@ -119,7 +119,7 @@ func TestNewScan(t *testing.T) {
 
 func TestResultIsFound(t *testing.T) {
 	// Test case 1: No PoCs found
-	emptyResult := dalfox.Result{
+	emptyResult := xssfox.Result{
 		Logs:      []string{"test log"},
 		PoCs:      []model.PoC{},
 		Params:    []model.ParamResult{},
@@ -130,7 +130,7 @@ func TestResultIsFound(t *testing.T) {
 	assert.False(t, emptyResult.IsFound(), "IsFound should return false when no PoCs exist")
 
 	// Test case 2: PoCs found
-	resultWithPoCs := dalfox.Result{
+	resultWithPoCs := xssfox.Result{
 		Logs: []string{"test log"},
 		PoCs: []model.PoC{
 			{

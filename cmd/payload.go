@@ -3,9 +3,9 @@ package cmd
 import (
 	"strconv"
 
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/payload"
-	"github.com/hahwul/dalfox/v2/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/payload"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
 	"github.com/spf13/cobra"
 )
 
@@ -37,13 +37,13 @@ func runPayloadCmd(cmd *cobra.Command, args []string) {
 	for _, object := range objects {
 		if object.Use {
 			lst, s := object.Listener()
-			printing.DalLog("INFO", "["+object.Name+"][Line: "+strconv.Itoa(s)+"]", options)
+			printing.XSSLog("INFO", "["+object.Name+"][Line: "+strconv.Itoa(s)+"]", options)
 			plst := optimization.SetPayloadValue(lst, options)
 			for _, v := range plst {
 				if urlEncode {
-					printing.DalLog("YELLOW", optimization.UrlEncode(v), options)
+					printing.XSSLog("YELLOW", optimization.UrlEncode(v), options)
 				} else {
-					printing.DalLog("YELLOW", v, options)
+					printing.XSSLog("YELLOW", v, options)
 				}
 			}
 		}

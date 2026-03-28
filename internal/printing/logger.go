@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/hahwul/dalfox/v2/internal/utils"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/utils"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 func boolToColorStr(b bool, options model.Options) string {
@@ -64,12 +64,12 @@ func Summary(options model.Options, target string) {
 		fmt.Fprintf(os.Stderr, " 📤  FollowRedirect         %s\n", boolToColorStr(options.FollowRedirect, options))
 		fmt.Fprintf(os.Stderr, " 🕰   Started at             %s\n", options.StartTime.Format("2006-01-02 15:04:05"))
 		fmt.Fprintf(os.Stderr, "\n")
-		DalLog("SYSTEM-M", utils.GenerateTerminalWidthLine("-"), options)
+		XSSLog("SYSTEM-M", utils.GenerateTerminalWidthLine("-"), options)
 	}
 }
 
-// DalLog is log fomatting for Dalfox
-func DalLog(level, text string, options model.Options) {
+// XSSLog is log fomatting for XSSFox
+func XSSLog(level, text string, options model.Options) {
 	var mutex *sync.Mutex
 	if options.Mutex != nil {
 		mutex = options.Mutex

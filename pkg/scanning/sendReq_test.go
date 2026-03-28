@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 func TestSendReq(t *testing.T) {
@@ -29,7 +29,7 @@ func TestSendReq(t *testing.T) {
 			name: "Successful request",
 			args: args{
 				req: func() *http.Request {
-					req, _ := http.NewRequest(http.MethodGet, "https://dalfox.hahwul.com", nil)
+					req, _ := http.NewRequest(http.MethodGet, "https://xssfox.hahwul.com", nil)
 					return req
 				}(),
 				payload: "test-payload",
@@ -37,7 +37,7 @@ func TestSendReq(t *testing.T) {
 					Timeout: 10,
 				},
 			},
-			want:    "dalfox",
+			want:    "xssfox",
 			want1:   &http.Response{StatusCode: http.StatusOK},
 			want2:   false,
 			want3:   false,
@@ -65,17 +65,17 @@ func TestSendReq(t *testing.T) {
 			name: "Request with trigger",
 			args: args{
 				req: func() *http.Request {
-					req, _ := http.NewRequest(http.MethodGet, "https://dalfox.hahwul.com", nil)
+					req, _ := http.NewRequest(http.MethodGet, "https://xssfox.hahwul.com", nil)
 					return req
 				}(),
 				payload: "test-payload",
 				options: model.Options{
 					Timeout:       10,
-					Trigger:       "https://dalfox.hahwul.com",
+					Trigger:       "https://xssfox.hahwul.com",
 					TriggerMethod: http.MethodGet,
 				},
 			},
-			want:    "dalfox",
+			want:    "xssfox",
 			want1:   &http.Response{StatusCode: http.StatusOK},
 			want2:   false,
 			want3:   false,
@@ -85,7 +85,7 @@ func TestSendReq(t *testing.T) {
 			name: "Request with ForceHeadlessVerification",
 			args: args{
 				req: func() *http.Request {
-					req, _ := http.NewRequest(http.MethodGet, "https://dalfox.hahwul.com", nil)
+					req, _ := http.NewRequest(http.MethodGet, "https://xssfox.hahwul.com", nil)
 					return req
 				}(),
 				payload: "test-payload",

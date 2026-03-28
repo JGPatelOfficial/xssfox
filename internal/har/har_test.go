@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/hahwul/dalfox/v2/internal/har"
+	"github.com/JGPatelOfficial/xssfox/internal/har"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/tidwall/sjson"
@@ -20,7 +20,7 @@ type Test struct {
 	Name string
 }
 
-var creator = &har.Creator{Name: "dalfox tests", Version: "0.0"}
+var creator = &har.Creator{Name: "xssfox tests", Version: "0.0"}
 
 func TestSingleRequest(t *testing.T) {
 	buf := &bytes.Buffer{}

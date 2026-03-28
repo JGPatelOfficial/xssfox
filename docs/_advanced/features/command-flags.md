@@ -9,11 +9,11 @@ layout: page
 
 # Command Line Flags
 
-This page provides a comprehensive overview of Dalfox's command line flags, organized by functionality.
+This page provides a comprehensive overview of XSSFox's command line flags, organized by functionality.
 
 ## Request Configuration Flags
 
-These flags allow you to customize the HTTP requests sent by Dalfox:
+These flags allow you to customize the HTTP requests sent by XSSFox:
 
 | Flag | Description |
 |------|-------------|
@@ -49,7 +49,7 @@ These flags control the behavior of the scanning process:
 
 ## Performance Flags
 
-These flags allow you to fine-tune the performance of Dalfox:
+These flags allow you to fine-tune the performance of XSSFox:
 
 | Flag | Description |
 |------|-------------|
@@ -58,7 +58,7 @@ These flags allow you to fine-tune the performance of Dalfox:
 
 ## Parameter Mining Flags
 
-These flags control how Dalfox discovers and tests parameters:
+These flags control how XSSFox discovers and tests parameters:
 
 | Flag | Description |
 |------|-------------|
@@ -87,7 +87,7 @@ These flags allow you to control the scanning flow:
 
 ## Output and Reporting Flags
 
-These flags control how Dalfox presents its findings:
+These flags control how XSSFox presents its findings:
 
 | Flag | Description |
 |------|-------------|
@@ -113,45 +113,45 @@ These flags control how Dalfox presents its findings:
 
 Basic scanning with custom headers and cookies:
 ```bash
-dalfox url https://example.com -H 'Authorization: Bearer token' -C 'session=abc123'
+xssfox url https://example.com -H 'Authorization: Bearer token' -C 'session=abc123'
 ```
 
 Using POST method with data:
 ```bash
-dalfox url https://example.com/login -d 'username=admin&password=admin'
+xssfox url https://example.com/login -d 'username=admin&password=admin'
 ```
 
 Output results to a JSON file with detailed reporting:
 ```bash
-dalfox url https://example.com --format json -o results.json --report --report-format json
+xssfox url https://example.com --format json -o results.json --report --report-format json
 ```
 
 Parameter mining with custom wordlist and increased workers:
 ```bash
-dalfox url https://example.com -W wordlist.txt -w 200
+xssfox url https://example.com -W wordlist.txt -w 200
 ```
 
 Using blind XSS detection with a callback URL:
 ```bash
-dalfox url https://example.com -b https://your-xss-catcher.com/hook
+xssfox url https://example.com -b https://your-xss-catcher.com/hook
 ```
 
 WAF evasion with custom payloads:
 ```bash
-dalfox url https://example.com --waf-evasion --custom-payload payloads.txt
+xssfox url https://example.com --waf-evasion --custom-payload payloads.txt
 ```
 
 Using a proxy and following redirects:
 ```bash
-dalfox url https://example.com --proxy http://127.0.0.1:8080 -F
+xssfox url https://example.com --proxy http://127.0.0.1:8080 -F
 ```
 
 Executing a notification script when vulnerabilities are found:
 ```bash
-dalfox url https://example.com --found-action './notify.sh'
+xssfox url https://example.com --found-action './notify.sh'
 ```
 
 Saving HAR files for further analysis:
 ```bash
-dalfox url https://example.com --har-file-path scan.har
+xssfox url https://example.com --har-file-path scan.har
 ```

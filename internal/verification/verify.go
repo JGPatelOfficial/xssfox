@@ -31,6 +31,6 @@ func VerifyDOM(s string) bool {
 		return false
 	}
 
-	// Check for elements with class "dalfox" or id "dalfox"
-	return doc.Find(".dalfox").Length() > 0 || doc.Find("#dalfox").Length() > 0
+	// Check for elements with class "xssfox" or id "xssfox"
+	return doc.Find(".xssfox").Length() > 0 || doc.Find("#xssfox").Length() > 0
 }

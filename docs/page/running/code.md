@@ -7,21 +7,21 @@ toc: true
 layout: page
 ---
 
-# Using Dalfox in Your Code
+# Using XSSFox in Your Code
 
-This guide provides detailed instructions on how to use Dalfox as a library in your Go projects. Follow the steps below to integrate Dalfox into your code.
+This guide provides detailed instructions on how to use XSSFox as a library in your Go projects. Follow the steps below to integrate XSSFox into your code.
 
-## Get the Dalfox Library
+## Get the XSSFox Library
 
-First, you need to download the Dalfox library using the `go get` command:
+First, you need to download the XSSFox library using the `go get` command:
 
 ```bash
-go get github.com/hahwul/dalfox/v2/lib
+go get github.com/JGPatelOfficial/xssfox/lib
 ```
 
 ## Sample Code
 
-Here is a sample Go program that demonstrates how to use the Dalfox library to perform a scan:
+Here is a sample Go program that demonstrates how to use the XSSFox library to perform a scan:
 
 ```go
 package main
@@ -29,24 +29,24 @@ package main
 import (
     "fmt"
 
-    dalfox "github.com/hahwul/dalfox/v2/lib"
+    xssfox "github.com/JGPatelOfficial/xssfox/lib"
 )
 
 func main() {
     // Set up options for the scan
-    opt := dalfox.Options{
+    opt := xssfox.Options{
         Cookie: "ABCD=1234",
     }
 
     // Create a new scan target
-    target := dalfox.Target{
+    target := xssfox.Target{
         URL:     "https://xss-game.appspot.com/level1/frame",
         Method:  "GET",
         Options: opt,
     }
 
     // Perform the scan
-    result, err := dalfox.NewScan(target)
+    result, err := xssfox.NewScan(target)
     if err != nil {
         fmt.Println("Error:", err)
     } else {
@@ -77,7 +77,7 @@ Next, build your application:
 go build -o testapp
 ```
 
-During the build process, Go will download the Dalfox library and its dependencies.
+During the build process, Go will download the XSSFox library and its dependencies.
 
 ### Run the Application
 
@@ -90,9 +90,9 @@ Finally, run your application:
 You should see output similar to the following:
 
 ```bash
-# [] [{V GET https://xss-game.appspot.com/level1/frame?query=%3Ciframe+srcdoc%3D%22%3Cinput+onauxclick%3Dprint%281%29%3E%22+class%3Ddalfox%3E%3C%2Fiframe%3E}] 2.618998247s 2021-07-11 10:59:26.508483153 +0900 KST m=+0.000794230 2021-07-11 10:59:29.127481217 +0900 KST m=+2.619792477
+# [] [{V GET https://xss-game.appspot.com/level1/frame?query=%3Ciframe+srcdoc%3D%22%3Cinput+onauxclick%3Dprint%281%29%3E%22+class%3Dxssfox%3E%3C%2Fiframe%3E}] 2.618998247s 2021-07-11 10:59:26.508483153 +0900 KST m=+0.000794230 2021-07-11 10:59:29.127481217 +0900 KST m=+2.619792477
 ```
 
 ## More Information
 
-For more information and advanced usage, please refer to the [official Dalfox library documentation](https://pkg.go.dev/github.com/hahwul/dalfox/v2).
+For more information and advanced usage, please refer to the [official XSSFox library documentation](https://pkg.go.dev/github.com/JGPatelOfficial/xssfox).

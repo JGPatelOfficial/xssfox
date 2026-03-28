@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 func TestGenerateNewRequest(t *testing.T) {
@@ -23,7 +23,7 @@ func TestGenerateNewRequest(t *testing.T) {
 			name: "test - normal",
 			args: args{
 				url:     "https://www.hahwul.com?q=1",
-				payload: "dalfox",
+				payload: "xssfox",
 				options: model.Options{},
 			},
 			want: true,
@@ -32,7 +32,7 @@ func TestGenerateNewRequest(t *testing.T) {
 			name: "test - data",
 			args: args{
 				url:     "https://www.hahwul.com?q=1",
-				payload: "dalfox",
+				payload: "xssfox",
 				options: model.Options{
 					Data:   "a=1",
 					Method: "POST",
@@ -44,7 +44,7 @@ func TestGenerateNewRequest(t *testing.T) {
 			name: "test - header",
 			args: args{
 				url:     "https://www.hahwul.com?q=1",
-				payload: "dalfox",
+				payload: "xssfox",
 				options: model.Options{
 					Header: []string{"Cookie: 1234", "Auth: 12344"},
 				},
@@ -55,7 +55,7 @@ func TestGenerateNewRequest(t *testing.T) {
 			name: "test - cookie",
 			args: args{
 				url:     "https://www.hahwul.com?q=1",
-				payload: "dalfox",
+				payload: "xssfox",
 				options: model.Options{
 					Cookie: "a=1",
 				},
@@ -66,7 +66,7 @@ func TestGenerateNewRequest(t *testing.T) {
 			name: "test - ua",
 			args: args{
 				url:     "https://www.hahwul.com?q=1",
-				payload: "dalfox",
+				payload: "xssfox",
 				options: model.Options{
 					UserAgent: "abcd",
 				},
@@ -77,7 +77,7 @@ func TestGenerateNewRequest(t *testing.T) {
 			name: "test - cookiefromraw",
 			args: args{
 				url:     "https://www.hahwul.com?q=1",
-				payload: "dalfox",
+				payload: "xssfox",
 				options: model.Options{
 					CookieFromRaw: "",
 				},
@@ -190,7 +190,7 @@ func TestMakeRequestQuery(t *testing.T) {
 			args: args{
 				target:  "https://www.hahwul.com",
 				param:   "param",
-				payload: "dalfox",
+				payload: "xssfox",
 				ptype:   "",
 				pAction: "",
 				pEncode: "htmlEncode",
@@ -209,7 +209,7 @@ func TestMakeRequestQuery(t *testing.T) {
 			args: args{
 				target:  "https://www.hahwul.com",
 				param:   "param",
-				payload: "dalfox",
+				payload: "xssfox",
 				ptype:   "FORM",
 				pAction: "toAppend",
 				pEncode: "urlEncode",

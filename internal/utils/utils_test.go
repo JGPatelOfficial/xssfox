@@ -3,7 +3,7 @@ package utils
 import (
 	"testing"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 func Test_IndexOf(t *testing.T) {
@@ -391,7 +391,7 @@ func TestIsJSONBody(t *testing.T) {
 		},
 		{
 			name: "XSS payload in HTML",
-			body: `<div ongotpointercapture=print(1) class=dalfox></div>`,
+			body: `<div ongotpointercapture=print(1) class=xssfox></div>`,
 			want: false,
 		},
 		{

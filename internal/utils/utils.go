@@ -8,7 +8,7 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 func IndexOf(element string, data []string) int {

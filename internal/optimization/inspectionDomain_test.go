@@ -3,7 +3,7 @@ package optimization
 import (
 	"testing"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 func TestIsOutOfScope(t *testing.T) {

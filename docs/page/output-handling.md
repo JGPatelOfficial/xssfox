@@ -8,11 +8,11 @@ layout: page
 
 # Output Handling
 
-This guide provides comprehensive instructions on how to capture, filter, and process the output from Dalfox. Understanding these output handling techniques will help you efficiently interpret results and integrate Dalfox into your security workflows.
+This guide provides comprehensive instructions on how to capture, filter, and process the output from XSSFox. Understanding these output handling techniques will help you efficiently interpret results and integrate XSSFox into your security workflows.
 
-## Understanding Dalfox Output Types
+## Understanding XSSFox Output Types
 
-Dalfox generates several types of output during scanning:
+XSSFox generates several types of output during scanning:
 
 - **Progress information**: Status updates about the scanning process
 - **Proof of Concept (PoC) findings**: Actual vulnerabilities discovered
@@ -23,10 +23,10 @@ Dalfox generates several types of output during scanning:
 
 ### Redirecting Output to Files
 
-The simplest way to save Dalfox output is by using standard output redirection:
+The simplest way to save XSSFox output is by using standard output redirection:
 
 ```bash
-dalfox url http://example.com/vulnerable.php > results.txt
+xssfox url http://example.com/vulnerable.php > results.txt
 ```
 
 This captures all console output to the specified file.
@@ -36,7 +36,7 @@ This captures all console output to the specified file.
 For more controlled output saving, use the `-o` or `--output` flag:
 
 ```bash
-dalfox url http://example.com/vulnerable.php -o results.txt
+xssfox url http://example.com/vulnerable.php -o results.txt
 ```
 
 This approach is recommended as it ensures proper handling of terminal control characters.
@@ -45,26 +45,26 @@ This approach is recommended as it ensures proper handling of terminal control c
 
 ### Processing Output with Unix Tools
 
-Dalfox output can be piped to other tools for filtering and processing:
+XSSFox output can be piped to other tools for filtering and processing:
 
 ```bash
 # Extract only verified XSS vulnerabilities
-dalfox url http://example.com/vulnerable.php | grep "\[V\]" > verified_xss.txt
+xssfox url http://example.com/vulnerable.php | grep "\[V\]" > verified_xss.txt
 
 # Extract PoC URLs and open them in a browser
-dalfox url http://example.com/vulnerable.php | grep "\[POC\]" | cut -d " " -f 2 | xargs -I % open %
+xssfox url http://example.com/vulnerable.php | grep "\[POC\]" | cut -d " " -f 2 | xargs -I % open %
 
 # Count different types of findings
-dalfox url http://example.com/vulnerable.php | grep "\[POC\]" | cut -d "[" -f 3 | cut -d "]" -f 1 | sort | uniq -c
+xssfox url http://example.com/vulnerable.php | grep "\[POC\]" | cut -d "[" -f 3 | cut -d "]" -f 1 | sort | uniq -c
 ```
 
 ### Filtering by PoC Type
 
-Dalfox allows you to filter findings by vulnerability type with the `--only-poc` flag:
+XSSFox allows you to filter findings by vulnerability type with the `--only-poc` flag:
 
 ```bash
 # Show only verified (V) and grep-based (G) findings
-dalfox url http://example.com/vulnerable.php --only-poc=g,v
+xssfox url http://example.com/vulnerable.php --only-poc=g,v
 ```
 
 Available PoC types:
@@ -79,7 +79,7 @@ Available PoC types:
 To save all scan information, including detailed analysis steps:
 
 ```bash
-dalfox url http://example.com/vulnerable.php -o full_scan.log --output-all
+xssfox url http://example.com/vulnerable.php -o full_scan.log --output-all
 ```
 
 Example of a comprehensive log:
@@ -104,13 +104,13 @@ To include raw HTTP requests and responses in your output:
 
 ```bash
 # Include requests
-dalfox url http://example.com/vulnerable.php --output-request
+xssfox url http://example.com/vulnerable.php --output-request
 
 # Include responses
-dalfox url http://example.com/vulnerable.php --output-response
+xssfox url http://example.com/vulnerable.php --output-response
 
 # Include both
-dalfox url http://example.com/vulnerable.php --output-request --output-response
+xssfox url http://example.com/vulnerable.php --output-request --output-response
 ```
 
 ## Output Format Options
@@ -120,20 +120,20 @@ dalfox url http://example.com/vulnerable.php --output-request --output-response
 For programmatic processing or integration with other tools, use JSON output:
 
 ```bash
-dalfox url http://example.com/vulnerable.php --format json -o results.json
+xssfox url http://example.com/vulnerable.php --format json -o results.json
 ```
 
 This generates structured JSON data that can be easily parsed by scripts or imported into other security tools.
 
 ### Detailed Report Generation
 
-Dalfox supports generating detailed reports in various formats.
+XSSFox supports generating detailed reports in various formats.
 
 **JSON Report:**
 
 For a structured JSON report:
 ```bash
-dalfox url http://example.com/vulnerable.php --report --report-format json -o detailed_report.json
+xssfox url http://example.com/vulnerable.php --report --report-format json -o detailed_report.json
 ```
 This is useful for machine-readable detailed output.
 
@@ -141,9 +141,9 @@ This is useful for machine-readable detailed output.
 
 For a human-readable Markdown report:
 ```bash
-dalfox url http://example.com/vulnerable.php --report --report-format markdown -o detailed_report.md
+xssfox url http://example.com/vulnerable.php --report --report-format markdown -o detailed_report.md
 # You can also use 'md' as an alias for markdown
-dalfox url http://example.com/vulnerable.php --report --report-format md -o detailed_report.md
+xssfox url http://example.com/vulnerable.php --report --report-format md -o detailed_report.md
 ```
 This format is convenient for documentation or quick sharing of findings.
 
@@ -154,7 +154,7 @@ This format is convenient for documentation or quick sharing of findings.
 HAR files contain detailed information about HTTP transactions and can be analyzed in various tools:
 
 ```bash
-dalfox url http://example.com/vulnerable.php --har-file-path=scan.har
+xssfox url http://example.com/vulnerable.php --har-file-path=scan.har
 ```
 
 ### Analyzing HAR Files
@@ -172,14 +172,14 @@ Example HAR viewer screenshot:
 
 ### Automated Workflows
 
-Dalfox can be integrated into CI/CD pipelines or other security automation:
+XSSFox can be integrated into CI/CD pipelines or other security automation:
 
 ```bash
 # Scan and notify on findings
-dalfox url http://example.com/vulnerable.php --found-action './notify_slack.sh'
+xssfox url http://example.com/vulnerable.php --found-action './notify_slack.sh'
 
 # Scan multiple targets from Burp Suite
-dalfox file targets.txt --format json -o findings.json
+xssfox file targets.txt --format json -o findings.json
 ```
 
 ### Continuous Monitoring Examples
@@ -187,7 +187,7 @@ dalfox file targets.txt --format json -o findings.json
 ```bash
 # Daily scan with timestamped output
 echo "$(date +%F)_scan.log"
-dalfox url http://example.com/vulnerable.php -o "$(date +%F)_scan.log"
+xssfox url http://example.com/vulnerable.php -o "$(date +%F)_scan.log"
 ```
 
 ## Troubleshooting Output Issues

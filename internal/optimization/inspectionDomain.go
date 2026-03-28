@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 // IsOutOfScope checks if a URL's host matches any out-of-scope pattern.

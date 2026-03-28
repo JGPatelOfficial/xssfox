@@ -7,16 +7,16 @@ toc: true
 layout: page
 ---
 
-# Scanning a Single URL with Dalfox
+# Scanning a Single URL with XSSFox
 
-This guide provides detailed instructions on how to scan a single URL using Dalfox. Follow the steps below to perform a scan on a single target URL.
+This guide provides detailed instructions on how to scan a single URL using XSSFox. Follow the steps below to perform a scan on a single target URL.
 
 ## Command
 
 To scan a single URL, use the following command:
 
 ```bash
-dalfox url http://testphp.vulnweb.com/listproducts.php
+xssfox url http://testphp.vulnweb.com/listproducts.php
 ```
 
 ## Output
@@ -36,28 +36,28 @@ Finder Of XSS and Dal is the Korean pronunciation of moon. @hahwul
 [*] BAV analysis done ✓
 [*] Start parameter analysis.. 🔍
 [I] Found 2 testing point in DOM Mining
-[G] Found dalfox-error-mysql2 via built-in grepping / original request
+[G] Found xssfox-error-mysql2 via built-in grepping / original request
     Warning: mysql
-[POC][G][BUILT-IN/dalfox-error-mysql2/GET] http://testphp.vulnweb.com/listproducts.php
-[G] Found dalfox-error-mysql via built-in grepping / original request
+[POC][G][BUILT-IN/xssfox-error-mysql2/GET] http://testphp.vulnweb.com/listproducts.php
+[G] Found xssfox-error-mysql via built-in grepping / original request
     Warning: mysql_fetch_array() expects parameter 1 to be resource, null given in /hj/var/www/listproducts.php on line 74
-[POC][G][BUILT-IN/dalfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php
+[POC][G][BUILT-IN/xssfox-error-mysql/GET] http://testphp.vulnweb.com/listproducts.php
 [*] Static analysis done ✓
-[G] Found dalfox-error-mysql1 via built-in grepping / payload: dalfox>
+[G] Found xssfox-error-mysql1 via built-in grepping / payload: xssfox>
     SQL syntax; check the manual that corresponds to your MySQL
-[POC][G][BUILT-IN/dalfox-error-mysql1/GET] http://testphp.vulnweb.com/listproducts.php?cat=dalfox%3E
-[G] Found dalfox-error-mysql5 via built-in grepping / payload: dalfox>
+[POC][G][BUILT-IN/xssfox-error-mysql1/GET] http://testphp.vulnweb.com/listproducts.php?cat=xssfox%3E
+[G] Found xssfox-error-mysql5 via built-in grepping / payload: xssfox>
     check the manual that corresponds to your MySQL server version
-[POC][G][BUILT-IN/dalfox-error-mysql5/GET] http://testphp.vulnweb.com/listproducts.php?cat=dalfox%3E
+[POC][G][BUILT-IN/xssfox-error-mysql5/GET] http://testphp.vulnweb.com/listproducts.php?cat=xssfox%3E
 [*] Parameter analysis  done ✓
 [I] Content-Type is text/html; charset=UTF-8
 [I] Reflected cat param => Injected: /inHTML-none(1)  ▶
-    48 line:  	Error: Unknown column 'Dalfox' in 'where cl
+    48 line:  	Error: Unknown column 'XSSFox' in 'where cl
 [*] Generate XSS payload and optimization.Optimization.. 🛠
 [*] Start XSS Scanning.. with 201 queries 🗡
-[V] Triggered XSS Payload (found DOM Object): cat=<dalfox class=dalfox>
-    48 line:  yntax to use near '=<dalfox class=dalfox>' at line 1
-[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?cat=%3Cdalfox+class%3Ddalfox%3E
+[V] Triggered XSS Payload (found DOM Object): cat=<xssfox class=xssfox>
+    48 line:  yntax to use near '=<xssfox class=xssfox>' at line 1
+[POC][V][GET] http://testphp.vulnweb.com/listproducts.php?cat=%3Cxssfox+class%3Dxssfox%3E
 [*] Finish :D
 ```
 

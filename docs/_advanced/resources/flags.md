@@ -34,7 +34,7 @@ layout: page
     --grep string                 Using custom grepping file
                                     * Example: --grep ./samples/sample_grep.json
 -H, --header strings              Add custom headers
--h, --help                        help for dalfox
+-h, --help                        help for xssfox
     --ignore-return string        Ignore scanning from return code
                                     * Example: --ignore-return 302,403,404
 -X, --method string               Force overriding HTTP Method

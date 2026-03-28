@@ -8,11 +8,11 @@ layout: page
 
 # Installation Guide
 
-This guide provides detailed instructions on how to install Dalfox using various methods. Choose the method that best suits your environment and technical preferences.
+This guide provides detailed instructions on how to install XSSFox using various methods. Choose the method that best suits your environment and technical preferences.
 
 ## Using Homebrew
 
-Homebrew is a popular package manager for macOS and Linux. If you're using a system with Homebrew available, this is the quickest and easiest way to install Dalfox.
+Homebrew is a popular package manager for macOS and Linux. If you're using a system with Homebrew available, this is the quickest and easiest way to install XSSFox.
 
 ### Install Homebrew
 
@@ -22,21 +22,21 @@ If you haven't installed Homebrew yet, you can install it by running the followi
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-### Install Dalfox
+### Install XSSFox
 
-Once Homebrew is installed, you can install Dalfox with a single command:
+Once Homebrew is installed, you can install XSSFox with a single command:
 
 ```shell
-brew install dalfox
+brew install xssfox
 ```
 
 After installation, verify it's working by running:
 
 ```shell
-dalfox --version
+xssfox --version
 ```
 
-For more details about the Dalfox Homebrew package, you can visit the [Homebrew Formula page for Dalfox](https://formulae.brew.sh/formula/dalfox).
+For more details about the XSSFox Homebrew package, you can visit the [Homebrew Formula page for XSSFox](https://formulae.brew.sh/formula/xssfox).
 
 ## Using Snapcraft
 
@@ -46,50 +46,50 @@ Snapcraft is a package manager for Linux that works across many distributions. I
 
 To install Snapcraft on your Linux distribution, please refer to the official documentation: [Installing snapd](https://snapcraft.io/docs/installing-snapd).
 
-### Install Dalfox
+### Install XSSFox
 
-Once Snapcraft is installed, you can install Dalfox by running:
+Once Snapcraft is installed, you can install XSSFox by running:
 
 ```shell
-sudo snap install dalfox
+sudo snap install xssfox
 ```
 
 Verify the installation with:
 
 ```shell
-dalfox --version
+xssfox --version
 ```
 
 ## Using Nixpkgs (Nix/NixOS)
 
-Dalfox is available in the Nix package collection, making installation straightforward for Nix and NixOS users. Please note that the latest version may only be available in the `unstable` channel.
+XSSFox is available in the Nix package collection, making installation straightforward for Nix and NixOS users. Please note that the latest version may only be available in the `unstable` channel.
 
 ### Install Nix
 
 Ensure you have Nix installed on your system. You can find installation instructions on the [official Nix website](https://nixos.org/download/).
 
-### Install Dalfox
+### Install XSSFox
 
-To install and use Dalfox in a shell session, run:
+To install and use XSSFox in a shell session, run:
 
 ```bash
-nix-shell -p dalfox
+nix-shell -p xssfox
  ```
 
 ## From Source
 
-Building from source gives you the most up-to-date version of Dalfox and allows for customization if needed.
+Building from source gives you the most up-to-date version of XSSFox and allows for customization if needed.
 
 ### Prerequisites
 
 Ensure you have Go (version 1.16 or later recommended) installed on your system. You can download it from the [official Go website](https://golang.org/dl/).
 
-### Install Dalfox
+### Install XSSFox
 
-To install the latest version of Dalfox from source, run:
+To install the latest version of XSSFox from source, run:
 
 ```bash
-go install github.com/hahwul/dalfox/v2@latest
+go install github.com/JGPatelOfficial/xssfox@latest
 ```
 
 Make sure your Go bin directory is in your PATH. If you haven't set it up, you can add the following to your shell configuration file (e.g., `.bashrc` or `.zshrc`):
@@ -102,36 +102,36 @@ Note: The installed version might differ slightly from the latest release as `go
 
 ## Using Docker
 
-Docker provides a consistent environment for running Dalfox without worrying about dependencies or system configurations. This is especially useful for CI/CD pipelines or isolated testing environments.
+Docker provides a consistent environment for running XSSFox without worrying about dependencies or system configurations. This is especially useful for CI/CD pipelines or isolated testing environments.
 
 ### Pull the Latest Docker Image
 
-To pull the latest Docker image of Dalfox, run:
+To pull the latest Docker image of XSSFox, run:
 
 ```bash
 # From Docker Hub
-docker pull hahwul/dalfox:latest
+docker pull JGPatelOfficial/xssfox:latest
 
 # Or from GitHub Container Registry
-docker pull ghcr.io/hahwul/dalfox:latest
+docker pull ghcr.io/JGPatelOfficial/xssfox:latest
 ```
 
-### Run Dalfox Using Docker
+### Run XSSFox Using Docker
 
-You can run Dalfox using Docker with the following command:
+You can run XSSFox using Docker with the following command:
 
 ```bash
 # Using Docker Hub image
-docker run -it hahwul/dalfox:latest /app/dalfox url https://www.example.com
+docker run -it JGPatelOfficial/xssfox:latest /app/xssfox url https://www.example.com
 
 # Using GitHub Container Registry image
-docker run -it ghcr.io/hahwul/dalfox:latest /app/dalfox url https://www.example.com
+docker run -it ghcr.io/JGPatelOfficial/xssfox:latest /app/xssfox url https://www.example.com
 ```
 
 For scanning local files or directories, you'll need to mount them to the container:
 
 ```bash
-docker run -it -v $(pwd):/data hahwul/dalfox:latest /app/dalfox file /data/targets.txt
+docker run -it -v $(pwd):/data JGPatelOfficial/xssfox:latest /app/xssfox file /data/targets.txt
 ```
 
 ### Interactive Docker Shell
@@ -140,16 +140,16 @@ For an interactive shell within the Docker container (useful for more complex op
 
 ```bash
 # Using Docker Hub image
-docker run -it hahwul/dalfox:latest /bin/bash
+docker run -it JGPatelOfficial/xssfox:latest /bin/bash
 
 # Using GitHub Container Registry image
-docker run -it ghcr.io/hahwul/dalfox:latest /bin/bash
+docker run -it ghcr.io/JGPatelOfficial/xssfox:latest /bin/bash
 ```
 
-Once inside the container, you can run Dalfox directly:
+Once inside the container, you can run XSSFox directly:
 
 ```bash
-./dalfox --help
+./xssfox --help
 ```
 
 ## Troubleshooting Common Installation Issues
@@ -160,4 +160,4 @@ If you encounter issues during installation, try the following:
 2. **Permission Errors**: Use `sudo` for commands that require elevated privileges
 3. **Version Conflicts**: Check if you have multiple versions installed
 
-For more help, please open an issue on the [Dalfox GitHub repository](https://github.com/hahwul/dalfox/issues).
+For more help, please open an issue on the [XSSFox GitHub repository](https://github.com/JGPatelOfficial/xssfox/issues).

@@ -10,7 +10,7 @@ layout: page
 
 ## Overview
 
-Dalfox supports configuration files that allow you to define and reuse scan settings across multiple sessions. Using configuration files provides several advantages:
+XSSFox supports configuration files that allow you to define and reuse scan settings across multiple sessions. Using configuration files provides several advantages:
 
 - **Consistency**: Maintain consistent scan settings across multiple targets
 - **Reproducibility**: Easily reproduce scans with identical settings
@@ -22,11 +22,11 @@ Configuration files use JSON format and can include any option that's available 
 
 ### Default Configuration Directories
 
-Dalfox will automatically look for configuration files in the following locations:
+XSSFox will automatically look for configuration files in the following locations:
 
 | Platform | Default Configuration Location |
 |----------|--------------------------------|
-| Linux/macOS | `$XDG_CONFIG_HOME/dalfox/config.json` or `$HOME/.config/dalfox/config.json` |
+| Linux/macOS | `$XDG_CONFIG_HOME/xssfox/config.json` or `$HOME/.config/xssfox/config.json` |
 
 ## Creating a Configuration File
 
@@ -102,7 +102,7 @@ Here's a more comprehensive configuration example that utilizes many available o
 
 ## Configuration Options
 
-Dalfox configuration files can include a wide range of options, organized into the following categories:
+XSSFox configuration files can include a wide range of options, organized into the following categories:
 
 ### Target Configuration
 
@@ -168,16 +168,16 @@ Dalfox configuration files can include a wide range of options, organized into t
 
 ## Using Configuration Files
 
-To use a configuration file with Dalfox, use the `--config` flag followed by the path to your configuration file:
+To use a configuration file with XSSFox, use the `--config` flag followed by the path to your configuration file:
 
 ```bash
-dalfox url https://example.com --config config.json
+xssfox url https://example.com --config config.json
 ```
 
 You can also override specific configuration file settings with command-line arguments:
 
 ```bash
-dalfox url https://example.com --config config.json --worker 200 --blind https://different-callback.xss.ht
+xssfox url https://example.com --config config.json --worker 200 --blind https://different-callback.xss.ht
 ```
 
 In this case, the `worker` and `blind` values from the command line will override those in the configuration file.
@@ -199,10 +199,10 @@ For testing across different environments:
 
 ```bash
 # Development environment
-dalfox url https://dev.example.com --config config-dev.json
+xssfox url https://dev.example.com --config config-dev.json
 
 # Production environment
-dalfox url https://www.example.com --config config-prod.json
+xssfox url https://www.example.com --config config-prod.json
 ```
 
 ### Sharing Configurations
@@ -254,7 +254,7 @@ When sharing configurations with a team:
   "worker": 100,
   "timeout": 10,
   "format": "json",
-  "output": "dalfox-results.json",
+  "output": "xssfox-results.json",
   "report-format": "json",
   "report": true,
   "silence": true,
@@ -271,8 +271,8 @@ If you encounter issues with your configuration file:
 3. Ensure that array values are properly formatted with square brackets
 4. Verify that file paths in your configuration are correct and accessible
 
-You can use tools like JSONLint to validate your configuration file before using it with Dalfox.
+You can use tools like JSONLint to validate your configuration file before using it with XSSFox.
 
 ## Reference
 
-For a complete list of available configuration options, you can refer to the [options model](https://github.com/hahwul/dalfox/blob/main/pkg/model/options.go) in the Dalfox source code, or check the [sample configuration file](https://github.com/hahwul/dalfox/blob/main/samples/sample_config.json) provided with Dalfox.
+For a complete list of available configuration options, you can refer to the [options model](https://github.com/JGPatelOfficial/xssfox/blob/main/pkg/model/options.go) in the XSSFox source code, or check the [sample configuration file](https://github.com/JGPatelOfficial/xssfox/blob/main/samples/sample_config.json) provided with XSSFox.

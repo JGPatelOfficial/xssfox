@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
-	_ "github.com/hahwul/dalfox/v2/pkg/server/docs"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
+	_ "github.com/JGPatelOfficial/xssfox/pkg/server/docs"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )

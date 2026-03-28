@@ -12,8 +12,8 @@ module Jekyll
       output_path = File.join(site.dest, 'llms-full.txt')
 
       # Prepare content
-      content = "# Dalfox Full Documentation\n\n"
-      content += "> This file contains the combined content of all Dalfox documentation pages for LLM context\n\n"
+      content = "# XSSFox Full Documentation\n\n"
+      content += "> This file contains the combined content of all XSSFox documentation pages for LLM context\n\n"
 
       # Add content from regular pages
       site.pages.each do |page|

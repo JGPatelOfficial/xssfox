@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/pkg/scanning"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/pkg/scanning"
 	"github.com/spf13/cobra"
 )
 
@@ -23,24 +23,24 @@ func runURLCmd(cmd *cobra.Command, args []string) {
 	}
 
 	printing.Summary(options, args[0])
-	printing.DalLog("SYSTEM", "Using single target mode", options)
+	printing.XSSLog("SYSTEM", "Using single target mode", options)
 	if optimization.IsOutOfScope(options, args[0]) {
-		printing.DalLog("INFO", "Target is out of scope, skipping", options)
+		printing.XSSLog("INFO", "Target is out of scope, skipping", options)
 		return
 	}
 	if options.Format == "json" {
-		printing.DalLog("PRINT", "[", options)
+		printing.XSSLog("PRINT", "[", options)
 	}
 	_, _ = scanning.Scan(args[0], options, "Single")
 	if options.Format == "json" {
-		printing.DalLog("PRINT", "{}]", options)
+		printing.XSSLog("PRINT", "{}]", options)
 	}
 }
 
 // printUrlErrorAndUsage displays error messages and usage examples for the URL command
 func printUrlErrorAndUsage() {
-	printing.DalLog("ERROR", "Input target url", options)
-	printing.DalLog("ERROR", "e.g dalfox url https://google.com/?q=1", options)
+	printing.XSSLog("ERROR", "Input target url", options)
+	printing.XSSLog("ERROR", "e.g xssfox url https://google.com/?q=1", options)
 }
 
 // init registers the URL command and applies custom help formatting

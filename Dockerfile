@@ -8,15 +8,15 @@ RUN go mod download
 
 # Copy the source code
 COPY . .
-RUN go build -o dalfox
+RUN go build -o xssfox
 
 # === RUNNER ===
 FROM debian:bookworm
 RUN mkdir /app
 
 # Copy the binary from the builder stage
-COPY --from=builder /go/src/app/dalfox /app/dalfox
+COPY --from=builder /go/src/app/xssfox /app/xssfox
 COPY --from=builder /go/src/app/samples /app/samples
 
 WORKDIR /app/
-CMD ["/app/dalfox"]
+CMD ["/app/xssfox"]

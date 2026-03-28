@@ -58,16 +58,16 @@ func GetOpenRedirectPayload() []string {
 
 func GetCRLFPayload() []string {
 	payload := []string{
-		"%0d%0aDalfoxcrlf: 1234",
-		"%E5%98%8D%E5%98%8ADalfoxcrlf: 1234",
-		"\\u560d\\u560aDalfoxcrlf: 1234",
+		"%0d%0aXSSFoxcrlf: 1234",
+		"%E5%98%8D%E5%98%8AXSSFoxcrlf: 1234",
+		"\\u560d\\u560aXSSFoxcrlf: 1234",
 	}
 	return payload
 }
 
 func GetESIIPayload() []string {
 	payload := []string{
-		"<esi:assign name=\"var1\" value=\"dalfox\"><esii-<esi:vars name=\"$(var1)\">",
+		"<esi:assign name=\"var1\" value=\"xssfox\"><esii-<esi:vars name=\"$(var1)\">",
 	}
 	return payload
 }

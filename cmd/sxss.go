@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/pkg/scanning"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/pkg/scanning"
 	"github.com/spf13/cobra"
 )
 
@@ -36,27 +36,27 @@ func runSxssCmd(cmd *cobra.Command, args []string) {
 	}
 
 	if options.Trigger != "" {
-		printing.DalLog("SYSTEM", "Using Stored XSS mode", options)
+		printing.XSSLog("SYSTEM", "Using Stored XSS mode", options)
 		if optimization.IsOutOfScope(options, args[0]) {
-			printing.DalLog("INFO", "Target is out of scope, skipping", options)
+			printing.XSSLog("INFO", "Target is out of scope, skipping", options)
 			return
 		}
 		if options.Format == "json" {
-			printing.DalLog("PRINT", "[", options)
+			printing.XSSLog("PRINT", "[", options)
 		}
 		_, _ = scanning.Scan(args[0], options, "Single")
 		if options.Format == "json" {
-			printing.DalLog("PRINT", "{}]", options)
+			printing.XSSLog("PRINT", "{}]", options)
 		}
 	} else {
-		printing.DalLog("ERROR", "Please input trigger url with --trigger option", options)
+		printing.XSSLog("ERROR", "Please input trigger url with --trigger option", options)
 	}
 }
 
 // printSXSSErrorAndUsage displays error messages and usage examples for the stored XSS command
 func printSXSSErrorAndUsage() {
-	printing.DalLog("ERROR", "Input target url", options)
-	printing.DalLog("ERROR", "e.g dalfox sxss https://google.com/?q=1 --trigger https://target/profile", options)
+	printing.XSSLog("ERROR", "Input target url", options)
+	printing.XSSLog("ERROR", "e.g xssfox sxss https://google.com/?q=1 --trigger https://target/profile", options)
 }
 
 // init registers the stored XSS command and its flags

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 	"github.com/stretchr/testify/assert"
 )
 

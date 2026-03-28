@@ -16,8 +16,8 @@ func TestVerifyReflectionWithLine(t *testing.T) {
 		{
 			name: "true-1",
 			args: args{
-				body:    "adff\ndalfox\n1234",
-				payload: "dalfox",
+				body:    "adff\nxssfox\n1234",
+				payload: "xssfox",
 			},
 			want:  true,
 			want1: 2,
@@ -26,7 +26,7 @@ func TestVerifyReflectionWithLine(t *testing.T) {
 			name: "false-1",
 			args: args{
 				body:    "adff\111\n1234",
-				payload: "dalfox",
+				payload: "xssfox",
 			},
 			want:  false,
 			want1: 0,
@@ -58,8 +58,8 @@ func TestVerifyReflection(t *testing.T) {
 		{
 			name: "true",
 			args: args{
-				body:    "1234dalfox1234",
-				payload: "dalfox",
+				body:    "1234xssfox1234",
+				payload: "xssfox",
 			},
 			want: true,
 		},
@@ -67,7 +67,7 @@ func TestVerifyReflection(t *testing.T) {
 			name: "false",
 			args: args{
 				body:    "987879788",
-				payload: "dalfox",
+				payload: "xssfox",
 			},
 			want: false,
 		},
@@ -93,21 +93,21 @@ func TestVerifyDOM(t *testing.T) {
 		{
 			name: "true-class",
 			args: args{
-				s: "<div class=\"dalfox\">ab</div>",
+				s: "<div class=\"xssfox\">ab</div>",
 			},
 			want: true,
 		},
 		{
 			name: "true-id",
 			args: args{
-				s: "<div id=dalfox>ab</div>",
+				s: "<div id=xssfox>ab</div>",
 			},
 			want: true,
 		},
 		{
 			name: "false",
 			args: args{
-				s: "<div>dalfox</div>",
+				s: "<div>xssfox</div>",
 			},
 			want: false,
 		},

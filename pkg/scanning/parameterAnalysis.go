@@ -15,11 +15,11 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/payload"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/internal/verification"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/payload"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/internal/verification"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 	voltFile "github.com/hahwul/volt/file"
 	vlogger "github.com/hahwul/volt/logger"
 	voltUtils "github.com/hahwul/volt/util"
@@ -77,7 +77,7 @@ func addParamsFromRemoteWordlists(p, dp url.Values, options model.Options) (url.
 			wordlist, line, size = payload.GetAssetnoteWordlist()
 		}
 		if line != "" {
-			printing.DalLog("INFO", "Successfully loaded '"+endpoint+"' wordlist ["+line+" lines / "+size+"]", options)
+			printing.XSSLog("INFO", "Successfully loaded '"+endpoint+"' wordlist ["+line+" lines / "+size+"]", options)
 			p, dp = addParamsFromWordlist(p, dp, wordlist, options)
 		}
 	}
@@ -142,12 +142,12 @@ func findJSONParams(params map[string]model.ParamResult, options model.Options) 
 		return params
 	}
 
-	printing.DalLog("SYSTEM", "Detected JSON body data - extracting JSON parameters", options)
+	printing.XSSLog("SYSTEM", "Detected JSON body data - extracting JSON parameters", options)
 	
 	var jsonData interface{}
 	err := json.Unmarshal([]byte(options.Data), &jsonData)
 	if err != nil {
-		printing.DalLog("ERROR", "Failed to parse JSON data: "+err.Error(), options)
+		printing.XSSLog("ERROR", "Failed to parse JSON data: "+err.Error(), options)
 		return params
 	}
 
@@ -162,7 +162,7 @@ func findJSONParams(params map[string]model.ParamResult, options model.Options) 
 	}
 	
 	if jsonParamCount > 0 {
-		printing.DalLog("INFO", "Found "+strconv.Itoa(jsonParamCount)+" JSON parameters for testing", options)
+		printing.XSSLog("INFO", "Found "+strconv.Itoa(jsonParamCount)+" JSON parameters for testing", options)
 	}
 	
 	return params
@@ -214,7 +214,7 @@ func findDOMParams(target string, p, dp url.Values, options model.Options) (url.
 							count++
 						}
 					})
-					printing.DalLog("INFO", "Found "+strconv.Itoa(count)+" testing points in DOM-based parameter mining", options)
+					printing.XSSLog("INFO", "Found "+strconv.Itoa(count)+" testing points in DOM-based parameter mining", options)
 				}
 			}
 		}
@@ -227,11 +227,11 @@ func processParams(target string, paramsQue chan string, results chan model.Para
 	defer clientPool.Put(client)
 	for k := range paramsQue {
 		if optimization.CheckInspectionParam(options, k) {
-			printing.DalLog("DEBUG", "Mining URL scan for parameter "+k, options)
-			tempURL, _ := optimization.MakeRequestQuery(target, k, "Dalfox", "PA", "toAppend", "NaN", options)
+			printing.XSSLog("DEBUG", "Mining URL scan for parameter "+k, options)
+			tempURL, _ := optimization.MakeRequestQuery(target, k, "XSSFox", "PA", "toAppend", "NaN", options)
 			var code string
 			rl.Block(tempURL.Host)
-			resbody, resp, _, vrs, err := SendReq(tempURL, "Dalfox", options)
+			resbody, resp, _, vrs, err := SendReq(tempURL, "XSSFox", options)
 			if err == nil {
 				wafCheck, wafN := checkWAF(resp.Header, resbody)
 				if wafCheck {
@@ -240,19 +240,19 @@ func processParams(target string, paramsQue chan string, results chan model.Para
 					if options.WAFEvasion {
 						options.Concurrence = 1
 						options.Delay = 3
-						printing.DalLog("INFO", "Setting worker=1, delay=3s for WAF-Evasion", options)
+						printing.XSSLog("INFO", "Setting worker=1, delay=3s for WAF-Evasion", options)
 					}
 				}
 			}
-			_, lineSum := verification.VerifyReflectionWithLine(resbody, "Dalfox")
+			_, lineSum := verification.VerifyReflectionWithLine(resbody, "XSSFox")
 			if miningCheckerLine == lineSum {
 				pLog.Debug("Hit linesum")
 				pLog.Debug(lineSum)
 			}
 			if vrs {
-				code = printing.CodeView(resbody, "Dalfox")
+				code = printing.CodeView(resbody, "XSSFox")
 				code = code[:len(code)-5]
-				pointer := optimization.Abstraction(resbody, "Dalfox")
+				pointer := optimization.Abstraction(resbody, "XSSFox")
 				smap := "Injected: "
 				tempSmap := make(map[string]int)
 				for _, v := range pointer {
@@ -282,9 +282,9 @@ func processParams(target string, paramsQue chan string, results chan model.Para
 							"htmlEncode",
 						}
 						for _, encoder := range encoders {
-							turl, _ := optimization.MakeRequestQuery(target, k, "dalfox"+char, "PA-URL", "toAppend", encoder, options)
+							turl, _ := optimization.MakeRequestQuery(target, k, "xssfox"+char, "PA-URL", "toAppend", encoder, options)
 							rl.Block(tempURL.Host)
-							_, _, _, vrs, _ := SendReq(turl, "dalfox"+char, options)
+							_, _, _, vrs, _ := SendReq(turl, "xssfox"+char, options)
 							if vrs {
 								paramResult.Chars = append(paramResult.Chars, char)
 							}
@@ -317,11 +317,11 @@ func ParameterAnalysis(target string, options model.Options, rl *rateLimiter) ma
 	params = findJSONParams(params, options)
 
 	if options.Mining {
-		tempURL, _ := optimization.MakeRequestQuery(target, "pleasedonthaveanamelikethis_plz_plz", "Dalfox", "PA", "toAppend", "NaN", options)
+		tempURL, _ := optimization.MakeRequestQuery(target, "pleasedonthaveanamelikethis_plz_plz", "XSSFox", "PA", "toAppend", "NaN", options)
 		rl.Block(tempURL.Host)
-		resBody, _, _, vrs, _ := SendReq(tempURL, "Dalfox", options)
+		resBody, _, _, vrs, _ := SendReq(tempURL, "XSSFox", options)
 		if vrs {
-			_, lineSum := verification.VerifyReflectionWithLine(resBody, "Dalfox")
+			_, lineSum := verification.VerifyReflectionWithLine(resBody, "XSSFox")
 			miningCheckerLine = lineSum
 		}
 
@@ -331,7 +331,7 @@ func ParameterAnalysis(target string, options model.Options, rl *rateLimiter) ma
 
 		// Enhanced parameter mining for DetailedAnalysis (Issue #695)
 		if options.DetailedAnalysis {
-			printing.DalLog("SYSTEM", "Detailed analysis enabled - using extended parameter wordlists", options)
+			printing.XSSLog("SYSTEM", "Detailed analysis enabled - using extended parameter wordlists", options)
 			// Add more comprehensive parameter lists for detailed analysis
 			extendedParams := append(payload.GetGfXSS(), []string{
 				"callback", "jsonp", "api_key", "access_token", "csrf_token", "session_id",
@@ -346,7 +346,7 @@ func ParameterAnalysis(target string, options model.Options, rl *rateLimiter) ma
 		} else {
 			ff, err := voltFile.ReadLinesOrLiteral(options.MiningWordlist)
 			if err != nil {
-				printing.DalLog("SYSTEM", "Failed to load mining parameter wordlist", options)
+				printing.XSSLog("SYSTEM", "Failed to load mining parameter wordlist", options)
 			} else {
 				p, dp = addParamsFromWordlist(p, dp, ff, options)
 			}
@@ -367,14 +367,14 @@ func ParameterAnalysis(target string, options model.Options, rl *rateLimiter) ma
 
 	// FastScan optimization (Issue #764)
 	if options.FastScan {
-		printing.DalLog("SYSTEM", "Fast scan mode enabled - optimizing concurrency and reducing checks", options)
+		printing.XSSLog("SYSTEM", "Fast scan mode enabled - optimizing concurrency and reducing checks", options)
 		// Increase concurrency for faster scanning
 		if concurrency < 50 {
 			concurrency = 50
 		}
 		// Limit parameter mining in fast mode
 		if len(p) > 20 {
-			printing.DalLog("INFO", "Fast scan mode: limiting parameter analysis to first 20 parameters", options)
+			printing.XSSLog("INFO", "Fast scan mode: limiting parameter analysis to first 20 parameters", options)
 			count := 0
 			limitedP := make(url.Values)
 			for k, v := range p {
@@ -459,10 +459,10 @@ func ParameterAnalysis(target string, options model.Options, rl *rateLimiter) ma
 	close(paramsDataQue)
 	wggg.Wait()
 	if miningDictCount != 0 {
-		printing.DalLog("INFO", "Found "+strconv.Itoa(miningDictCount)+" testing points in dictionary-based parameter mining", options)
+		printing.XSSLog("INFO", "Found "+strconv.Itoa(miningDictCount)+" testing points in dictionary-based parameter mining", options)
 	}
 	if options.WAF {
-		printing.DalLog("INFO", "Detected WAF: "+options.WAFName, options)
+		printing.XSSLog("INFO", "Detected WAF: "+options.WAFName, options)
 	}
 	return params
 }

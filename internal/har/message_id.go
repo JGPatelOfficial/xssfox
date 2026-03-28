@@ -9,7 +9,7 @@ import (
 var nextMessageID int64
 
 // NewMessageID returns an incrementing message ID. It is used for
-// correlating Dalfox PoCs with entries in a HAR file.
+// correlating XSSFox PoCs with entries in a HAR file.
 func NewMessageID() int64 {
 	return atomic.AddInt64(&nextMessageID, 1)
 }

@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hahwul/dalfox/v2/internal/payload"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/payload"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 // Function variables for mocking
@@ -19,12 +19,12 @@ var (
 	getBurpWordlistFunc      = payload.GetBurpWordlist
 	getAssetnoteWordlistFunc = payload.GetAssetnoteWordlist
 	sendReqFunc              = SendReq
-	dalLogFunc               = printing.DalLog
+	xssLogFunc               = printing.XSSLog
 )
 
-// mockDalLog is a mock implementation that does nothing
-// Update the signature to match printing.DalLog
-func mockDalLog(level string, text string, options model.Options) {
+// mockXSSLog is a mock implementation that does nothing
+// Update the signature to match printing.XSSLog
+func mockXSSLog(level string, text string, options model.Options) {
 	// Do nothing
 }
 
@@ -283,7 +283,7 @@ func TestParameterAnalysis(t *testing.T) {
 	// Setup test server
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Query().Get("test") != "" {
-			w.Write([]byte("<html><body>Reflected: Dalfox</body></html>"))
+			w.Write([]byte("<html><body>Reflected: XSSFox</body></html>"))
 			return
 		}
 		w.Write([]byte("<html><body>Not found</body></html>"))
@@ -291,13 +291,13 @@ func TestParameterAnalysis(t *testing.T) {
 	defer ts.Close()
 
 	// Setup mock functions
-	origDalLog := dalLogFunc
+	origXSSLog := xssLogFunc
 
 	// Replace with mock logging function to silence logs during test
-	dalLogFunc = mockDalLog
+	xssLogFunc = mockXSSLog
 
 	defer func() {
-		dalLogFunc = origDalLog
+		xssLogFunc = origXSSLog
 	}()
 
 	// Test basic parameter analysis
@@ -308,7 +308,7 @@ func TestParameterAnalysis(t *testing.T) {
 	}
 	rl := newRateLimiter(time.Duration(0))
 
-	target := ts.URL + "?test=aaa" // Changed from "value" to "Dalfox" to match server logic
+	target := ts.URL + "?test=aaa" // Changed from "value" to "XSSFox" to match server logic
 	results := ParameterAnalysis(target, options, rl)
 
 	// Verify that the "test" parameter was found and marked as reflected

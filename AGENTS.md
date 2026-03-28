@@ -1,15 +1,15 @@
-# AI Agent Guide for Dalfox
+# AI Agent Guide for XSSFox
 
 > **Version:** 1.0
-> **Purpose:** This document is the primary guide for AI agents to understand, interact with, and contribute to the Dalfox project. It outlines the project's philosophy, architecture, and common development patterns.
+> **Purpose:** This document is the primary guide for AI agents to understand, interact with, and contribute to the XSSFox project. It outlines the project's philosophy, architecture, and common development patterns.
 
 ---
 
 ## 1. Core Philosophy & Guiding Principles
 
-To contribute effectively, understand the principles that guide Dalfox's development:
+To contribute effectively, understand the principles that guide XSSFox's development:
 
-* 🚀 **Performance First:** Dalfox is built to be fast. Contributions should prioritize efficient algorithms and minimize unnecessary overhead. Concurrency is used where appropriate.
+* 🚀 **Performance First:** XSSFox is built to be fast. Contributions should prioritize efficient algorithms and minimize unnecessary overhead. Concurrency is used where appropriate.
 * ⛓️ **Minimal Dependencies:** The project relies on the Go standard library as much as possible. Avoid adding new third-party dependencies unless absolutely necessary and well-justified.
 * 🎯 **Actionable & Clear Output:** Scan results must be clear, concise, and easy to parse, both for humans and for other tools. The JSON output format is critical for this.
 * 🔧 **Flexibility Through Flags:** New features or behaviors should primarily be exposed through command-line flags rather than requiring code changes for users. This makes the tool highly configurable for various use cases.
@@ -19,7 +19,7 @@ To contribute effectively, understand the principles that guide Dalfox's develop
 
 ## 2. Project Overview
 
-Dalfox is a powerful, open-source automation tool for XSS (Cross-Site Scripting) vulnerability scanning and parameter analysis. It is designed to quickly identify XSS flaws, analyze injectable parameters, and provide reliable verification of found vulnerabilities.
+XSSFox is a powerful, open-source automation tool for XSS (Cross-Site Scripting) vulnerability scanning and parameter analysis. It is designed to quickly identify XSS flaws, analyze injectable parameters, and provide reliable verification of found vulnerabilities.
 
 **Key Features:**
 
@@ -39,8 +39,8 @@ Follow these steps to set up a development environment, build, and test the proj
 1.  **Install Go:** Ensure you have a recent version of Go installed (e.g., Go 1.18 or later).
 2.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/hahwul/dalfox.git](https://github.com/hahwul/dalfox.git)
-    cd dalfox
+    git clone [https://github.com/JGPatelOfficial/xssfox.git](https://github.com/JGPatelOfficial/xssfox.git)
+    cd xssfox
     ```
 3.  **Install Dependencies:** Go modules will handle dependencies automatically. You can pre-fetch them if needed:
     ```bash
@@ -48,7 +48,7 @@ Follow these steps to set up a development environment, build, and test the proj
     ```
 
 ### Building & Testing
-* **Build from Source:** To create the `dalfox` executable in the root directory:
+* **Build from Source:** To create the `xssfox` executable in the root directory:
     ```bash
     go build .
     ```
@@ -73,7 +73,7 @@ Follow these steps to set up a development environment, build, and test the proj
 
 ## 4. Codebase Architecture
 
-Dalfox follows a clean separation of concerns. A typical command-line execution flows from command parsing (`cmd`), to the main scanning engine (`pkg`), to output formatting (`internal`).
+XSSFox follows a clean separation of concerns. A typical command-line execution flows from command parsing (`cmd`), to the main scanning engine (`pkg`), to output formatting (`internal`).
 
 ### Directory Breakdown
 
@@ -83,11 +83,11 @@ Dalfox follows a clean separation of concerns. A typical command-line execution 
     * **AI Interaction:** This is where you would add a new command or modify CLI flags.
 
 * **/pkg**: **(Core Logic & Public API)**
-    * **Purpose:** Contains the main, reusable logic of the application. If Dalfox were a library, this would be its public API.
+    * **Purpose:** Contains the main, reusable logic of the application. If XSSFox were a library, this would be its public API.
     * `/model`: Defines the core data structures (`Options`, `Result`, `Param`). **Start here to understand the data flow.**
-    * `/scanning`: The heart of Dalfox. Contains the scanning engine, parameter analysis, payload injection, and verification logic.
+    * `/scanning`: The heart of XSSFox. Contains the scanning engine, parameter analysis, payload injection, and verification logic.
     * `/server`: Implements the REST API server mode.
-    * **AI Interaction:** Most modifications to *how* Dalfox scans will happen in `pkg/scanning`.
+    * **AI Interaction:** Most modifications to *how* XSSFox scans will happen in `pkg/scanning`.
 
 * **/internal**: **(Internal Logic)**
     * **Purpose:** Houses supporting packages that are not meant to be imported by other projects.
@@ -97,7 +97,7 @@ Dalfox follows a clean separation of concerns. A typical command-line execution 
     * **AI Interaction:** Modify this to change output formats or add new default payloads.
 
 * **/lib**: **(General Utilities)**
-    * **Purpose:** Contains general-purpose helper functions that are not specific to the Dalfox domain.
+    * **Purpose:** Contains general-purpose helper functions that are not specific to the XSSFox domain.
 
 * **/docs**: User-facing documentation (for the website). Useful for understanding features from a user's perspective.
 * **`.github/workflows`**: CI/CD pipelines (GitHub Actions). Useful for understanding the automated testing and release process.
@@ -111,7 +111,7 @@ This section outlines how to approach common tasks programmatically or via the c
 
 **Scenario 1: Scanning a single URL**
 * **Goal:** Test a specific URL for XSS.
-* **Command:** `dalfox url http://testphp.vulnweb.com/listproducts.php?cat=1 --json`
+* **Command:** `xssfox url http://testphp.vulnweb.com/listproducts.php?cat=1 --json`
 * **Key Flags for AI:**
     * `--json`: **Always use this for programmatic parsing.**
     * `-b your-callback.com`: To enable Blind XSS detection.
@@ -120,12 +120,12 @@ This section outlines how to approach common tasks programmatically or via the c
 
 **Scenario 2: Using custom payloads**
 * **Goal:** Test with a specific list of XSS vectors.
-* **Command:** `dalfox url http://example.com --custom-payload ./my_vectors.txt`
+* **Command:** `xssfox url http://example.com --custom-payload ./my_vectors.txt`
 * **Code Pointer:** The logic for loading custom payloads is handled via flags in `cmd/args.go` and applied within the `pkg/scanning` engine. To add *new built-in* payloads, modify `internal/payload/xss.go`.
 
-**Scenario 3: Integrating Dalfox via API**
-* **Goal:** Use Dalfox as a continuous scanning service.
-* **Command to Start:** `dalfox server --server-port 6664`
+**Scenario 3: Integrating XSSFox via API**
+* **Goal:** Use XSSFox as a continuous scanning service.
+* **Command to Start:** `xssfox server --server-port 6664`
 * **Interaction:** Send a `POST` request to the `/scan` endpoint. Refer to the official documentation or `pkg/server/scan.go` for the API specification.
 
 **Scenario 4: Interpreting JSON results**

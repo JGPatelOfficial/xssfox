@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/pkg/server"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/pkg/server"
 	"github.com/spf13/cobra"
 )
 
@@ -32,11 +32,11 @@ func runServerCmd(cmd *cobra.Command, args []string) {
 
 	switch serverType {
 	case "mcp":
-		printing.DalLog("SYSTEM", "Starting MCP Server", options)
+		printing.XSSLog("SYSTEM", "Starting MCP Server", options)
 		printing.Summary(options, "MCP Server Mode")
 		server.RunMCPServer(options)
 	default:
-		printing.DalLog("SYSTEM", "Starting REST API Server", options)
+		printing.XSSLog("SYSTEM", "Starting REST API Server", options)
 		printing.Summary(options, "REST API Mode")
 		server.RunAPIServer(options)
 	}

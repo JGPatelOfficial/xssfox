@@ -6,34 +6,34 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 // LogPoC logs the PoC details and adds request/response data if configured.
 func LogPoC(poc *model.PoC, resbody string, req *http.Request, options model.Options, show bool, level string, message string) {
-	DalLog(level, message, options)
-	DalLog("CODE", poc.Evidence, options)
+	XSSLog(level, message, options)
+	XSSLog("CODE", poc.Evidence, options)
 	if options.OutputRequest {
 		reqDump, err := httputil.DumpRequestOut(req, true)
 		if err == nil {
 			poc.RawHTTPRequest = string(reqDump)
-			DalLog("CODE", "\n"+string(reqDump), options)
+			XSSLog("CODE", "\n"+string(reqDump), options)
 		}
 	}
 	if options.OutputResponse {
 		poc.RawHTTPResponse = resbody
-		DalLog("CODE", string(resbody), options)
+		XSSLog("CODE", string(resbody), options)
 	}
 	if show {
 		if options.Format == "json" {
 			pocj, _ := json.Marshal(poc)
-			DalLog("PRINT", string(pocj)+",", options)
+			XSSLog("PRINT", string(pocj)+",", options)
 		} else if options.Format == "jsonl" {
 			pocj, _ := json.Marshal(poc)
-			DalLog("PRINT", string(pocj), options)
+			XSSLog("PRINT", string(pocj), options)
 		} else {
 			pocs := "[" + poc.Type + "][" + poc.Method + "][" + poc.InjectType + "] " + poc.Data
-			DalLog("PRINT", pocs, options)
+			XSSLog("PRINT", pocs, options)
 		}
 	}
 }

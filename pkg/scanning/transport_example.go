@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 // This file contains examples of how to use the custom transport feature.

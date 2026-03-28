@@ -12,14 +12,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hahwul/dalfox/v2/internal/payload"
-	"github.com/hahwul/dalfox/v2/internal/utils"
+	"github.com/JGPatelOfficial/xssfox/internal/payload"
+	"github.com/JGPatelOfficial/xssfox/internal/utils"
 
 	"github.com/briandowns/spinner"
-	"github.com/hahwul/dalfox/v2/internal/optimization"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/internal/report"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/optimization"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/internal/report"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 	voltFile "github.com/hahwul/volt/file"
 )
 
@@ -184,7 +184,7 @@ func Scan(target string, options model.Options, sid string) (model.Result, error
 
 	parsedURL, err := url.Parse(target)
 	if err != nil {
-		printing.DalLog("SYSTEM", "Unable to parse URL: "+target+". Please ensure it is a valid URL.", options)
+		printing.XSSLog("SYSTEM", "Unable to parse URL: "+target+". Please ensure it is a valid URL.", options)
 		return scanResult, err
 	}
 	treq := optimization.GenerateNewRequest(target, "", options)
@@ -195,12 +195,12 @@ func Scan(target string, options model.Options, sid string) (model.Result, error
 	tres, err := client.Do(treq)
 	if err != nil {
 		msg := fmt.Sprintf("Request to %s failed: %v", target, err)
-		printing.DalLog("ERROR", msg, options)
+		printing.XSSLog("ERROR", msg, options)
 		return scanResult, err
 	}
 	if options.IgnoreReturn != "" {
 		if shouldIgnoreReturn(tres.StatusCode, options.IgnoreReturn) {
-			printing.DalLog("SYSTEM", "Skipping URL "+target+" due to ignore-return option", options)
+			printing.XSSLog("SYSTEM", "Skipping URL "+target+" due to ignore-return option", options)
 			return scanResult, nil
 		}
 	}
@@ -209,7 +209,7 @@ func Scan(target string, options model.Options, sid string) (model.Result, error
 	if err != nil {
 		return scanResult, err
 	}
-	printing.DalLog("SYSTEM", "Valid target [ code:"+strconv.Itoa(tres.StatusCode)+" / size:"+strconv.Itoa(len(body))+" ]", options)
+	printing.XSSLog("SYSTEM", "Valid target [ code:"+strconv.Itoa(tres.StatusCode)+" / size:"+strconv.Itoa(len(body))+" ]", options)
 
 	// Discovery phase
 	var policy map[string]string
@@ -218,12 +218,12 @@ func Scan(target string, options model.Options, sid string) (model.Result, error
 	if !options.SkipDiscovery {
 		policy, pathReflection, params = performDiscovery(target, options, rl)
 	} else {
-		printing.DalLog("SYSTEM", "Skipping discovery phase as requested with --skip-discovery", options)
+		printing.XSSLog("SYSTEM", "Skipping discovery phase as requested with --skip-discovery", options)
 		policy = make(map[string]string)
 		pathReflection = make(map[int]string)
 		params = make(map[string]model.ParamResult)
 		if len(options.UniqParam) == 0 {
-			printing.DalLog("ERROR", "--skip-discovery requires parameters to be specified with -p flag (e.g., -p username)", options)
+			printing.XSSLog("ERROR", "--skip-discovery requires parameters to be specified with -p flag (e.g., -p username)", options)
 			return scanResult, fmt.Errorf("--skip-discovery requires parameters to be specified with -p flag")
 		}
 		for _, paramName := range options.UniqParam {
@@ -237,14 +237,14 @@ func Scan(target string, options model.Options, sid string) (model.Result, error
 			}
 		}
 		policy["Content-Type"] = "text/html"
-		printing.DalLog("INFO", "Discovery phase and content-type checks skipped. Testing with "+strconv.Itoa(len(params))+" parameters from -p flag", options)
+		printing.XSSLog("INFO", "Discovery phase and content-type checks skipped. Testing with "+strconv.Itoa(len(params))+" parameters from -p flag", options)
 	}
 
 	// Save discovery results
 	logPolicyAndPathReflection(policy, options, parsedURL)
 	for k, v := range params {
-		printing.DalLog("INFO", "Reflected "+k+" param => "+strings.Join(v.Chars, "  "), options)
-		printing.DalLog("CODE", v.ReflectedCode, options)
+		printing.XSSLog("INFO", "Reflected "+k+" param => "+strings.Join(v.Chars, "  "), options)
+		printing.XSSLog("CODE", v.ReflectedCode, options)
 		scanResult.Params = append(scanResult.Params, v)
 	}
 
@@ -271,7 +271,7 @@ func Scan(target string, options model.Options, sid string) (model.Result, error
 		printing.ScanSummary(scanResult, options)
 	}
 	if options.ReportBool {
-		printing.DalLog("SYSTEM-M", "Report\n", options)
+		printing.XSSLog("SYSTEM-M", "Report\n", options)
 		if options.ReportFormat == "json" {
 			jobject, err := json.MarshalIndent(scanResult, "", " ")
 			if err == nil {
@@ -302,7 +302,7 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 	var durls []string
 	parsedURL, _ := url.Parse(target)
 
-	printing.DalLog("SYSTEM", "Generating XSS payloads and performing optimization", options)
+	printing.XSSLog("SYSTEM", "Generating XSS payloads and performing optimization", options)
 
 	// Path-based XSS
 	if !options.OnlyCustomPayload {
@@ -342,7 +342,7 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 	if (options.SkipDiscovery || utils.IsAllowType(policy["Content-Type"])) && options.CustomPayloadFile != "" {
 		ff, err := voltFile.ReadLinesOrLiteral(options.CustomPayloadFile)
 		if err != nil {
-			printing.DalLog("SYSTEM", "Failed to load custom XSS payload file", options)
+			printing.XSSLog("SYSTEM", "Failed to load custom XSS payload file", options)
 		} else {
 			for _, customPayload := range ff {
 				if customPayload != "" {
@@ -363,13 +363,13 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 					}
 				}
 			}
-			printing.DalLog("SYSTEM", "Added "+strconv.Itoa(len(ff))+" custom XSS payloads", options)
+			printing.XSSLog("SYSTEM", "Added "+strconv.Itoa(len(ff))+" custom XSS payloads", options)
 		}
 	}
 
 	// Magic Character Tests (Issue #695)
 	if options.MagicCharTest && !options.OnlyCustomPayload {
-		printing.DalLog("SYSTEM", "Performing magic character tests for manual XSS analysis", options)
+		printing.XSSLog("SYSTEM", "Performing magic character tests for manual XSS analysis", options)
 		for k, v := range params {
 			if optimization.CheckInspectionParam(options, k) {
 				// Detect context if ContextAware is enabled
@@ -377,7 +377,7 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 				if options.ContextAware {
 					// Use the reflected code to detect context
 					context = utils.DetectContext(v.ReflectedCode, k, "test")
-					printing.DalLog("INFO", "Detected context for "+k+": "+context, options)
+					printing.XSSLog("INFO", "Detected context for "+k+": "+context, options)
 				}
 
 				// Generate magic character payloads
@@ -398,7 +398,7 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 				}
 			}
 		}
-		printing.DalLog("SYSTEM", "Added magic character test payloads", options)
+		printing.XSSLog("SYSTEM", "Added magic character test payloads", options)
 	}
 
 	// Common Payloads and DOM XSS
@@ -572,7 +572,7 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 			}
 		}
 	} else {
-		printing.DalLog("SYSTEM", "Content-Type is '"+policy["Content-Type"]+"', only testing with customized payloads (custom/blind)", options)
+		printing.XSSLog("SYSTEM", "Content-Type is '"+policy["Content-Type"]+"', only testing with customized payloads (custom/blind)", options)
 	}
 
 	// Blind Payload
@@ -610,23 +610,23 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 				}
 			}
 		}
-		printing.DalLog("SYSTEM", "Added blind XSS payloads with callback URL: "+options.BlindURL, options)
+		printing.XSSLog("SYSTEM", "Added blind XSS payloads with callback URL: "+options.BlindURL, options)
 	}
 
 	// Custom Blind XSS Payloads from file
 	if options.CustomBlindXSSPayloadFile != "" {
 		fileInfo, statErr := os.Stat(options.CustomBlindXSSPayloadFile)
 		if os.IsNotExist(statErr) {
-			printing.DalLog("SYSTEM", "Failed to load custom blind XSS payload file: "+options.CustomBlindXSSPayloadFile+" (file not found)", options)
+			printing.XSSLog("SYSTEM", "Failed to load custom blind XSS payload file: "+options.CustomBlindXSSPayloadFile+" (file not found)", options)
 		} else if statErr != nil {
-			printing.DalLog("SYSTEM", "Failed to load custom blind XSS payload file: "+options.CustomBlindXSSPayloadFile+" ("+statErr.Error()+")", options)
+			printing.XSSLog("SYSTEM", "Failed to load custom blind XSS payload file: "+options.CustomBlindXSSPayloadFile+" ("+statErr.Error()+")", options)
 		} else if fileInfo.IsDir() {
-			printing.DalLog("SYSTEM", "Failed to load custom blind XSS payload file: "+options.CustomBlindXSSPayloadFile+" (path is a directory)", options)
+			printing.XSSLog("SYSTEM", "Failed to load custom blind XSS payload file: "+options.CustomBlindXSSPayloadFile+" (path is a directory)", options)
 		} else {
 			// File exists and is not a directory, proceed to read it
 			payloadLines, readErr := voltFile.ReadLinesOrLiteral(options.CustomBlindXSSPayloadFile)
 			if readErr != nil {
-				printing.DalLog("SYSTEM", "Failed to read custom blind XSS payload file: "+options.CustomBlindXSSPayloadFile+" ("+readErr.Error()+")", options)
+				printing.XSSLog("SYSTEM", "Failed to read custom blind XSS payload file: "+options.CustomBlindXSSPayloadFile+" ("+readErr.Error()+")", options)
 			} else {
 				var bcallback string
 				if options.BlindURL != "" {
@@ -658,7 +658,7 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 						}
 					}
 				}
-				printing.DalLog("SYSTEM", "Added "+strconv.Itoa(addedPayloadCount)+" custom blind XSS payloads from file: "+options.CustomBlindXSSPayloadFile, options)
+				printing.XSSLog("SYSTEM", "Added "+strconv.Itoa(addedPayloadCount)+" custom blind XSS payloads from file: "+options.CustomBlindXSSPayloadFile, options)
 			}
 		}
 	}
@@ -676,7 +676,7 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 				payloads, line, size = payload.GetPayloadBoxPayload()
 			}
 			if line != "" {
-				printing.DalLog("INFO", "Successfully loaded '"+endpoint+"' payloads ["+line+" lines / "+size+"]", options)
+				printing.XSSLog("INFO", "Successfully loaded '"+endpoint+"' payloads ["+line+" lines / "+size+"]", options)
 				for _, remotePayload := range payloads {
 					if remotePayload != "" {
 						for k, v := range params {
@@ -697,7 +697,7 @@ func generatePayloads(target string, options model.Options, policy map[string]st
 					}
 				}
 			} else {
-				printing.DalLog("SYSTEM", "Failed to load remote payloads from "+endpoint, options)
+				printing.XSSLog("SYSTEM", "Failed to load remote payloads from "+endpoint, options)
 			}
 		}
 	}
@@ -752,13 +752,13 @@ func initializeSpinner(options model.Options) {
 
 // logStartScan logs the start of the scan.
 func logStartScan(target string, options model.Options, sid string) {
-	printing.DalLog("SYSTEM", "Starting scan", options)
+	printing.XSSLog("SYSTEM", "Starting scan", options)
 	if options.AllURLS > 0 {
 		snow, _ := strconv.Atoi(sid)
 		percent := fmt.Sprintf("%0.2f%%", float64(snow)/float64(options.AllURLS)*100)
-		printing.DalLog("SYSTEM-M", "Starting scan [SID:"+sid+"]["+sid+"/"+strconv.Itoa(options.AllURLS)+"]["+percent+"%] / URL: "+target, options)
+		printing.XSSLog("SYSTEM-M", "Starting scan [SID:"+sid+"]["+sid+"/"+strconv.Itoa(options.AllURLS)+"]["+percent+"%] / URL: "+target, options)
 	} else {
-		printing.DalLog("SYSTEM-M", "Starting scan [SID:"+sid+"] / URL: "+target, options)
+		printing.XSSLog("SYSTEM-M", "Starting scan [SID:"+sid+"] / URL: "+target, options)
 	}
 }
 
@@ -796,22 +796,22 @@ func logPolicyAndPathReflection(policy map[string]string, options model.Options,
 	for k, v := range policy {
 		if len(v) != 0 {
 			if k == "BypassCSP" {
-				printing.DalLog("WEAK", k+": "+v, options)
+				printing.XSSLog("WEAK", k+": "+v, options)
 			} else {
-				printing.DalLog("INFO", k+" is "+v, options)
+				printing.XSSLog("INFO", k+" is "+v, options)
 			}
 		}
 	}
 	for k, v := range options.PathReflection {
 		if len(parsedURL.Path) == 0 {
-			str := options.AuroraObject.Yellow("dalfoxpathtest").String()
-			printing.DalLog("INFO", "Reflected PATH '/"+str+"' => "+v+"]", options)
+			str := options.AuroraObject.Yellow("xssfoxpathtest").String()
+			printing.XSSLog("INFO", "Reflected PATH '/"+str+"' => "+v+"]", options)
 		} else {
 			split := strings.Split(parsedURL.Path, "/")
 			if len(split) > k+1 {
-				split[k+1] = options.AuroraObject.Yellow("dalfoxpathtest").String()
+				split[k+1] = options.AuroraObject.Yellow("xssfoxpathtest").String()
 				tempURL := strings.Join(split, "/")
-				printing.DalLog("INFO", "Reflected PATH '"+tempURL+"' => "+v+"]", options)
+				printing.XSSLog("INFO", "Reflected PATH '"+tempURL+"' => "+v+"]", options)
 			}
 		}
 	}

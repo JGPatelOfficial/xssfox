@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/briandowns/spinner"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 	aurora "github.com/logrusorgru/aurora"
 )
 
@@ -180,7 +180,7 @@ func TestSummary(t *testing.T) {
 	}
 }
 
-func TestDalLog(t *testing.T) {
+func TestXSSLog(t *testing.T) {
 	type args struct {
 		level   string
 		text    string
@@ -396,7 +396,7 @@ func TestDalLog(t *testing.T) {
 					OutputAll:    true,
 					Silence:      true,
 					IsLibrary:    false,
-					OutputFile:   "/dev/null/dalfox-test",
+					OutputFile:   "/dev/null/xssfox-test",
 					Format:       "json",
 					AuroraObject: aurora.NewAurora(true),
 					ScanResult: model.Result{
@@ -415,7 +415,7 @@ func TestDalLog(t *testing.T) {
 					OutputAll:    true,
 					Silence:      true,
 					IsLibrary:    false,
-					OutputFile:   "/dev/null/dalfox-test",
+					OutputFile:   "/dev/null/xssfox-test",
 					Format:       "json",
 					AuroraObject: aurora.NewAurora(true),
 					ScanResult: model.Result{
@@ -427,7 +427,7 @@ func TestDalLog(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			DalLog(tt.args.level, tt.args.text, tt.args.options)
+			XSSLog(tt.args.level, tt.args.text, tt.args.options)
 		})
 	}
 }

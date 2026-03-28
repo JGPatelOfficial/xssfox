@@ -4,8 +4,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 // foundAction is after command function.
@@ -17,6 +17,6 @@ func foundAction(options model.Options, target, query, ptype string) {
 	cmd := exec.Command(options.FoundActionShell, "-c", afterCmd)
 	err := cmd.Run()
 	if err != nil {
-		printing.DalLog("ERROR", "execution error from found-action", options)
+		printing.XSSLog("ERROR", "execution error from found-action", options)
 	}
 }

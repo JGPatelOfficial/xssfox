@@ -15,7 +15,7 @@ Since (v2.8.0)
 
 ## Overview
 
-Dalfox's reporting feature allows you to generate detailed reports of your XSS scans, providing comprehensive information about vulnerabilities, scanning parameters, and results. These reports are invaluable for:
+XSSFox's reporting feature allows you to generate detailed reports of your XSS scans, providing comprehensive information about vulnerabilities, scanning parameters, and results. These reports are invaluable for:
 
 - Documenting security assessments
 - Sharing findings with development teams
@@ -30,7 +30,7 @@ Dalfox's reporting feature allows you to generate detailed reports of your XSS s
 To generate a detailed report with your scan, use the `--report` flag:
 
 ```shell
-dalfox url https://example.com/search?q=test --report
+xssfox url https://example.com/search?q=test --report
 ```
 
 This command will execute the scan and produce a comprehensive report in plain text format, which includes detailed information about the scan configuration, discovered parameters, and any vulnerabilities found.
@@ -42,7 +42,7 @@ This command will execute the scan and produce a comprehensive report in plain t
 For integrating with other tools or for programmatic processing of results, you can generate reports in JSON format:
 
 ```shell
-dalfox url https://example.com/search?q=test --report --report-format json
+xssfox url https://example.com/search?q=test --report --report-format json
 ```
 
 JSON reports are particularly useful for:
@@ -55,14 +55,14 @@ JSON reports are particularly useful for:
 
 ## Report Contents
 
-A comprehensive Dalfox report includes:
+A comprehensive XSSFox report includes:
 
 ### 1. Scan Configuration
 
 - Target URL or files
 - Scan mode and options used
 - Date and time of the scan
-- Dalfox version information
+- XSSFox version information
 
 ### 2. Parameter Analysis
 
@@ -91,13 +91,13 @@ A comprehensive Dalfox report includes:
 To save the report to a file, combine the `--report` flag with the `-o` (output) flag:
 
 ```shell
-dalfox url https://example.com/search?q=test --report --report-format json -o scan_results.json
+xssfox url https://example.com/search?q=test --report --report-format json -o scan_results.json
 ```
 
 For plain text reports:
 
 ```shell
-dalfox url https://example.com/search?q=test --report -o scan_results.txt
+xssfox url https://example.com/search?q=test --report -o scan_results.txt
 ```
 
 ### Including Raw HTTP Data
@@ -105,7 +105,7 @@ dalfox url https://example.com/search?q=test --report -o scan_results.txt
 For even more detailed reports, you can include the raw HTTP requests and responses:
 
 ```shell
-dalfox url https://example.com/search?q=test --report --output-request --output-response -o full_report.txt
+xssfox url https://example.com/search?q=test --report --output-request --output-response -o full_report.txt
 ```
 
 ## Using Reports Effectively
@@ -133,7 +133,7 @@ dalfox url https://example.com/search?q=test --report --output-request --output-
 ### Plain Text Report Example
 
 ```
-[Report] Dalfox v2.9.1 | Parameter Analysis and XSS Scanner Report
+[Report] XSSFox v2.9.1 | Parameter Analysis and XSS Scanner Report
 [Time] 2023-01-15 14:22:18
 [Target] https://example.com/search?q=test
 
@@ -224,4 +224,4 @@ dalfox url https://example.com/search?q=test --report --output-request --output-
 
 - **Large Reports**: For very large targets, reports may be substantial. Consider filtering with `--only-poc`
 - **Format Issues**: If a JSON report seems malformed, check for Unicode characters that might affect parsing
-- **Missing Information**: Ensure you're using the latest version of Dalfox for the most comprehensive reports
+- **Missing Information**: Ensure you're using the latest version of XSSFox for the most comprehensive reports

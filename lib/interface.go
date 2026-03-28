@@ -3,10 +3,10 @@ package lib
 import (
 	"time"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
-// Options is dalfox options for lib
+// Options is xssfox options for lib
 type Options = model.Options
 
 // Target is target object

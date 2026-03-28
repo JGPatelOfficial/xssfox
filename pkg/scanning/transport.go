@@ -9,9 +9,9 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/hahwul/dalfox/v2/internal/har"
-	"github.com/hahwul/dalfox/v2/internal/printing"
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/internal/har"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 	"github.com/tidwall/sjson"
 )
 
@@ -49,13 +49,13 @@ func getTransport(options model.Options) http.RoundTripper {
 			proxyAddress, err := url.Parse(options.ProxyAddress)
 			if err != nil {
 				msg := fmt.Sprintf("not running %v from proxy option", err)
-				printing.DalLog("ERROR", msg, options)
+				printing.XSSLog("ERROR", msg, options)
 			} else {
 				httpTransport.Proxy = http.ProxyURL(proxyAddress)
 			}
 		} else {
 			// If custom transport is not *http.Transport, log a warning
-			printing.DalLog("WARN", "Custom transport is not of type *http.Transport, proxy settings will not be applied", options)
+			printing.XSSLog("WARN", "Custom transport is not of type *http.Transport, proxy settings will not be applied", options)
 		}
 	}
 

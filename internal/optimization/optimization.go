@@ -12,9 +12,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hahwul/dalfox/v2/internal/har"
+	"github.com/JGPatelOfficial/xssfox/internal/har"
 
-	"github.com/hahwul/dalfox/v2/pkg/model"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
 )
 
 // GenerateNewRequest is make http.Cilent

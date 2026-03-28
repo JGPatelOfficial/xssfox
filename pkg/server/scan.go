@@ -3,15 +3,15 @@ package server
 import (
 	"strings"
 
-	dalfox "github.com/hahwul/dalfox/v2/lib"
-	"github.com/hahwul/dalfox/v2/pkg/model"
-	scan "github.com/hahwul/dalfox/v2/pkg/scanning"
+	xssfox "github.com/JGPatelOfficial/xssfox/lib"
+	"github.com/JGPatelOfficial/xssfox/pkg/model"
+	scan "github.com/JGPatelOfficial/xssfox/pkg/scanning"
 	vlogger "github.com/hahwul/volt/logger"
 )
 
-// ScanFromAPI is scanning dalfox with REST API
+// ScanFromAPI is scanning xssfox with REST API
 // @Summary scan
-// @Description add dalfox scan
+// @Description add xssfox scan
 // @Accept  json
 // @Produce  json
 // @Param data body Req true "json data"
@@ -19,12 +19,12 @@ import (
 // @Router /scan [post]
 func ScanFromAPI(url string, rqOptions model.Options, options model.Options, sid string) {
 	vLog := vlogger.GetLogger(options.Debug)
-	target := dalfox.Target{
+	target := xssfox.Target{
 		URL:     url,
 		Method:  rqOptions.Method,
 		Options: rqOptions,
 	}
-	newOptions := dalfox.Initialize(target, target.Options)
+	newOptions := xssfox.Initialize(target, target.Options)
 	newOptions.Scan = options.Scan
 	if rqOptions.Method != "" {
 		newOptions.Method = options.Method

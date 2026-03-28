@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/hahwul/dalfox/v2/internal/printing"
+	"github.com/JGPatelOfficial/xssfox/internal/printing"
 	"github.com/spf13/cobra"
 )
 
@@ -11,7 +11,7 @@ var versionCmd = &cobra.Command{
 	Short: "Show version",
 	Run: func(cmd *cobra.Command, args []string) {
 		printing.Banner(options)
-		printing.DalLog("YELLOW", printing.VERSION, options)
+		printing.XSSLog("YELLOW", printing.VERSION, options)
 	},
 }
 
